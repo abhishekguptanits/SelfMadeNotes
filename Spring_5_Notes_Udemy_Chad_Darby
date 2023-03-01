@@ -1,0 +1,2851 @@
+=======================     Section 56: Spring REST - Overview     =======================
+
+
+-> REST client tool: Postman
+
+
+
+-> Develop REST APIs / Web Services with @RestController
+
+
+
+
+-> Spring Reference Manual: www.luv2code.com/spring-reference-manual
+
+
+
+
+
+
+
+-> REST: REpresentational State Transfer
+
+
+
+
+
+
+-> REST is language independent
+
+
+
+
+
+
+
+
+-> JSON: JavaScript Object Notation
+
+
+
+
+
+
+
+
+-> For the project in the session, Use free Weather Service provided by: openweathermap.org
+
+	api.openweathermap.org/data/2.5/weather?q={city name}
+
+	api.openweathermap.org/data/2.5/weather?q={city name},{country name}
+
+
+
+
+	Example/Sample JSON response from the Weather Service
+
+	{
+		...
+		"temp": 14,
+		"temp_min": 11,
+		"temp_max": 17,
+		"humidity": 81,
+		"name": "London",
+		...
+	}
+
+
+
+
+
+
+
+
+
+-> Remember:
+		REST calls can be made over HTTP
+		REST is language independent
+
+
+
+
+
+
+
+
+
+
+-> To find REST APIs visit: www.programmableweb.com
+
+
+
+
+
+
+
+
+
+-> Some other common names of REST APIs (All mean the same thing).
+		REST API
+		RESTful API
+
+		REST Web Services
+		RESTful Web Services
+
+		REST Services
+		RESTful Services
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 57: Spring REST - JSON Data Binding     =======================
+
+
+
+
+-> JSON Example: 
+
+
+{
+	"id": 14,
+	"firstName": "Mario",
+	"lastName": "Rossi",
+	"active": true
+}
+
+
+
+
+
+-> Curly braces define objects in JSON
+
+
+
+
+-> Object members are name/value pairs
+		name/value pairs are delimited by colons
+
+		name is always in double-quotes
+
+
+
+
+
+
+
+
+-> Example of Nested JSON Object:
+
+{
+	"id": 14,
+	"firstName": "Mario",
+	"lastName": "Rossi",
+	"active": true,
+	"address": 	{
+					"street": "100 Main St",
+					"city": "Philadelphia",
+					"state": "Pennsylvania",
+					"zip": "19103",
+					"country": "USA"
+			    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Example of Arrays inside JSON Object:
+
+{
+	"id": 14,
+	"firstName": "Mario",
+	"lastName": "Rossi",
+	"active": true,
+	"languages": ["Java", "C#", "Python", "JavaScript"]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JSON Data Binding with Jackson - Overview 1
+--------------------------------------------
+
+
+-> Data binding is the process of converting JSON data to a Java POJO(Plain Old Java Object) and vice-versa.
+	
+	POJO: Plain Old Java Object or Any Other Java Class
+
+
+
+
+
+
+-> Data Binding is also known as:
+		Mapping
+		Serialization/Deserialization
+		Marshalling/Unmarshalling
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Spring uses the Jackson Project behing the scenes for Data Binding.
+
+	Jackson handles data binding between JSON and Java POJO
+
+
+
+
+
+
+
+
+
+
+
+-> Details on Jackson Project: 
+		https://github.com/FasterXML/jackson-databind
+
+
+
+
+
+
+
+-> Jackson supports XML and JSON
+
+
+
+
+
+
+
+
+
+
+-> Jackson Data Binding
+
+	1. Jackson Data Binding API
+		Package: com.fasterxml.jackson.databind
+
+	2. Maven Dependency
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+
+
+
+	3. By default, Jackson will call appropriate getter/setter methods for data binding.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> JSON to Java POJO example:
+
+
+import java.io.File;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+public class Driver
+{
+	public static void main(String[] args) throws Exception
+	{
+
+		// create object mapper (It uses -> import com.fasterxml.jackson.databind.ObjectMapper;)
+		ObjectMapper mapper = new ObjectMapper();
+
+
+		// read JSON from file and map/convert to Java POJO
+		Student myStudent = mapper.readValue(new File("data/sample.json"), Student.class);
+				// new File("data/sample.json") -> Read data from this file
+				// Student.class -> Create an instance of this class and populate it
+
+
+		// Do whatever you want to with the myStudent object.
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Java POJO to JSON example:
+
+
+
+
+
+import java.io.File;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+public class Driver
+{
+	public static void main(String[] args) throws Exception
+	{
+
+		// create object mapper (It uses -> import com.fasterxml.jackson.databind.ObjectMapper;)
+		ObjectMapper mapper = new ObjectMapper();
+
+
+		// read JSON from file and map/convert to Java POJO
+		Student myStudent = mapper.readValue(new File("data/sample.json"), Student.class);
+				// new File("data/sample.json") -> Read data from this file
+				// Student.class -> Create an instance of this class and populate it
+		// ...
+
+
+		// now write JSON to output file
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);		// Indent the JSON output
+																	for "pretty printing"
+		mapper.writeValue(new File("data/output.json"), myStudent);
+				// myStudent -> Jackson calls the getter methods on Student POJO
+									to create JSON output file
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Spring and Jackson Support:
+	1. Spring will automatically handle Jackson Integration
+	2. JSON data being passed to REST controller is converted to POJO
+	3. Java object being returned from REST controller is converted to JSON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spring REST - JSON Jackson Demo - Ignore Properties
+----------------------------------------------------
+
+
+-> To ignore unknown properties of JSON in data binding
+
+
+
+
+sample-full.json:
+
+
+{
+	"id": 14,
+	"firstName": "Mario",
+	"lastName": "Rossi",
+	"active": true,
+	"address": {
+					"street": "100 Main St",
+					"city": "Philadelphia",
+					"state": "Pennsylvania",
+					"zip": "19103",
+					"country": "USA"
+			   },
+	"languages": ["Java", "C#", "Python", "JavaScript"],
+	"company": "Acme Inc"
+}
+
+
+
+
+
+
+
+Student.java 				// Class
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class Student 
+{
+	private int id;	
+	private String firstName;
+	private String lastName;
+	private boolean active;
+
+	private Address address;
+
+	private String[] languages;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 58: Spring REST - Create a Spring REST Controller     =======================
+
+
+
+
+-> Most common use of REST is over HTTP
+
+
+
+
+-> We can Leverage HTTP methods for CRUD operations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				HTTP Method 									CRUD Operations
+	        ------------------------------------------------------------------------
+
+	        	POST 									Create a new entity
+	        	GET 									Read a list of entities or single entity
+	        	PUT 									Update an existing entity
+	        	DELETE 									Delete an existing entity
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> HTTP Request Message
+
+	1. Request line: 		the HTTP command
+	2. Header variables: 	request metadata
+	3. Message body: 		contents of message
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> HTTP Response Message
+
+	1. Response line: 		server protocol and status code
+	2. Header variables: 	response metadata
+	3. Message body: 		contents of message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> HTTP Response - Status Codes
+
+	100-199:	Informational
+	200-299:	Successful
+	300-399:	Redirection
+	400-499:	Client Error
+	500-599:	Server Error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MIME Content Types
+	
+	The message format is described by MIME(Multipurpose Internet Mail-Extension) content type
+
+	Basic Syntax: type/sub-type
+
+	Examples:	
+			text/html, text/plain
+
+			application/json, application/xml, ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Client Tool
+
+	Send HTTP request to the REST Web Service/API
+
+	There are many examples of Client Tool:
+
+										curl (Command Line Tool)
+										Postman (GUI Tool)			// Download at: www.getpostman.com
+										etc...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> www.jsontest.com 			// Provides a collection of backend REST services
+									to test against
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Endpoint:    An API endpoint is a point at which an API -- the code that allows two software 
+				programs to communicate with each other -- connects with the software program. 
+				APIs work by sending requests for information from a web application or web 
+				server and receiving a response.
+
+
+				The url by which we can access the specific resource from an API Service.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> jsonplaceholder.typicode.com 	// Fake Online REST API for Testing and Prototyping
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Spring Rest Support
+		
+		-> Spring Web MVC provides support for Spring REST
+
+
+		-> New annotation @RestController
+				this annotation is a extension of @Controller
+
+				It handles REST request and responses
+
+
+		-> Spring REST will also automatically convert Java POJO(s) to JSON
+				as long as the Jackson project in on the classpath or pom.xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spring REST Hello World Program:
+
+
+
+										/test/hello
+							--------------------------------------->	 
+				REST													       Rest 		
+				Client													       Service  
+	(Web Browser or Postman)										    (We will write this code)
+				  			<---------------------------------------
+				    					Hello World!
+
+
+
+
+
+
+
+
+
+
+
+@RestController
+@RequestMapping("/test")
+public class DemoRestController
+{
+	@GetMapping("/hello")
+	public String sayHello()
+	{
+		return "Hello World!";
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Web Browser vs Postman
+
+		-> For Simple REST testing for GET requests
+				Web Browser and Postman are similar
+
+
+		-> However, for advanced REST testing: POST, PUT etc ...
+				Postman has much better support 
+				POSTing JSON data, setting content type 
+				Passing HTTP request headers, authentication etc ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Steps for the Development Process:
+
+		1. Add Maven dependency for Spring MVC and Jackson project
+
+
+
+
+		2. Add code for All Java Config: @Configuration
+
+			// File: DemoAppConfig.java
+
+			@Configuration
+			@EnableWebMvc
+			@ComponentScan(basePackages="com.luv2code.springdemo")
+			public class DemoAppConfig 
+			{
+				// do some stuff...
+			}
+
+
+
+
+
+
+
+
+		3. Add code for All Java Cofig: Servlet Initializer
+
+			// File: MySpringMvcDispatcherServletInitializer.java
+
+			import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+			public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
+			{
+
+				@Override
+				protected Class<?>[] getRootConfigClasses()
+				{
+					return null;
+				}
+
+				@Override
+				protected Class<?>[] getServletConfigClasses()
+				{
+					return new Class[] { DemoAppConfig.class };			// config class from Step 2
+				}
+
+				@Override
+				protected String[] getServletMapping()
+				{
+					return new String[] { "/" };
+				}
+
+			}
+
+
+
+
+
+
+
+
+		4. Create Spring REST Service using @RestController
+
+			@RestController
+			@RequestMapping("/test")
+			public class DemoRestController
+			{
+				@GetMapping("/hello")
+				public String sayHello()
+				{
+					return "Hello World!";
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Spring Servlet Initializer depends on the Servlet API.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ${pageContext.request.contextPath}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 59: Spring REST - Retrieve POJO as JSON     =======================
+
+
+
+
+-> Development Process:
+
+	1. Create Java POJO class for Student
+
+	2. Create Spring REST Service using @RestController
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Step 2: Create @RestController
+
+		
+		// File: StudentRestController.java
+
+		@RestController
+		@RequestMapping("/api")
+		public class StudentRestController
+		{
+			// define endpoint for "/students" - return list of students
+
+			@GetMapping("/students")
+			public List<Student> getStudent()
+			{
+				List<Student> theStudents = new ArrayList<>();
+
+				theStudents.add(new Student("Poornima", "Patel"));
+				theStudents.add(new Student("Mario", "Rossi"));
+				theStudents.add(new Student("Mary", "Smith"));
+
+
+				return theStudents;		// Jackson will convert List<Student> to JSON array
+			}
+
+		}
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 60: Spring REST - Using @PathVariable for REST Endpoints     =======================
+
+
+
+-> Development Process
+	
+	1. Add request mapping to Spring REST Service
+			Bind path variable to method parameter using @PathVariable
+
+
+
+
+
+
+
+
+
+
+
+
+Step 1: Add Request Mapping
+
+	// File: StudentRestController.java
+
+	@RestController
+	@RequestMapping("/api")
+	public class StudentRestController
+	{
+
+		// define endpoint for "/students/{studentId}" - return student at Index
+
+		@GetMapping("/students/{studentId}")
+		public Student getStudent(@PathVariable int studentId)
+		{
+			List<Student> theStudents = new ArrayList<>();
+
+			// populate theStudents
+				...
+
+			return theStudents.get(studentId);
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Refactoring the code in Step 1:
+	
+	// File: StudentRestController.java
+
+	@RestController
+	@RequestMapping("/api")
+	public class StudentRestController
+	{
+
+		private List<Student> theStudents;
+
+
+		// define @PostConstruct to load the student data ... only once!
+
+		@PostConstruct			// It will load the Student data only Once!
+		public void loadData()
+		{
+
+			theStudents = new ArrayList<>();
+
+			theStudents.add(new Student("Poornima", "Patel"));
+			theStudents.add(new Student("Mario", "Rossi"));
+			theStudents.add(new Student("Mary", "Smith"));
+
+		}
+
+
+		// define endpoint for "/students" - return list of students
+
+		@GetMapping("/students")
+		public List<Student> getStudents()
+		{
+			return theStudents;
+		}
+
+
+
+
+		// define endpoint for "/students/{studentId}" - return student at Index
+
+		@GetMapping("/students/{studentId}")
+		public Student getStudent(@PathVariable int studentId)
+		{
+
+			return theStudents.get(studentId);
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 61: Spring REST - Exception Handling     =======================
+
+
+
+-> The goal we want to achieve:
+
+		Handle the exception and return error as JSON
+
+
+		Example:
+
+		{
+			"status": 404,
+			"message": "Student id not found - 9999",
+			"timestamp": 1526149650271
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Development Process
+
+	1. Create a custom error response class
+
+	2. Create a custom exception class
+
+	3. Update REST service to throw exception if student not found 
+
+	4. Add an exception handler method using Spring's @ExceptionHandler annotation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Step 1: Create custom error response class
+
+		The custom error response class will be sent back to client as JSON
+
+		We will define as Java class (POJO)
+
+		Jackson will handle converting it to JSON 
+
+
+
+		// File: StudentErrorResponse.java
+
+		public class StudentErrorResponse
+		{
+			private int status;
+			private String message;
+			private long timeStamp;
+
+			// constructors
+
+			// getters/setters
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Step 2: Create custom student exception
+
+		The custom student exception will be used by our REST service
+
+		In our code, if we can't find student, then we'll throw an exception
+
+		We need to define a custom student exception class
+			// Let's call it StudentNotFoundException
+
+
+
+
+		// StudentNotFoundException
+
+		public class StudentNotFoundException extends RuntimeException
+		{
+
+			public StudentNotFoundException(String message)
+			{
+				super(message);
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Step 3: Update REST service to throw exception
+
+		// File: StudentRestController.java
+
+		@RestController
+		@RequestMapping("/api")
+		public class StudentRestController
+		{
+
+			@GetMapping("/students/{studentId}")
+			public Student getStudent(@PathVariable int studentId)
+			{
+
+				// check the studentId against list size
+
+				if((studentId >= theStudents.size()) || (studentId < 0))
+				{
+					throw new StudentNotFoundException("Student id not found - " + studentId);
+				}
+
+				return theStudents.get(studentId);
+
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Step 4: Add exception handler method
+
+		Define exception handler method(s) with @ExceptionHandler annotation
+
+		Exception handler will return a ResponseEntity
+
+		ResponseEntity is a wrapper for the HTTP response object
+
+		ResponseEntity provides fine-grained control to specify:
+				HTTP status code, HTTP headers and Response body
+
+
+
+
+
+		// File: StudentRestController.java
+
+		@RestController
+		@RequestMapping("/api")
+		public class StudentRestController
+		{
+
+			@GetMapping("/students/{studentId}")
+			public Student getStudent(@PathVariable int studentId)
+			{
+
+				// check the studentId against list size
+
+				if((studentId >= theStudents.size()) || (studentId < 0))
+				{
+					throw new StudentNotFoundException("Student id not found - " + studentId);
+				}
+
+				return theStudents.get(studentId);
+
+			}
+
+
+			// Add an exception handler using @ExceptionHandler
+
+			@ExceptionHandler
+			public ResponseEntity<StudentErrorResponse>   handleException(StudentNotFoundException exc)
+			{
+				
+				// create a StudentErrorResponse
+
+				StudentErrorResponse error = new StudentErrorResponse();
+
+				error.setStatus(HttpStatus.NOT_FOUND.value());
+				error.setMessage(exc.getMessage());
+				error.setTimeStamp(System.currentTimeMillis());
+
+				return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+			}
+
+
+			// add another exception handler ... to catch any exception (catch all)
+
+			@ExceptionHandler
+			public ResponseEntity<StudentErrorResponse>  handleException(Exception exc)
+			{
+
+				// create a StudentErrorResponse
+
+				StudentErrorResponse error = new StudentErrorResponse();
+
+				error.setStatus(HttpStatus.BAD_REQUEST.value());
+				error.setMessage(exc.getMessage());
+				error.setTimeStamp(System.currentTimeMillis());
+
+				return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Global Exception Handling
+--------------------------
+
+
+
+-> Spring @ControllerAdvice
+		
+		@ControllerAdvice is similar to an interceptor/filter
+
+		We can use it to Pre-process requests to controllers
+
+		We can also use it to Post-process to responses to handle exceptions
+
+		It is perfect for global exception handling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Development Process
+
+		1. Create new @ControllerAdvice
+
+			@ControllerAdvice
+			public class StudentRestExceptionHandler
+			{
+				...
+			}
+
+
+
+		2. Refactor REST service ... remove exception handling code
+
+
+		3. Add exception handling code to @ControllerAdvice
+
+			@ControllerAdvice
+			public class StudentRestExceptionHandler
+			{
+				
+				@ExceptionHandler
+				public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc)
+				{
+
+					StudentErrorResponse error = new StudentErrorResponse();
+
+					error.setStatus(HttpStatus.NOT_FOUND.value());
+					error.setMessage(exc.getMessage());
+					error.setTimeStamp(System.currentTimeMillis());
+
+					return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
+
+				}
+
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 62: Spring REST - API Design Best Practices     =======================
+
+
+
+
+
+				HTTP Method 								CRUD Action
+			----------------------------------------------------------------------------------
+				   POST 							Create a new entity
+				   GET 								Read a list of entities or single entity
+				   PUT 								Update an existing entity
+				   DELETE 							Delete an existing entity
+
+
+
+
+
+
+
+-> For POST and PUT we send data as JSON in request message body.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PayPal Invoicing API
+		https://developer.paypal.com/docs/api/invoicing/
+
+
+-> GitHub Repositories API
+		https://developer.github.com/v3/repos/#repositories
+
+
+-> SalesForce Industries REST API
+		https://sforce.co/2J40ALH
+
+
+
+
+
+Note: 
+	Instead of using @PathVariable(variable_name) we can also use
+	colon (:), example - :variable_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 63-68: Spring REST - CRUD Database Real-Time Project     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 70: Spring Boot - Overview     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

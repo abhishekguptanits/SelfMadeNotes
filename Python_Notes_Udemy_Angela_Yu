@@ -1,0 +1,3701 @@
+#################################          Beginner Level Python          #################################
+
+
+
+
+=======================     Section 1: Working with Variables in Python to Manage Data     =======================
+
+
+
+
+
+print("Hello World!")
+
+
+
+
+-> In Python we can enclose the String either inside double quotes ("String goes here...") or 
+	inside single quotes ('String goes here...')
+	// Example:
+
+	print("Hello World!")
+	print('I am new to Programming!')
+	print("To print in Python use syntax 'print()'")
+
+
+
+
+
+-> Indentation are very important in Python, so be careful while usig them.
+
+
+
+
+
+-> To use a multi-line comment use docstring 
+	"""  Multi-line comment goes here """
+
+
+
+
+
+-> Python input(prompt) function
+
+input("A prompt for the user")
+
+
+
+
+
+-> Write a program that prints the number of characters in a user's name.
+
+print("Number of characters in your name is " + str(len(input("What's your name: "))))
+
+
+
+
+-> len() function gives the length of string
+
+
+
+-> To convert a int to string use str() function
+
+
+
+
+
+
+
+
+
+
+
+# Variable declaration in Python
+name = input("What is your name? ")
+print("Your name is " + name)
+
+
+
+name = input("Tell me your name: ")
+length = len(name)
+print("Your name is " + str(length) + " characters long")
+
+
+
+
+
+
+
+-> The return type of input() function is string
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 2: Understanding Data Types and How to Manipulate Strings     =======================
+
+
+
+
+
+-> Subscript
+
+"Hello"[0]		# prints H
+
+"Hello"[1]		# prints e
+
+
+
+
+# Integer data type
+
+# To print integer numbers in more readable format use underscore
+
+print(123_456_789)
+
+
+
+
+
+
+
+# Boolean data type have values True and False
+print(1==1)		// this will print True
+
+print(1!=1)		// this will print False
+
+
+
+
+
+
+
+
+
+-> To check the data type use the function type()
+
+print(type(3423))	// o/p: <class 'int'>
+
+print(type("Left"))		// o/p: <class 'str'>
+
+
+
+
+
+
+
+
+-> return type of division operation is always float
+
+
+
+
+
+
+
+
+
+-> ** in python works as exponet for e.g. 2**3 is treated as 2 raised to the power 3
+
+	Example:	print(2**3) will print 8 in the output
+
+
+
+
+
+
+
+
+
+-> PEMDAS rule for order of priority
+	1. Parentheses		()
+	2. Exponents		**
+	3. Multiplication	*
+	4. Division 		/
+	5. Addition			+
+	6. Subtraction		-
+
+
+	Note: 
+		Multiplication and Division have same priority, similarly
+		Addition and Subtraction have same priority.
+		What executes first depends on which operator is on the leftmost side.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> For rounding off a number we can use round() function in python
+
+Example:
+	print(8/3)			// o/p: 2.66666665
+
+	print(round(8/3))			// o/p: 3		-> Round off to nearest whole number
+
+	print(round(8/3, 2))		// o/p: 2.67	-> Round off to 2 decimal places
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> To get a floor division we can use 2 forward slashes i.e., //
+
+Example:
+	print(8 // 3)			o/p: 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> f-string in python
+
+score = 0
+height = 1.8
+isWinning = True
+
+# f-string
+print(f"your score is {score}, your height is {height}, you are winning: {isWinning}")
+
+	# o/p: your score is 0, your height is 1.8, you are winning: True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 3: Control Flow and Logical Operators     =======================
+
+
+
+
+
+-> if-else statement in python
+
+if condition:
+	do this
+else:
+	do this
+
+
+
+
+
+-> elif statement in Python
+
+if condition1:
+	do A
+elif condition2:
+	do B
+else:
+	do this
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Logical Operators
+-------------------------
+
+There are 3 logical operators in Python
+	1. and
+	2. or
+	3. not
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> The lower() function changes all the letters in a string to lower case.
+	
+	Example: "AbHishek".lower() will give abhishek
+
+
+
+
+
+-> The count() function will give you the number of times a letter occurs in a string.
+
+	Example: "Abhishek Kumar Gupta".count("a") will give 2 since only two lowercase a's are
+				there in the given string, it will not consider the uppercase A.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Triple Quotes in Python
+---------------------------
+
+-> Use triple single quotes (''' Multi Line String ''') to write multi-line strings.
+
+
+
+-> Spanning strings over multiple lines can be done using python’s triple quotes. It can also be 		used for long comments in code. Special characters like TABs, verbatim or NEWLINEs can also be 		used within the triple quotes. As the name suggests its syntax consists of three consecutive 		single or double-quotes.
+
+
+
+Syntax: 	“”” string”””    or     ”’ string”’
+
+
+
+
+Note: 
+	Triple quotes, according to official Python documentation are docstrings, or multi-line docstrings and are not considered comments. Anything inside triple quotes is read by the interpreter. When the interpreter encounters the hash symbol, it ignores everything after that. That is what a comment is defined to be. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> To ignore any character in the code snippet we can use backslash before that character
+
+Example:
+
+print('You\'re at a crossroad, where do you want to go? Type "left" or "right".')
+
+
+Resource: https://www.w3schools.com/python/gloss_python_escape_characters.asp
+
+
+Escape Characters:
+-------------------
+	To insert characters that are illegal in a string, use an escape character.
+
+	An escape character is a backslash \ followed by the character you want to insert.
+
+
+
+An example of an illegal character is a double quote inside a string that is surrounded by double quotes:
+
+	You will get an error if you use double quotes inside a string that is surrounded by double quotes:
+
+	txt = "We are the so-called "Vikings" from the north."
+
+
+
+	To fix this problem, use the escape character \":
+
+	Example
+	The escape character allows you to use double quotes when you normally would not be allowed:
+
+	txt = "We are the so-called \"Vikings\" from the north."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 4: Randomization and Python List     =======================
+
+
+
+
+
+-> To generate Random Number, Python uses "Mersenne Twister"
+	The Mersenne Twister is a general-purpose pseudorandom number generator (PRNG).
+
+
+Additional Resource: 
+	https://en.wikipedia.org/wiki/Mersenne_Twister
+
+	https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/random-vs-pseudorandom-number-generators
+
+	https://www.askpython.com/python-modules/python-random-module-generate-random-numbers-sequences
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import random 		# random Module is a Python Module
+
+random_integer = random.randint(-100,20)
+
+print(random_integer)
+
+random_float = random.random()		# produces random floating point number b/w [0.0,1.0)
+										i.e., including 0.0 but excluding 1.0
+
+print(random_float)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Python Lists
+-------------------------------------
+
+https://docs.python.org/3/tutorial/datastructures.html
+
+
+
+
+
+
+fruits = ["Cherry", "Apple", "Pear"]
+
+
+print(fruits[0])				# will print Cherry
+
+
+print(fruits[-1])				# will print Pear since -1 is the last item in the list
+
+
+
+print(fruits)					# will print ['Cherry', 'Apple', 'Pear']
+
+
+
+
+
+
+
+-> append() method will add an element to the last of the list
+
+fruits.append("Strawberry")
+
+print(fruits)					# will print ['Cherry', 'Apple', 'Pear', 'Strawberry']
+
+
+
+
+
+
+
+
+
+
+
+-> extend() method will add list of items to the end of list
+
+fruits.extend(["Watermelon", "Coconut", "Orange"])
+
+
+
+print(fruits)			
+# will print ['Cherry', 'Apple', 'Pear', 'Strawberry', 'Watermelon', 'Coconut', 'Orange']
+
+
+
+
+
+
+
+
+
+
+
+-> random.choice(seq)
+
+		This is a widely used function in practice, wherein you would want to randomly pick up an item from a List/sequence.
+
+
+-> Sequence in Python?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nested List: list within a list
+--------------------------------
+
+fruits = ["Strawberry", "Nectarines", "Apples", "Grapes", "Peaches", "Cherries", "Pears"]
+vegetables = ["Spinach", "Kale", "Tomatoes", "Celery", "Potatoes"]
+
+
+dirty_dozen = [fruits, vegetables]			# nested list
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Given the code below:
+----------------------
+
+fruits = ["Strawberries", "Nectarines", "Apples", "Grapes", "Peaches", "Cherries", "Pears"]
+vegetables = ["Spinach", "Kale", "Tomatoes", "Celery", "Potatoes"]
+ 
+dirty_dozen = [fruits, vegetables]
+ 
+print(dirty_dozen[1][1])
+What will be printed?
+
+
+Ans: "Kale"
+
+
+
+
+
+
+What's going on?
+
+This question combines several of the Python List concepts that we’ve seen in the previous lessons in isolation. If the code above is at all confusing, I recommend breaking down what’s going on using several print statements using repl.it. First, try printing out:
+print(dirty_dozen)
+
+
+Then print out:
+print(dirty_dozen[0])
+print(dirty_dozen[1])
+
+
+To see what happens at the next stage print out:
+print(dirty_dozen[1][2])
+print(dirty_dozen[1][3])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Rock-Paper-Scissor Game project link:
+		https://replit.com/@abhishekaryan001/rock-paper-scissors#main.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 5: Python Loops     =======================
+
+
+
+
+
+-> Syntax of Python for loop
+
+
+for item in list_of_items:
+	#Do something to each item
+
+
+
+
+
+
+-> sum() function gives the sum of elements inside a list.
+	Example: sum(list_name)
+
+
+
+
+
+
+
+-> max() function gives the maximum element inside a list.
+	Example: max(list_name)
+
+
+
+
+
+
+-> min() function gives the lowest value inside a list.
+	Example: min(list_name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for loop and range() function
+-------------------------------
+
+
+for number in range(a,b):
+	print(number)
+
+
+
+
+-> by default range() fuction increments the value by one. If you want to increment by any
+	other value then we need to pass that value as a third parameter to the range() function.
+
+
+
+range(a, b, step_size)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+range(a,b)			# a is included but b is excluded	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Task to complete
+-----------------
+
+Try to complete Day 5: Create a password generator (Hard level) project
+
+project link: https://replit.com/@abhishekaryan001/password-generator-start#main.py
+
+
+
+
+
+
+
+
+Help:
+--------
+
+Python Random shuffle() Method
+
+The shuffle() method takes a sequence, like a list, and reorganize the order of the items.
+
+Note: This method changes the original list, it does not return a new list.
+
+
+
+Syntax
+--------
+random.shuffle(sequence, function)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 6: Python Functions & Karel     =======================
+
+
+
+
+Defining and Calling Python Functions
+------------------------------------------------------------
+
+
+# To define our own function
+
+def my_function():
+  print("Hello")
+  print("Bye")
+
+my_function()				// This will call the my_function()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+While Loops
+------------
+
+Syntax:
+
+while something_is_true:
+	#do something repeatedly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Final Project: Escaping the Maze
+----------------------------------
+
+
+
+# Solution 1
+
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left() 
+
+
+    
+while not at_goal():
+    if right_is_clear():
+        turn_right()
+        while not at_goal() and front_is_clear():
+            move()
+    elif wall_on_right() and front_is_clear():
+        while not right_is_clear() and front_is_clear():
+            move()
+    else:
+        turn_left()
+
+
+
+
+
+
+
+
+
+
+
+
+# Solution 2
+
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left() 
+
+
+    
+while not at_goal():
+    if right_is_clear():
+        turn_right()
+        move()
+    elif front_is_clear():
+        move()
+    else:
+        turn_left()
+    
+
+
+
+
+
+
+
+
+
+
+
+# Solution 3
+
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left() 
+
+
+while front_is_clear():
+	move()
+
+turn_left()
+
+    
+while not at_goal():
+    if right_is_clear():
+        turn_right()
+        move()
+    elif front_is_clear():
+        move()
+    else:
+        turn_left()
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 7: Hangman     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 8: Function Parameters & Caesar Cipher     =======================
+
+
+
+def my_function(parameter_list):
+	#do something
+	#Then do something else
+
+
+# calling the function
+my_function(argument_list)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Parameter is the name of the data that is passed in the function
+
+
+-> Argument is the actual value of the data that is passed in the function
+
+
+
+
+
+
+
+
+
+
+
+
+Positional vs. Keyword Arguments
+---------------------------------
+
+
+# Positional Argument
+
+def greet_with(name,location):
+    print(f"Hello {name} from {location}")
+
+
+greet_with("Aryan","Varansi")
+
+
+
+
+
+
+
+
+
+# Keyword Argument
+
+def greeting(name, location, company):
+    print(f"Hello {name}")
+    print(f"How's the weather in {location}")
+    print(f"Do you work for {company}")
+
+
+
+# Calling the greeting() function
+greeting(company="Accenture",name="Aryan",location="Varansi")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 9: Dictionaries, Nesting and the Secret Auction     =======================
+
+
+
+
+Dictionary - Key:Value pair
+
+
+programming_dictionary = {
+							"Bug": "An error in a program that prevents the program from running as expected.", 
+							"Function": "A piece of code that you can easily call over and over again."
+						 }
+
+
+
+
+
+
+
+
+
+
+
+programming_dictionary = {
+    "Bug": "An error in a program that prevents the program from running as expected.", 
+    "Function": "A piece of code that you can easily call over and over again.",
+}
+
+#Retrieving items from dictionary.
+print(programming_dictionary["Bug"])
+
+
+#Adding new items to dictionary
+programming_dictionary["Loop"] = "The action of doing something over and over again."
+print(programming_dictionary)
+
+
+#Edit an item in a dictionary
+programming_dictionary["Bug"] = "A moth in your computer"
+
+
+#Loop through a dictionary
+print("printing for loop....................................")
+for key in programming_dictionary:
+    #print(key)
+    #print(programming_dictionary[key])
+    print(f"{key}: {programming_dictionary[key]}")
+
+
+#Create an empty dictionary
+empty_dictionary = {}
+
+
+#Wipe an existing dictionary
+programming_dictionary = {}
+print(programming_dictionary)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nesting Lists and Dictionaries
+-------------------------------
+
+
+{
+	Key1: [List],
+	Key2: {Dictionary},
+}
+
+
+
+
+
+
+
+
+
+
+#######################################################
+
+#Nesting
+
+
+#Normal Dictionary
+capital = {
+    "France": "Paris",
+    "Germany": "Berlin",
+}
+
+
+#Nesting a List in a Dictionary
+travel_log1 = {
+    "France": ["Paris", "Lille", "Dijon"],
+    "Germany": ["Berlin", "Hamburg", "Stuttgart"],
+}
+print("Printing travel_log1............................................")
+print(travel_log1)
+
+
+#Nesting Dictionary in a Dictionary
+travel_log2 = {
+    "France": {"cities_visited": ["Paris", "Lille", "Dijon"], "total_visits": 12},
+    "Germany": {"cities_visited": ["Berlin", "Hamburg", "Stuttgart"], "total_visits": 20},
+}
+print("\nPrinting travel_log2............................................")
+print(travel_log2)
+
+
+#Nesing Dictionary in a list
+travel_log3 = [
+    {
+        "country": "France",
+        "cities_visited": ["Paris", "Lille", "Dijon"],
+        "total_visits": 12
+    },
+    {
+        "country": "Germany",
+        "cities_visited": ["Berlin", "Hamburg", "Stuttgart"],
+        "total_visits": 20
+    },
+]
+print("\nPrinting travel_log3............................................")
+print(travel_log3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> The data types in a python dictionary can be completely mixed up.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 10: Functions with Outputs     =======================
+
+
+
+
+Functions with Outputs
+-----------------------
+
+
+def my_function():
+	result = 3*2
+	return result		#return is a keyword
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Function with Output(s)
+
+def format_to_title_case(first_name, last_name):
+    f_name = first_name.title()
+    l_name = last_name.title()
+    #name = f_name + " " + l_name
+    return f"{f_name} {l_name}"
+
+first_name = input("Enter your first name: ")
+last_name = input("Enter your last name: ")
+
+formatted_name = format_to_title_case(first_name, last_name)
+
+print(f"Hello {formatted_name}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Docstring
+----------
+
+
+-> docstring("""Stuff goes here""") can be used to document user defined functions.
+
+
+
+-> docstring can also be used for multi-line comments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 11: The Blackjack Capstone Project     =======================
+
+
+
+// Complete the Blackjack project from scratch.........
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 12: Scope & Number Guessing Game     =======================
+
+
+
+-> Python have 'Local Scope' and 'Global Scope' but it doesn't have "Block Scope" 
+	like C++ and Java.
+
+
+
+-> In Python, if we create a variable or function within a function then it's only
+	available within that function only.
+
+
+
+
+
+
+
+
+
+
+How to Modify a Global Variable
+---------------------------------
+
+enemies = 1
+
+def increase_enemies():
+  global enemies
+  enemies += 1
+  print(f"enemies inside function: {enemies}")
+
+increase_enemies()
+print(f"enemies outside function: {enemies}")
+
+
+
+
+
+-> As a good practice, we should avoid using modifying Global Variable in Python.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################         Intermediate Level Python          ##############################
+
+
+  _____       _                               _ _       _           __                _     ___       _   _                 
+  \_   \_ __ | |_ ___ _ __ _ __ ___   ___  __| (_) __ _| |_ ___    / /  _____   _____| |   / _ \_   _| |_| |__   ___  _ __  
+   / /\/ '_ \| __/ _ \ '__| '_ ` _ \ / _ \/ _` | |/ _` | __/ _ \  / /  / _ \ \ / / _ \ |  / /_)/ | | | __| '_ \ / _ \| '_ \ 
+/\/ /_ | | | | ||  __/ |  | | | | | |  __/ (_| | | (_| | ||  __/ / /__|  __/\ V /  __/ | / ___/| |_| | |_| | | | (_) | | | |
+\____/ |_| |_|\__\___|_|  |_| |_| |_|\___|\__,_|_|\__,_|\__\___| \____/\___| \_/ \___|_| \/     \__, |\__|_| |_|\___/|_| |_|
+                                                                                                |___/                       
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 16: Object Oriented Programming (OOP)     =======================
+
+
+
+Procedural Programming: Where we set up procedures or functiones to do particular things.
+						One procedure leads to another. Computer basically works from top
+						to bottom.
+
+
+
+
+
+
+-> Procedural Programming is one of earliest "programming paradigms".
+
+
+
+
+
+-> Reason for calling it as Object Oriented Programming is that it tries to model
+	real world object.
+
+
+
+
+
+
+
+
+-> In Object Oriented Programming, we're trying to model real life objects,
+	and those objects have things(attributes) and it can also do things(methods/functions).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constructing Objects and Accessing their Attributes and Methods
+----------------------------------------------------------------
+
+
+-> PascalCase convention is used in Python for naming of classes.
+
+
+
+
+object_name = ClassName()		#Creation of object from class
+
+
+
+
+
+
+
+-> Each file we create in our project is essentially a module in itself.
+
+
+
+-> What's the difference between a Package and Module ?
+
+	A Package differs from a Module in a sense that a Package is lots 
+	and lots of files/modules, package together to achieve certain functions.
+
+
+
+
+
+
+
+
+-> pypi.org
+		Python Package Index
+
+
+
+
+
+
+
+
+
+
+
+
+Snake Case:
+	Snake case (stylized as snake_case) refers to the style of writing in which each space 
+	is replaced by an underscore (_) character, and the first letter of each word is 
+	written in lowercase.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 17: The Quiz Project & the Benefits of OOP     =======================
+
+
+
+class User:
+    pass
+
+
+
+
+-> pass keyword is used when we want to leave our class or function empty.
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> To create a constructor
+
+class ClassName:
+	
+	def __init__(self):
+		#write some code
+
+
+
+
+-> Default Constuctor is called each time the object is created
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 18: Turtle & the Graphical User Interface (GUI)     =======================
+
+
+
+
+
+
+
+
+=======================     Section 19: Instance, State and Higher Order Functions     =======================
+
+
+
+-> Event Listeners
+
+
+
+Using events
+--------------
+	onclick()
+	onrelease()
+	ondrag()
+
+
+Using screen events
+--------------------
+	listen()
+	onkey() | onkeyrelease()
+	onkeypress()
+	onclick() | onscreenclick()
+	ontimer()
+	mainloop() | done()
+
+
+
+
+
+
+Higher Order Functions: Fuction that can work with other functions.
+
+Example:
+
+def add(n1, n2):
+	return n1+n2
+
+
+def subtract(n1,n2):
+	return n1-n2
+
+
+def multiply(n1,n2):
+	return n1*n2
+
+
+def divide(n1,n2):
+	return n1/n2
+
+
+# Defining a higher order function
+def calculator(n1, n2, func_name):
+	result = func_name(n1, n2)
+	print(result)
+
+
+# Calling the higher order function
+calculator(2,4,add)		# It will print 6
+
+calculator(3, 4, multiply)		# It will print 12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from turtle import Turtle,Screen
+
+tim = Turtle()
+screen = Screen()
+
+
+# To make the screen, start listening
+screen.listen()
+
+
+# Once it(the screen) starts listening, we have to bind a function
+# that will be triggered, when a particular key is pressed on the keyboard.
+
+
+# In order to bind a keystroke to an event in our code, we have to use an event listener
+
+
+# turtle.onkey(fun, key)
+# turtle.onkeyrelease(fun, key)
+#     Parameters
+#         fun – a function with no arguments or None
+#         key – a string: key (e.g. “a”) or key-symbol (e.g. “space”)
+#
+#     Bind fun to key-release event of key. If fun is None, event bindings are removed.
+#     Remark: in order to be able to register key-events, TurtleScreen must have the focus. (See method listen().)
+def move_forwards():
+    tim.forward(10)
+
+
+# When we use a function as a argument then we don't actually add the parenthesis at the end.
+# The parenthesis triggers the function to happen there and then
+screen.onkey(key="space", fun=move_forwards)
+
+
+# To stop the screen from disappearing, when we run it
+screen.exitonclick()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 20: Build the Snake Game Part 1: Animation & Coordinates     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 21: Build the Snake Game Part 2: Inheritance & List Slicing     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 22: Build Pong: The Famous Arcade Game     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 23: The Turtle Crossing Capstone Project     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 24: Files, Directories and Paths     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 25: Working with CSV Data and the Pandas Library     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 26: List Comprehension and the NATO Alphabet     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 27: Tkinter, *args, **kwargs and Creating GUI Programs     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================     Section 28: Tkinter, Dynamic Typing and the Pomodore GUI Application     =======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

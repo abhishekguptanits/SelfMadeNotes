@@ -1,0 +1,229 @@
+Q1. Difference between String, StringBuffer and StringBuilder.
+Ans. String: Immutable
+			 literal gives memory in String constant pool hence JVM optimises memory
+			 new object gives a new memory in Heap
+
+	StringBuffer: Mutable
+				  Thread safety
+
+	StringBuilder: Mutable
+
+
+
+Q2. StringTokenizer
+
+
+Q3. OOPs Concept.
+	4 pillers of OOPs
+
+	1. Abstraction: Only the essential details are displayed to the user, everything else
+		is hidden.
+
+		Consider a real-life example of a man driving a car. The man only knows that pressing the accelerators will increase the car speed or applying brakes will stop the car, but he does not know how on pressing the accelerator, the speed is actually increasing. He does not know about the inner mechanism of the car or the implementation of the accelerators, brakes etc. in the car. This is what abstraction is.
+
+		In Java, abstraction is achieved by interfaces and abstract classes. We can achieve 100% abstraction using interfaces.
+
+
+	2. Encapsulation: In encapsulation, the data in a class is hidden from other classes,
+		which is similar to what data-hiding does. So, the terms “encapsulation” and “data-hiding” are used interchangeably.
+
+		It is the mechanism that binds together the code and the data it manipulates.
+
+		Encapsulation can be achieved by declaring all the variables in a class as private and writing public methods in the class to set and get the values of the variables.
+
+
+	3. Inheritance: It is the mechanism in Java by which one class is allowed to inherit
+		the features (fields and methods) of another class. 
+
+		Inheritance supports the concept of “reusability”, i.e. when we want to create a new class and there is already a class that includes some of the code that we want, we can derive our new class from the existing class. By doing this, we are reusing the fields and methods of the existing class.
+
+
+	4. Polymorphism: It refers to the ability of object-oriented programming languages to
+		differentiate between entities with the same name efficiently.
+
+		Using same method name we want to achieve different functionalities.
+
+		poly - many
+		morph - behaviour
+
+		Note: Polymorphism in Java is mainly of 2 types: 
+				1. Overloading
+				2. Overriding 
+
+
+
+Q4. Why we can only extend from a single class whereas we can implement many interfaces?
+
+Q5. static, final and finally keyword in java
+
+Q6. Serialization in java
+
+Q7. Difference in Java8 and Java11
+
+Q8. Marker Interface?
+
+Q9. @Autowired
+
+Q10. What is dependency injection?
+
+Q11. Inner Class, Anonymous Class and Lambda expression?
+
+Q12. public, private, native, protected, volatile, transient
+
+Q13. Synchronized keyword
+
+Q14. java.lang package
+
+Q15. Multithreading
+
+Q16. Collection framework
+
+
+	Note:
+		In general, we can’t create objects of an abstract class or an interface.
+
+		The new operator instantiates a class by allocating memory for a new object and returning a reference to that memory. The new operator also invokes the class constructor. 
+
+
+Q17. "this" keyword
+
+Q18. toString method in java
+
+Q19. super()
+
+	Note:
+		All classes have at least one constructor. If a class does not explicitly declare any, the Java compiler automatically provides a no-argument constructor, also called the default constructor. This default constructor calls the class parent’s no-argument constructor (as it contains only one statement i.e super();), or the Object class constructor if the class has no other parent (as the Object class is the parent of all classes either directly or indirectly).
+
+
+
+Q20. forName method in java
+
+Q21. Garbage Collector
+
+Q22. Anonymous objects
+
+Q23. Difference b/w throw and throws
+
+Q24. List of Checked and Unchecked Exceptions
+
+
+	Note:
+			enum - A group of named constant
+		   		To define our own data type 
+
+
+
+
+Q25. All features of Java_8
+		Source: youtube.com/playlist?list=PLsyeobzWxl7qbvNnJKjYbkTLn2w3eRy1Q
+	1. Functional Programming
+	2. Lambda Expression
+		-> We can create reference of Interface but can not create object of Interface
+
+
+			// Functional Interface only has one (abstract)method
+			interface A
+			{
+				void show(int i);
+			}
+
+			public class LambdaDemo
+			{
+				A obj; 
+				
+				/***
+				obj = new A()
+				{
+					public void show(int i)
+					{
+						System.out.println("Hello " + i);
+					}
+				}
+				***/
+
+				obj = (int i) -> System.out.println("Hello " + i);	// Lambda Expression
+
+				obj.show(6);
+			}
+
+	3. Stream Api
+		-> helps to achieve concurrency
+		-> helps to achieve functional programming
+		-> There are two types of methods
+			1. Intermediate		// filter()		// map();
+			2. Terminate		// findFirst()	// forEach();
+		-> Once you use stream value once then you can't reuse it.
+
+	4. forEach method
+			public class DemoForEach
+			{
+				public static void main(String args[])
+				{
+					List<Integer> values = Arrays.asList(4,5,6,7,8);
+
+					// Normal for loop (External Loop)
+					for(int i=0; i<values.size(); i++)
+					{
+						System.out.print(values.get(i)+" ");
+					}
+
+					System.out.println();
+
+					// Enhanced for loop
+					for(int i : values)
+					{
+						System.out.print(i+" ");
+					}
+
+					System.out.println();
+
+					// forEach method (Internal Loops - Java_8)
+					// Since it is internal to collection, it works much faster 
+					//  than external for loop
+					values.forEach(i -> System.out.print(i+" "));	// Lambda
+																	// Consumer Interface
+				}
+			}
+
+	5. Consumer Interface
+	6. New Date Time Api
+			-> Immutable
+			-> java.time package
+			-> LocalDate d = LocalDate.now();
+			-> LocalTime t = LocalTime.now();
+	7. Method reference in Java_8
+
+
+	-> We can not only declare but also can define methods in Interfaces
+		to define the method inside interface we must use keyword "default"
+	-> In Interface methods are by default "public" and "abstract"
+	-> We can also have "static" methods in Interface
+
+
+
+Q26. Types of Polymorphism?
+
+
+Q27. Java Lambda Expression
+
+
+Q28. Java Stream API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

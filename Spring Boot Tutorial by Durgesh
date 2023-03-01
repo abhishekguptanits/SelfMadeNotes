@@ -1,0 +1,1126 @@
+1. Introduction to Spring Boot | What is Spring Boot
+------------------------------------------------------
+
+Prerequisite:
+	1. Important modules of Spring
+
+
+
+-> Spring Boot is a sub-module of Spring Framework 
+
+
+Q. What is Spring Boot
+Ans. -> Spring Boot is a module of Spring from which we speed up the development.
+	 		It automates the configurations, therefore speeds up the development.
+
+	 -> Rapid Application Development
+
+	 -> It provides an easier and faster way to set up, configure and run both simple and 
+	 		web-based applications.
+
+	 -> Spring Boot comes with "Embedded Servers" 
+
+	 -> It follows "Convention over Configuration" software design style.
+	 		It decreases the effort of the developers.
+
+	 -> "Opinionated Default" - Automatically configure
+
+	 -> Scans the class path and find the dependency and automatically 
+	 		configure the things.
+
+
+
+Advantages of Spring Boot
+	-> It creates "stand-alone" Spring applications that can be started using Java -jar.
+
+	-> Embedded Tomcat, Jetty or Undertow directly (no need to deploy WAR files)
+
+	-> Provide opinionated 'starter' dependencies to simplify your build configuration
+
+	-> Automatically configure Spring and 3rd party libraries whenever possible
+
+	-> Provide production-ready features such as metrics, health checks and 
+		externalized configuration
+
+	-> Absolutely no code generation and no requirement for XML confuguration
+
+
+
+
+
+
+
+
+
+2. How Spring Boot Auto Configuration Magic works
+---------------------------------------------------
+
+-> Programmatic Configurations
+
+
+-> Starter POM (Project Object Model)
+
+-> spring-boot-starter-web
+
+-> spring-boot-starter-data-jpa
+
+-> spring-boot-starter-data-test
+
+
+-> When we add starter jars then Maven pull all the jars
+
+
+autoconfigure.jar ----> META-INF/spring.factories
+	-> What should be "enabled" or "disabled" based on some condition 
+
+
+
+
+
+
+
+
+
+3. How to start with spring boot project | Ways to create spring boot project
+-------------------------------------------------------------------------------
+
+-> There are mainly 4 ways to create a Spring Boot Project
+	1. Create a maven project and add starter dependencies
+	2. Use spring initializr
+	3. Use IDE like STS(Spring Tool Suite)
+	4. Spring boot command line interface
+
+
+
+
+
+
+
+
+
+4. Creating Spring Boot Project using spring initializr | Best way to create spring boot project
+-------------------------------------------------------------------------------------------------
+
+spring initializr: https://start.spring.io/
+
+
+@SpringBootApplication is a combination of 3 Annotations
+	1. @Configuration
+	2. @EnableAutoConfiguration
+	3. @ComponentScan
+
+
+-> All the settings can be done inside "application.properties" file
+
+-> To change port
+		application.properties
+			server.port = 9192
+
+
+
+-> @ResponseBody	// indicates a method return value should be bound to the webresponse body.
+
+
+
+
+
+
+
+
+
+5. Download and Install Spring Tool Suite [STS] | Create Spring Boot Project Step by Step
+------------------------------------------------------------------------------------------
+
+-> STS - Spring Tool Suite  ---> IDE for Spring Applications
+
+-> @ResponseBody 		// It returns the String from methods as it is on web as response
+
+
+
+
+
+
+
+
+
+6. Spring boot project in VS Code | How to use VS Code for Spring Boot Project
+---------------------------------------------------------------------------------
+
+-> Spring Boot Extension Pack - Pivotal
+
+-> Java Extension Pack - Microsoft
+
+
+
+
+
+
+
+
+
+7. Spring Boot on Eclipse | How to install Spring Tools Plugin [STS] in Eclipse
+---------------------------------------------------------------------------------
+
+Help --> Eclipse Marketplace --> Spring Tool 4 (Install) --> check all boxes 
+			--> Accept Agreement --> Finish
+
+
+
+
+
+
+
+
+
+8. JSP View in Spring Boot in 2 steps
+---------------------------------------
+
+-> by default, Spring Boot does't provide the configuration for JSP
+
+
+-> Spring Boot is mostly used for creating REST APIs
+
+
+-> main --> webapp --> views --> jsp pages
+
+
+Inside application.properties
+	#To configure view resolver
+	spring.mvc.view.prefix=/views/
+	spring.mvc.view.suffix=.jsp
+
+
+-> jasper is required to convert jsp into servlet
+
+-> Tomcat Embed Jasper - maven dependency
+	<!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
+	<dependency>
+	    <groupId>org.apache.tomcat.embed</groupId>
+	    <artifactId>tomcat-embed-jasper</artifactId>
+	    <version>9.0.37</version>
+	</dependency>
+
+
+
+
+
+
+
+
+
+9. What is the use of application.properties file in Spring Boot
+-----------------------------------------------------------------
+
+List of properties that can be changed in/using application.properties file
+	1. Core properties
+	2. Cache properties
+	3. Mail properties
+	4. JSON properties
+	5. Data properties
+	6. Transaction properties
+	7. Data migration properties
+	8. Integration properties
+	9. Web properties
+	10. Templating properties
+	11. Server properties
+	12. Security properties
+	13. RSocket properties
+	14. Actuator properties
+	15. Devtools properties
+	16. Testing properties
+
+
+
+-> application.yml
+		alternative to application.properties
+
+
+
+
+
+
+
+
+
+10. JPA with Spring Boot Complete Explanation Video
+-----------------------------------------------------
+
+-> JPA - Java Persistence API
+
+-> JPA is a specification given by Oracle.
+
+-> Hibernate/Eclicpse link/Open JPA are implementations of JPA
+
+
+
+-> JPA provides two important Interfaces
+	1. EntityManagerFactory
+		-> It provides object of EntityManager 
+	2. EntityManager
+		-> Provide methods for operation on database.
+			Example: Create, Read, Update, Delete (CRUD)
+
+
+-> Spring Boot makes easier to perform operation with JPA
+
+-> dependency required is: spring-boot-starter-data-jpa
+
+
+
+User(class): 	UserRepository(Interface) 	-----------------> 		CRUDRepository(Interface)
+												extends
+
+
+
+-> CRUDRepository Interface provides all functionality to perform the database operations
+
+
+-> Instead of CRUDRepository, We can also implement JPARepository(Interface) which is a child Interface
+	 of CRUDRepository 
+
+
+-> JPARepository provides some extra functionality
+
+
+
+
+
+
+
+
+
+11. JPA Spring Boot practical | Create project | create entity | create repository
+-------------------------------------------------------------------------------------
+
+@Entity
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private String id;
+}
+
+
+
+public interface UserRepository extends CrudRepository<User, Integer>
+{
+
+}
+
+
+
+
+
+
+
+
+
+12. Db configuration in application.properies file | JPA with Spring Boot
+---------------------------------------------------------------------------
+
+-> datasource.name is name of datasource not database name. So, give unique name..
+
+
+application.properties file
+	#db configuration
+	spring.datasource.name=test
+	spring.datasource.url=jdbc:mysql://localhost:3306/springboot?serverTimezone=UTC
+	spring.datasource.username=root
+	spring.datasource.password=root
+	spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+	#Important property - dialect
+	spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+	#To automatically create table, if it's not already present
+	spring.jpa.hibernate.ddl-auto=update
+
+
+
+
+
+
+
+
+
+13. CRUD Operation using JPA and Spring Boot | CREATE | READ | UPDATE | DELETE in one video
+---------------------------------------------------------------------------------------------
+
+UserRepository.save();
+UserRepository.findById();
+UserRepository.save();
+UserRepository.delete();
+
+
+
+
+
+
+
+
+
+14. Custom Finder methods | Derived Query methods in Spring data JPA
+----------------------------------------------------------------------
+
+-> Custom Finder methods / Derived Query methods
+
+-> Custom methods needs to be declared in Interface only without method body.
+
+
+-> Example:
+	findByName(String name) : find - Introducer
+							  By - criteria
+							  Name - property
+
+
+
+Important websites for reference:
+	-> https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#appendix.query.method.subject
+
+	-> https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#appendix.query.method.predicate
+
+
+Some Custom methods:
+	-> findByNameStartingWith(String prefix)
+
+	-> findByCityEndingWith(String suffix)
+
+	-> findByNameContaining(String wordInBetween)
+
+	-> findByNameLike(String likePattern)
+
+	-> findByAgeLessThan(int age)
+
+	-> findBySalaryGreaterThanEqual(int age)
+
+	-> findByAgeIn(Collection<Integer> ages)
+
+	-> findByNameOrderByName(String name)
+
+
+
+
+
+-> JPQL - Java Persistence Query Language
+-> HQL - Hibernate Query Language
+
+
+
+
+
+
+
+
+
+15. Executing JPQL and Native Queries with Spring Data JPA | @Query @Param Annotations
+---------------------------------------------------------------------------------------
+
+
+-> JPQL - Java Persistence Query Language
+-> HQL - Hibernate Query Language
+
+
+@Query
+	-> We can pass JPQL as parameter
+	-> We can also pass native sql query as parameter
+
+
+
+// Writing custorm queries using @Queries Annotation
+@Query("select u from User u")	// Passing HQL/JPQL as parameter
+public List<User> getAllUser();
+
+@Query("select u from User u where u.name = :n") // u is alias, :1 is for parameterized query
+public List<User> getUserByName(@Param("n") String name);
+
+
+@Query("select u from User u where u.name = :n and u.city = :c") 
+public List<User> getUserByNameAndCity(@Param("n") String name, @Param("c") String city);
+
+
+// firing native query
+@Query(value = "select * from user", nativeQuery = true)
+public List<User> getUserList();
+
+
+
+
+
+
+
+
+
+16. Introduction to API/WEB SERVICES | What is REST API | Understand REST API with Example
+--------------------------------------------------------------------------------------------
+
+-> API - Application Programming Interface
+
+-> API: It is a set of rules that allow programs to talk to each other.
+		The developer creates the API on the server and allows the 
+		client to talk to it.
+
+
+Q. What's the difference b/w Web Services and Micro Services?
+
+
+-> google/youtube api
+
+
+-> APIs can be considered as a set of programs/functions, which can be 
+	contacted/accessed via url/uri.
+
+
+-> API responsed can be in xml or json format.
+
+-> json - javascript object notation
+
+
+
+-> REST - Representational State Transfer
+
+
+-> REST - A set of constraints to used for creating Web Services.
+			-> Some of the constraints are
+				1. Client-Server
+				2. Stateless: server can't store any information of the client
+				3. Cacheable: cache the data to improve the information
+				4. Layered: layered architecture
+
+
+-> The important methods of Http: 
+	GET 	: It reads a resource
+	PUT 	: It updates an existing resources.
+	POST 	: It creates a new resource.
+	DELETE 	: It deletes the resource
+
+
+-> HTTP also defines the following standard status code:
+	404 : Resource not found
+	200 : Success
+	201 : Created
+	401 : UnAuthorized
+	500 : Server Error
+
+
+
+
+
+
+
+
+
+17. Magic of Spring Boot DevTools
+-----------------------------------
+
+-> DevTool stands for Developer Tool. The aim of the module is to try and improve the 
+	development time while working with the Spring Boot application. 
+	Spring Boot DevTools pick up the changes and restart the application.
+
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-devtools</artifactId>
+	<scope>runtime</scope>
+	<optional>true</optional>
+</dependency>
+
+
+-> Features of DevTools
+	1. Property Defaults
+	2. Automatic Restart
+	3. Live Reload
+	4. Remote Application
+	5. Remote Debugging
+
+
+
+
+
+
+
+
+
+18. Creating REST API using Spring Boot | Creating GET functionality | Full Project setup and Code
+----------------------------------------------------------------------------------------------------
+
+-> POSTMAN - Application for testing APIs.
+
+
+-> @RestController
+
+-> If we will use @RestController, then we don't need to use @ResponseBody
+
+-> "jaxson" automatically converts the object from controller to "json"
+
+
+
+@RestController
+public class BookRestApiController {
+	@Autowired
+	private BookService bookService;
+	
+	
+	@GetMapping("/books")
+	private List<BookEntity> getAllBooks(){
+		return bookService.getAllBooks();
+	}
+	
+	@GetMapping("/book/{id}")
+	private BookEntity getBook(@PathVariable("id") int bookId) {
+		return bookService.getBook(bookId);
+	}
+
+}
+
+
+
+
+
+// @Service
+@Component
+public class BookService {
+	private static List<BookEntity> bookList = new ArrayList<>();
+	
+	static {
+		bookList.add(new BookEntity(1, "Think And Grow Rich", "Napolean Hill"));
+		bookList.add(new BookEntity(2, "A Brief History Of Time", "Stephen Hawking"));
+		bookList.add(new BookEntity(3, "Pride And Prejudice", "Jane Austen"));
+		bookList.add(new BookEntity(4, "Shattered ", "James Patterson"));
+	}
+	
+	// get All books
+	public List<BookEntity> getAllBooks(){
+		
+		return bookList;
+	}
+	
+	
+	// get a book by book id
+	public BookEntity getBook(int id) {
+		
+		BookEntity bookentity = null;
+		// using "Stream API" of "Collection framework" from Java 8
+		bookentity = bookList.stream().filter(book->book.getId()==id).findFirst().get();
+		
+		return bookentity;
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+19. @PostMapping | Creating Resource REST API | REST API using Spring Boot
+----------------------------------------------------------------------------
+
+@PostMapping("/books")
+public BookEntity addBook(@RequestBody BookEntity book) {
+
+	return bookService.addBook(book);
+}
+
+
+// Create/Save a new book
+public BookEntity addBook(BookEntity book) {
+	int id = book.getId();
+	bookList.add(book);
+	System.out.println(book);
+	return book;
+}
+
+
+
+
+
+
+
+
+
+20. @DeleteMapping | Deleting Resource REST API | REST API using Spring Boot
+------------------------------------------------------------------------------
+
+@DeleteMapping("/book/{id}")
+public void deleteBook(@PathVariable("id") int id) {			
+	bookService.deleteBook(id);
+}
+
+
+public void deleteBook(int id) {
+/**
+bookList = bookList.stream().filter(book->{
+	if(book.getId() != id) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}).collect(Collectors.toList());
+**/
+
+bookList = bookList.stream().filter(book->book.getId()!=id).collect(Collectors.toList());
+
+}
+
+
+
+
+
+
+
+
+
+21. @PutMapping | Updating the Resource creating api using spring boot
+------------------------------------------------------------------------
+
+@PutMapping("/book/{id}")
+public BookEntity updateBook(@RequestBody BookEntity book,@PathVariable("id") int id) {
+	
+	return bookService.updateBook(book, id);
+}
+
+
+public BookEntity updateBook(BookEntity book, int id) {
+List<BookEntity> newBookList = bookList.stream().map(b->{
+	if(b.getId() == id) {
+		b.setTitle(book.getTitle());
+		b.setAuthor(book.getAuthor());
+	}
+	return b;
+}).collect(Collectors.toList());
+
+return book;
+}
+
+
+
+
+
+
+
+
+
+22. ResponseEntity | Handling HttpStatus while creating REST API using Spring Boot
+------------------------------------------------------------------------------------
+
+HTTP method 		Description				Valid HTTP Status codes
+____________________________________________________________________
+
+POST 				Create 					201
+GET 				Read 					200
+PUT 				Update 					200
+DELETE 				Delete 					204
+
+
+
+@GetMapping("/books")
+private ResponseEntity<List<BookEntity>> getAllBooks(){	
+	List<BookEntity> bookList = bookService.getAllBooks();
+	if(bookList.isEmpty()) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	return ResponseEntity.of(Optional.of(bookList));
+}
+
+
+
+@PutMapping("/book/{id}")
+public ResponseEntity<BookEntity> updateBook(@RequestBody BookEntity book,@PathVariable("id") int id) {
+	try 
+	{
+		bookService.updateBook(book, id);
+		return ResponseEntity.ok().body(book);
+	} 
+	catch (Exception e) 
+	{
+		e.printStackTrace();
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+}
+
+
+
+
+
+
+
+
+
+23. Connecting with Database using JPA | Spring Boot Rest API tutorial
+------------------------------------------------------------------------
+
+application.properties
+	#database configurations
+	spring.datasource.name=dsname
+	spring.datasource.url=jdbc:mysql://localhost:3306/spring_boot_rest
+	spring.datasource.username=root
+	spring.datasource.password=root
+	spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+	#to use hibernate properties
+	spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+	spring.jpa.hibernate.ddl-auto=update
+
+
+dao layer:
+
+	public interface BookRepository extends CrudRepository<BookEntity, Integer>
+	{
+		public BookEntity findById(int id);
+	}
+
+
+
+Service layer:
+	
+	@Service
+	public class BookService {
+		@Autowired
+		private BookRepository bookRepository;
+		
+		// to get All Books
+		public List<BookEntity> getAllBooks(){
+			List<BookEntity> bookList = (List<BookEntity>) bookRepository.findAll();
+			return bookList;
+		}
+		
+		// to get single book by id
+		public BookEntity getBook(int id) {
+			BookEntity book = null;
+			try 
+			{
+				book = bookRepository.findById(id);
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			
+			return book;
+		}
+		
+		
+		// to add a book
+		public BookEntity addBook(BookEntity b) {
+			BookEntity book = bookRepository.save(b);
+			return book;
+		}
+		
+		// to delete a book by id
+		public void deleteBookById(int id) {
+			bookRepository.deleteById(id);
+		}
+		
+		// to delete a book by book entity
+		public void deleteBookByEntity(BookEntity book) {
+			bookRepository.delete(book);
+		}
+		
+		// to delete all book
+		public void deleteAllBook() {
+			bookRepository.deleteAll();
+		}
+		
+		// to update a book
+		public BookEntity updateBook(BookEntity book, int id) {
+			book.setId(id);
+			BookEntity updatedBook = bookRepository.save(book);
+			return updatedBook;
+		}
+		
+
+	}
+
+
+Controller Layer:
+
+	@RestController
+	public class BookRestApiController 
+	{
+		@Autowired
+		private BookService bookService;
+		
+		
+		@GetMapping("/books")
+		private ResponseEntity<List<BookEntity>> getAllBooks(){
+			
+			List<BookEntity> bookList = bookService.getAllBooks();
+			if(bookList.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			
+			return ResponseEntity.status(HttpStatus.OK).body(bookList);
+		}
+		
+		
+		@GetMapping("/book/{id}")
+		private ResponseEntity<BookEntity> getBook(@PathVariable("id") int bookId) {
+			BookEntity book = bookService.getBook(bookId);
+			if(book == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.of(Optional.of(book));
+		}
+		
+		@PostMapping("/book")
+		public ResponseEntity<BookEntity> addBook(@RequestBody BookEntity book) {	
+			BookEntity bookCreated = bookService.addBook(book);
+			return ResponseEntity.status(HttpStatus.CREATED).body(bookCreated);
+		}
+		
+		
+		@DeleteMapping("/book/{id}")
+		public ResponseEntity<Void> deleteBook(@PathVariable("id") int id) {
+			try 
+			{
+				bookService.deleteBookById(id);
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			}	
+			
+		}
+		
+		
+		@PutMapping("/book/{id}")
+		public ResponseEntity<BookEntity> updateBook(@RequestBody BookEntity book,@PathVariable("id") int id) {
+			try 
+			{
+				bookService.updateBook(book, id);
+				return ResponseEntity.ok().body(book);
+			} 
+			catch (Exception e) 
+			{
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			}
+			
+		}
+	}
+	
+
+
+
+
+
+
+
+
+24. Nesting Custom Type in spring Boot Rest Api | Using ONE TO ONE Mapping with Spring Boot Rest API
+-----------------------------------------------------------------------------------------------------
+
+-> Custom Object Mapping
+
+Q. What is bean.utils()
+
+
+
+-> Failed to initialize JPA EntityManagerFactory: 
+		@Column(s) not allowed on a @OneToOne property: com.api.book.entity.BookEntity.author
+
+
+
+-> Writing JSON for Nested Objects
+
+		{
+			"id" : 20,
+			"title" : "Complete Reference",
+			"author" : {
+							"authorId": 234,
+							"firstName": "Amy",
+							"lastName": "Jakson",
+							"language": "English"
+					   }
+		}
+
+
+
+
+BookEntity:
+
+	@OneToOne(cascade = CascadeType.ALL)	// Uni-directional mapping
+	// @Column(name = "book_author")		// Can not be used while using @OneToOne mapping
+	private Author author;
+
+
+AuthorEntity:
+	
+	@Entity
+	@Table(name = "author_details")
+	public class Author {
+		@Id
+		@GeneratedValue(strategy = GenerationType.AUTO)
+		@Column(name = "author_id")
+		private int authorId;
+		
+		@Column(name = "first_name")
+		private String firstName;
+		
+		@Column(name = "last_name")
+		private String lastName;
+		
+		@Column(name = "author_language")
+		private String language;
+	}
+
+
+
+
+
+
+
+
+
+25. Jackson – Bidirectional Relationships | @JsonManagedReference, @JsonBackReference | Spring Boot
+----------------------------------------------------------------------------------------------------
+
+-> Jackson - Bidirectional Relationships
+
+-> JsonManagedReferences
+
+-> JsonBackReferences
+
+-> Bidirectional Mapping
+
+
+
+
+
+
+
+
+
+26. File Uploading in very simple steps | Spring boot REST API
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

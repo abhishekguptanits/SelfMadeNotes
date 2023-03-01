@@ -1,0 +1,103 @@
+80C 	- 	1.5 Lakhs
+80E 	- 	Education Loan
+80D 	- 	Medical Insurance
+80DDB 	- 	Medical Treatment	
+
+
+
+Scenario 1: 
+	PF: 	31500
+	HRA: 	96000
+
+	Total:	127500						
+	Tax: 	38,480
+
+
+Scenario 2:
+	PF: 					31500
+	HRA: 					131250
+	Total Deduction:		162750
+							
+	Tax: 31,148	
+
+Scenario 3:
+	PF: 					31500
+	HRA: 					131250
+	Total Deduction:		162750
+
+	Loan Interest:			1615	
+							
+	Tax: 30813
+
+
+Scenario 4:
+	PF: 					31500
+	VPF:					50000
+	HRA: 					131250
+	Total Deduction:		212750	
+							
+	Tax: 20,748	
+
+Scenario 5:
+	PF: 					31500
+	VPF:					50000
+	HRA: 					131250
+	Total Deduction:		212750	
+
+	ELSS:					100000
+							
+	Tax: 0
+
+
+Scenario 6:
+	PF: 					31500
+	VPF:					50000
+	HRA: 					131250
+	Total Deduction:		212750	
+
+	NPS:					50000
+							
+	Tax: 0
+
+
+
+Education Loan:
+	Total Amount Received: 			87000
+	Total Amount to be Paid:		98308
+
+
+
+
+-> Investments Under 80C for FY: 2022-2023
+	1. PPF:
+		ICICI: 														: 		50K/-
+		
+	2. ELSS:
+		1. Quant Tax Plan											:		30K/-
+		2. Parag Parikh Tax Saver Fund Direct Growth				:		10K/-
+		3. IDFC Tax Advantage (ELSS) Fund							:		10K/-
+		4. Mirae Asset Tax Saver Fund								:		10K/-
+		5. Canara Robeco Equity Tax Saver Fund						:		10K/-
+		6. Kotak Tax Saver Fund										:		10K/-
+		7. ICICI Prudential Long Term Equity Fund (Tax Saving)		:		Nil	
+		8. DSP Tax Saver Fund										:		Nil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

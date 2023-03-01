@@ -1,0 +1,665 @@
+#################################
+Section 1. Getting Started
+#################################
+
+
+-> A JavaScript library for building user interfaces.
+
+
+React.js
+	-> A client-side JavaScript library
+	-> All about building modern, reactive user interfaces for the web
+	-> Declarative, component-focused approach
+
+
+
+-> When working with React, we often build Single-Page-Applications(SPAs)
+
+
+
+1. React can be used to control parts of HTML pages or entire pages.
+	-> "Widget" approach on a multi-page-application.
+	->	(Some) pages are still rendered on and served by a backend server.
+
+2. React can also be used to control the entire frontend of a web application
+	-> "Single-Page-Application" (SPA) approach.
+	-> Server only sends one HTML page, thereafter, React takes over and controls the UI.	
+	-> Example: Netflix website	
+
+
+
+React.js
+	-> Lean and focused component-based UI library.
+	-> Certain features (e.g. routing) are added via community packages.
+
+
+Alternatives of React.js
+	1. Angular
+		-> Complete component-based UI framework, packed with features.
+		-> Uses TypeScript.
+		-> Can be overkill for smaller projects.
+
+	2. Vue.js
+		-> Complete component-based UI framework, includes most core features.
+		-> A bit less popular than React & Angular.
+
+
+
+Course Outline
+	1. Basics & Foundation (Introducing Key Features)
+		-> Components & Building UIs
+		-> Working with Events & Data: "props" and "state"
+		-> Styling React Apps & Components
+		-> Introduction into "React Hooks"
+
+	2. Advanced Concepts (Building for Production)
+		-> Side Effects, "Refs" & More React Hooks
+		-> React's Context API & Redux
+		-> Forms, Http Requests & "Custom Hooks"
+		-> Routing, Deployment, NextJS & More
+
+	3. Summaries & Refreshers (Optimizing your time)
+		-> JavaScript Refresher
+		-> ReactJS Summary
+
+
+
+Setting Up the Dev Environment
+	1. VS Code
+		-> Prettier extension
+		-> Material icon extension (Optional)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#############################################
+Section 2. JavaScript Refresher
+#############################################
+
+
+-> Next-Gen JavaScript
+
+
+-> Exports & Imports (Modules)
+
+-> Named Imports
+
+
+person.js
+	const person = {
+		name: 'Max'
+	}
+
+	export default person
+
+
+
+utility.js
+	export const clean = () => { ... }
+
+	export const baseData = 10;
+
+
+
+app.js
+	import person from './person.js'
+	import prs from './person.js'
+
+	import {baseData} from './utility.js'
+	import {clean as Cln } from './utility.js'
+	
+	import {baseData,clean} from './utility.js'
+
+
+
+
+-> Classes are blueprint for Objects
+
+-> A class can have properties and methods.
+
+
+-> Classes are used by "React" to create it's components.
+
+
+
+
+Spread & Rest Operators (...)
+
+	-> Spread: Used to split up array elements OR object properties
+			
+			const newArray = [...oldArray,1,2]
+		
+			const newObject = {...oldObject, newProp:5}
+
+
+	-> Rest: Used to merge a list of function arguments into an array
+			
+			function sortArgs(...args){
+				return args.sort();
+			}
+
+
+
+
+Destructuring: Easily extract array elements or object properties and store them in variables
+
+	-> Array Destructuring
+		
+			[a,b] = ['Hello', 'Max']
+			console.log(a)	// Hello
+			console.log(b) // Max
+
+
+	-> Object Destructuring
+
+			{name} = {name: 'Max', age: 28}
+			console.log(name)	// Max
+			console.log(age)	// undefined
+
+
+
+
+
+-> Objects & Arrays are Reference types.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#######################################################################
+Section 3: React Basics & Working with Components
+#######################################################################
+
+-> Component-Driven User Interfaces
+
+
+-> Module Content
+	1. React Core Syntax & JSX
+	2. Working with Components
+	3. Working with Data
+
+
+-> React is a JavaScript library for building user interfaces
+
+
+-> HTML, CSS & JavaScript are about building user interfaces as well
+
+
+-> React makes building complex, interactive and reactive user interfaces simpler
+
+
+-> React is all about "Components"
+
+
+-> Why Components
+	1. Reusability
+		-> Don't repeat yourself
+	2. Separation of Concerns
+		-> Don't do too many things in one and the same place(function)
+
+
+
+-> React allows you to create re-usable and reactive components consisting
+	of HTML and JavaScript (and CSS)
+
+
+
+-> React uses "Declarative Approach" for creating the Components.
+	--> Define the desired target state(s) and let React figure out the 
+		actual JavaScript DOM instructions.
+
+
+
+-> !!! Important Note:
+	
+		-> DON'T download NodeJS version 17! 
+		-> Because at the moment, the created projects won't work with that version.
+		-> Instead, download the LTS version of NodeJS.
+		-> https://nodejs.org/en/download/
+
+
+
+-> Get started with creating first React App: https://github.com/facebook/create-react-app
+
+
+
+-> node.js
+	--> run-time environment for running JavaScript outside the browser
+
+
+
+-> npx create-react-app my-app
+   cd my-app
+   npm start
+
+
+
+-> "index.js" file is the first file to be executed
+
+
+# JSX
+	-> JSX - JavaScript XML
+	-> Html code inside JavaScript
+
+	
+
+-> Build your own, custom HTML Elements.
+
+
+-> React is all about "Components"
+
+-> A "Component" is basically custom HTML Element
+
+
+-> Usually "PascalCase" is used to name React Component File Names.
+
+
+-> A "Component" in React is just a JavaScript function
+
+
+-> Custom Element Name must start with Capital Letter
+
+
+-> By default we can return only one root element from React Component(JSX)
+
+
+-> Typically for the CSS code of a given component, we add the CSS file next 
+	to the Component.
+
+
+ -> Concept of Composition
+
+
+-> props.children
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#############################################################################
+Section 4. React State & Working with Events
+#############################################################################
+
+
+-> Module Content 
+	1. Handling Events
+	2. Updating the UI & Working with "State"
+	3. A closer look at Components & State
+
+
+
+-> onClick: Adds a event listener for Click events. 
+
+
+-> State is not a React specific concept, but it is a key concept is React as well.
+
+
+
+-> Named imports from React library
+	
+		import React, {  } from 'react';
+
+
+
+-> React schedules State performances, it doesn't perform them instantly.
+
+
+-> "props" are used to pass date from parent to child (Top to Bottom)
+
+
+-> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

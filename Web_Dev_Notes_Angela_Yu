@@ -1,0 +1,2400 @@
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 11: The Document Object Model (DOM)
+
+
+
+1. Inline Javascript      // Not Modular  //Difficult to debug  //Not Good Practice
+onload="alert("Hello");" 
+onload="alert('Hello');"
+
+
+2. Internal Javascript
+
+<script type="text/javascript">
+
+	alert("Hello");
+
+</script>
+
+
+3. External Javascript
+
+<script src="index.js" charset="utf-8"></script>
+
+
+document.querySelector("h1").innerHTML = "Good Bye!";
+
+
+document;    ----- Selects the entire html-page.
+
+document.firstElementChild;    -- First child is HTML
+
+document.firstElementChild.firstElementChild;
+
+document.firstElementChild.lastElementChild;
+
+document.firstElementChild.lastElementChild.firstElementChild;
+
+
+
+var heading = document.firstElementChild.lastElementChild.firstElementChild;
+heading.innerHTML = "Good Bye";
+heading.style.color = "red";
+
+
+document.querySelector("input").click();      // click() is a method  // It will Simulate a Mouse Click
+
+
+// Objects inside the DOM can have  1. Properties ---Describe something about the object        2. Methods   ---Methods are the thing that the objects can do
+
+
+1. Get Property   // object.property;
+2. Set Property   // object.property = .....;
+
+
+
+1. Call Method
+
+
+Example:    
+1. button      //Properties   1.innerHTML  2.style  3. firstChild
+2. button      //Properties   1.click()    2.appendChild()     3.setAttribute()
+
+
+
+document.getElementsByTagName("li");       // If there are more than one list(li) items then it will return an Array
+
+document.getElementsByTagName("li")[0].style.color = "purple";
+
+document.getElementsByTagName("li").length // It will give the length of the Array, which means eventually it will give Number of list elements in HTML-document
+
+document.getElementsByTagName("h1");
+document.getElementsByTagName("a");
+document.getElementsByTagName("button");
+
+
+
+
+
+document.getElementsByClassName("Name_of_class");
+
+document.getElementsByClassName("btn");       // Returns array of elements having same class name.
+
+
+// document.getElementsByClassName("btn").style.color = "red";  -- This will not work because even if their is only one element still it will be an array so we have to fetch it using Array index.
+
+
+document.getElementsByClassName("btn")[0].style.color = "red";
+
+
+
+
+document.getElementByID("Id_Name");
+document.getElementByID("title").innerHTML = "Good Bye";
+
+
+
+document.querySelector("h1");           // Selecting by tag name
+document.querySelector("#title");       // Selecting by ID Name
+document.querySelector(".btn");         // Selecting by Class Name
+
+
+
+document.querySelector("li a");         // Hierarchical Selector   -- Here anchor tag is inside the list tag
+
+document.querySelector("#list a");
+
+
+<ul id="list">
+<li class="item"><a href="#">Text</a></li>
+</ul>
+
+document.querySelector("li.item");      // Selects a class of item which is also an li element     // Selecting by combining selectors
+
+
+
+
+
+
+
+document.querySelector("ul#list");      // What will be it's output
+
+
+
+
+
+
+document.querySelector("#list .item");  // When our selector matches more than one element then it only gives the first element satisfying the selector
+
+document.querySelectorAll("#list .item");           // It will give all the elements satisfying the selector   // Returns an Array
+
+document.querySelectorAll("#list .item")[1].style.color = "blue";
+
+
+
+
+
+
+
+
+
+document.querySelector("h1").style.fontSize = "10rem";
+
+https://www.w3schools.com/jsref/dom_obj_style.asp              // HTML DOM Style Object (W3 School Resource)
+
+
+
+
+document.querySelector("h1").style.padding = "30%";
+
+
+
+
+
+
+
+document.querySelector("button").classList;            // It gives the list of classes which the button element have
+
+document.querySelector("button").classList.add("invisible");     // It will add a class named invisible to the list of classes which the button element has
+
+document.querySelector("button").classList.remove("invisible");  // It will remove the class named invisible to the list of classes which the button element has
+
+document.querySelector("button").classList.toggle("invisible");  // add or remove the class name invisible
+
+
+
+
+
+document.getElementByID("h1").innerHTML = "Good Bye";
+
+document.getElementByID("h1").textContent = "Hello";
+
+document.getElementByID("h1").innerHTML = "<em>Good Bye</em>";
+
+
+
+
+
+
+
+
+
+
+
+// Everything that goes inside a tag is an attribute excent the tag name itself
+
+document.querySelector("a").attributes;              // Returns attributes as an Array
+
+
+document.querySelector("a").getAttribute("href");
+
+
+document.querySelector("a").setAttribute("href","https://www.bing.com");
+
+
+
+/**************************************************************************************************************************/
+/**************************************************************************************************************************/
+
+
+
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 13: Advanced Javascript and DOM Manipulation
+
+
+************************************   Adding Event Listeners to a Button    ***********************************************
+
+
+document.querySelector("button").addEventListener("click",handleClick);
+
+function handleClick() {
+	alert("I got clicked");
+}
+
+
+
+
+
+
+// The above function can also be performed using Anonymous Function
+
+document.querySelector("button").addEventListener("click", function() {
+	alert("I got clicked");
+});
+
+
+
+
+
+for(var i=0; i<document.querySelectorAll("button").length; i++)
+{
+		document.querySelector("button"[i].addEventListener("click", function() {
+		alert("I got clicked");
+		});
+}
+
+
+
+
+
+for(var i=0; i<document.querySelectorAll(".drum").length; i++)
+{
+		document.querySelector(".drum")[i].addEventListener("click", function() {
+		alert("I got clicked");
+		});
+}
+
+
+
+
+
+
+
+
+************************************   Higher Order Functions and Passing Functions as Arguments    ***********************************************
+
+$0.addEventListener("click", function() {
+	console.log("I got clicked");
+});
+
+
+$0.addEventListener(input1, respondToClick);
+
+function respondToClick()
+{
+	console.log("I got clicked");
+}
+
+
+
+
+
+
+
+function add(num1, num2) {
+	return num1 + num2;
+}
+
+function multiply(num1, num2) {
+	return num1 * num2;
+}
+
+function calculator(num1, num2, operator) {
+	return operator(num1,num2);
+}
+
+
+// eg. calculator(3,4,multiply);  -- operator -> multiply
+// eg. calculator(1,5,add);  -- operator -> add
+
+
+// Chrome developer tool
+// debugger;
+
+
+// Higher Order Functions      
+// Functions that can take other functions that can take other function as inputs.
+
+
+
+
+
+
+
+
+
+************************************   How to Play Sounds on a Website    ***********************************************
+
+
+var audio = new Audio('audio_file.mp3');
+audio.play();
+
+
+
+
+
+
+
+
+
+for(var i=0; i<document.querySelectorAll(".drum").length; i++)
+{
+		document.querySelector(".drum")[i].addEventListener("click", function() {
+
+				var audio = new Audio("sounds/tom-1.mp3");
+				audio.play();
+
+		});
+}
+
+
+
+
+
+
+
+
+
+background-image: url("images/tom1.png");
+
+
+
+
+
+
+
+for(var i=0; i<document.querySelectorAll(".drum").length; i++)
+{
+		document.querySelector(".drum")[i].addEventListener("click", function() {
+
+				this.style.color = "white";
+
+				this.innerHTML.style.fontSize = "10rem";
+
+		});
+}
+
+
+
+
+
+
+
+
+
+for(var i=0; i<document.querySelectorAll(".drum").length; i++)
+{
+		document.querySelector(".drum")[i].addEventListener("click", function() {
+
+				switch(this.innerHTML)
+				{
+					case "w":
+						var tom1 = new Audio("URL");
+						tom1.play();
+						break;
+
+					default:
+						console.log(this.innerHTML);
+				}
+
+		});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   A Deeper Understanding of Javascript Objects    ***********************************************
+
+
+
+var bellBoy1 = {
+
+	name: "Timmy",
+	age: 19,
+	hasWorkPermit: true,
+	languages: ["French","English"]
+}
+
+
+alert("Hello, my name is " + bellBoy1.name);
+
+
+
+
+
+
+
+
+
+
+
+
+----------- Constructor Function ----------------          // Constructor Function names are not camelCased
+
+function BellBoy (name, age, hasWorkPermit, languages) {
+
+	this.name = name;
+	this.age = age;
+	this.hasWorkPermit = hasWorkPermit;
+	this.languages = languages;
+}
+
+
+var bellBoy1 = new BellBoy("Timmy", 19, true, ["French", "English"]);
+
+
+
+
+
+function BellBoy (boyName, boyAge, hasWorkPermit, knownLanguages) {
+
+	this.name = boyName;
+	this.age = boyAge;
+	this.hasWorkPermit = hasWorkPermit;
+	this.languages = knownLanguages;
+}
+
+
+var bellBoy2 = new BellBoy("Timmy", 19, true, ["French", "English"]);
+
+bellBoy2.name = "Jimmy";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Objects, their Methods and the Dot Notation    ***********************************************
+
+
+
+var bellBoy1 = {
+
+	name: "Timmy",
+	age: 19,
+	hasWorkPermit: true,
+	languages: ["French","English"],
+	moveSuitcase: function() {
+		alert("MAy I take your suitcase?");
+		pickUpSuitcase();
+		move();
+	}
+}
+
+bellBoy1.moveSuitcase();         // This is a Method Call
+
+// When we use a property or call a method we use the dot Notation.
+
+// Only difference between a Property and Method Call is that we use parenthesis "()" in case of Method Call
+
+
+
+----------- Constructor Function ----------------          // Constructor Function names are not camelCased
+
+function BellBoy (name, age, hasWorkPermit, languages) {
+
+	this.name = name;
+	this.age = age;
+	this.hasWorkPermit = hasWorkPermit;
+	this.languages = languages;
+	this.moveSuitcase = function() {
+		alert("MAy I take your suitcase?");
+		pickUpSuitcase();
+		move();
+	}
+}
+
+
+
+
+function Audio(fileLocation) {
+	this.fileLocation = fileLocation;
+	this.play = function() {
+		//Tap into the audio hardware
+		//Check if the file at fileLocation exists
+		//Check if the file at fileLocation is a sound file
+		//Play the file at fileLocation 
+	}
+}
+
+
+
+
+
+
+************************************   Using Keyboard Event Listeners to check for key Presses    ***********************************************
+
+
+document.addEventListener("keypress", function(evnt) {
+
+	console.log(evnt);
+
+});
+
+
+
+document.addEventListener("keypress", function(event) {
+
+	console.log(event.key);
+
+});
+
+
+
+
+
+
+
+************************************   Understanding Callbacks and How to Respond to Events    ***********************************************
+
+// Callback Function
+
+
+
+
+************************************   Adding Animation to Websites    ***********************************************
+
+
+<style>
+	.pressed {
+		box-shadow: 0 3px 4px 0 #DBEDF3;
+		opacity: 0.5;
+	}
+</style>
+
+
+// Timeout function in Javascript
+
+
+
+function buttonAnimation(currentKey) {
+
+	var activeButton = document.querySelector("." + currentKey);       // Here we are concatanating dot with currentKey to select using Class
+
+	activeButton.classList.add("pressed");
+
+	setTimeout(function() {
+		activeButton.classList.remove("pressed");
+	}, 100);                                                    // Second Parameter is the amount of delay in milliseconds.
+
+}
+
+
+
+
+
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 14: jQuery
+
+
+// Popular JavaScript Framework
+
+
+
+************************************   What is jQuery    ***********************************************
+
+// The most popular JavaScript Library
+
+
+document.querySelector("h1");              // JavaScript Selector
+
+
+jQuery("h1");
+
+$("h1");
+
+
+
+
+
+
+************************************   How to Incorporate jQuery into Websites    ***********************************************
+
+
+
+https://jquery.com/
+
+
+// Most popular jQuery CDN is Google's CDN 
+
+https://developers.google.com/speed/libraries#jquery
+
+
+
+
+$("h1").css("color","red");
+
+
+// jQuery script tag is placed above JavaScript Script Source in the html file   
+
+
+
+
+
+
+// To check whether if our jQuery library is ready
+
+$(document).ready(function() {
+	// jQuery Code goes here.
+
+	$("h1").css("color","red");
+});
+
+
+
+
+
+
+
+
+
+
+************************************   Selecting Elements with jQuery    ***********************************************
+
+
+$("h1");
+
+
+$("h1.title");     // Selects h1 tag which has a class of title
+
+
+$("h1.className");
+
+
+
+$("#header h1");  // Selects h1 tag nested inside a div(for eg.) with an ID of header
+ 
+
+
+$("#ID_Name h1");
+
+
+
+
+// document.querySelectorAll("button");
+
+
+$("button"); // There is no difference between selecting ONE or selecting MANY in jQuery
+
+
+
+
+
+
+
+
+
+************************************   Manipulating Styles with jQuery    ***********************************************
+
+
+// We can manipulate a CSS Style of a selected element by using .css Method from jQuery
+
+
+$("h1").css("color","green");            // Sets the color property
+
+
+
+$("h1").css("color");                   // Gives details of color property
+
+
+
+console.log($("h1").css("color"));
+
+
+console.log($("h1").css("font-size"));
+
+
+
+
+
+$("h1").css("font-size","5rem");
+
+
+
+$("h1").addClass("big-title");
+
+
+$("h1").addClass("class_name");
+
+
+
+$("h1").removeClass("big-title");
+
+
+$("h1").removeClass("class_name");
+
+
+
+// To add or remove multiple(more than One) classes 
+
+
+$("h1").addClass("big-title margin-50");
+
+$("h1").addClass("class_name1 class_name2");
+
+
+
+// To check if a element has a particular class applied
+
+$("h1").hasClass("big-title")                // Gives a true or false value // Returns Boolean
+
+$("h1").hasClass("class_name")
+
+
+
+
+
+
+
+
+
+
+************************************   Manipulating Text with jQuery    ***********************************************
+
+$("h1").text("Bye");     // It will make the h1 text to Bye
+
+
+$("button").text("Don't Click Me");                      // It will change all the button element Text.
+
+
+
+$("button").html("<em>Hey</em>");
+
+
+
+
+
+
+
+
+
+************************************   Manipulating Attributes with jQuery    ***********************************************
+
+
+<img src="drum.png" alt="">                    // src and alt are attributes of img tag
+<a href="#"></a>							   // href is a attributes of anchor tag
+
+
+
+$("img").attr("src");                          // Gets the value of Attribute
+
+console.log($("img").attr("src"));
+
+
+
+$("a").attr("href","https://google.com");      // Sets the value of Attribute
+
+
+
+// A class is also an html attribute
+$("h1").attr("class");                        // Gives all the classes applied to h1 tag.
+
+
+
+
+
+
+
+************************************   Adding Event Listeners with jQuery    ***********************************************
+
+
+$("h1").click(function() {
+	$("h1").css("color","purple");
+});
+
+
+
+
+
+
+// Adding Event Listener to all buttons in one go....
+
+$("button").click(function() {
+	$("h1").css("color","purple");
+});
+
+
+
+
+
+
+$("input").keypress(function(event) {
+	console.log(event.key);
+});
+
+
+
+// Adding Event Listener to whole body
+$("body").keypress(function(event) {
+	console.log(event.key);
+});
+
+
+
+
+// Adding Event Listener to whole document page
+$(document).keypress(function(event) {
+	console.log(event.key);
+});
+
+
+
+
+
+
+
+
+$("h1").on("mouseover", function() {
+	$("h1").css("color","purple");
+});
+
+
+
+$("h1").on("click", function() {
+	$("h1").css("color","purple");
+});
+
+
+
+
+
+
+
+
+
+************************************   Adding and Removing Elements with jQuery    ***********************************************
+
+
+$("h1").before("<button>Button_Name</button>");                     // <button>Button_Name</button><h1>"Hello"</h1>
+
+
+$("h1").after("<button>Button_Name</button>");                      // <h1>"Hello"</h1><button>Button_Name</button>
+
+
+
+$("h1").prepend("<button>Button_Name</button>");                    // <h1><button>Button_Name</button>"Hello"</h1>                 
+
+
+
+$("h1").append("<button>Button_Name</button>");                      // <h1>"Hello"<button>Button_Name</button></h1>
+
+
+
+
+
+
+
+// To remove an element
+
+$("button").remove();
+
+
+
+
+
+
+
+
+
+
+
+************************************   Website Animations with jQuery    ***********************************************
+
+
+
+$("button").on("click", function() {
+	$("h1").hide();
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").show();
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").toggle();
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").fadeOut();
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").fadeIn();
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").fadeToggle();
+});
+
+
+
+
+
+$("button").on("click", function() {
+	$("h1").slideUp();
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").slideDown();
+});
+
+
+
+
+
+
+$("button").on("click", function() {
+	$("h1").slideToggle();
+});
+
+
+
+
+// Only numeric values are allowed inside the properties of animate() method
+
+$("button").on("click", function() {
+	$("h1").animate({opacity: 0.5}); 
+});
+
+
+
+$("button").on("click", function() {
+	$("h1").animate({margin: 20}); 
+});
+
+
+
+
+$("button").on("click", function() {
+	$("h1").animate({margin: "10%"}); 
+});
+
+
+
+
+
+
+$("button").on("click", function() {
+	$("h1").slideUp().slideDown().animate({opacity: 0.5}); 
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################################################################  BACKEND WEB-DEVELOPMENT  ###########################################################################################
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 17: Backend Web Development 
+
+
+
+
+
+
+
+************************************   Backend Web Development Explained    ***********************************************
+
+
+
+
+Full Stack = Front-End + Back-End
+
+
+Node.js runs on JavaScript
+
+
+We will use Express Framework later in the course.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 18: Node.js 
+
+
+
+
+************************************   The Power of Command Line and how to use Node    ***********************************************
+
+
+// To print working directory
+$ pwd
+
+
+// To change directory
+$ cd "directory_name"
+
+
+
+// To go back to previous directory
+$ cd ..
+
+
+
+// To make a new directory
+$ mkdir "directory_name"
+
+
+
+// To create a new file
+$ touch "file_name_with_extension"
+
+
+
+
+// To get/show all the files/folders
+$ ls
+
+
+
+
+mkdir intro-to-node
+cd intro-to-node
+touch index.js
+
+
+node index.js 		// To run the index.js file in terminal using node
+
+
+
+
+
+
+
+R - Read
+E - Evaluation
+P - Print
+L - Loop
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   The Node REPL (Read Evaluation Print Loops)    ***********************************************
+
+REPL - Allows us to execute codes in byte-sized chunks.
+
+
+
+// To access Node REPL in command line
+$ node
+
+
+
+
+// To exit the Node REPL
+1. $ .exit
+2. $ Control+C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   How to Use the Native Node Modules    ***********************************************
+
+Website:  nodejs.org/api/
+
+
+
+
+
+const fileSystem = require("fs");
+
+// fs.copyFileSync(src,dest[,flags])
+
+fileSystem.copyFileSync("file1.txt","file2.txt");
+
+
+// To run the .js file using node command
+$ node index.js
+
+
+
+
+
+
+
+
+
+
+
+*******************************************   The NPM Package Manager and Installing External Node Modules    ***********************************************
+
+
+-- Website: npmjs.com
+
+NPM - Node Package Manager
+
+
+
+
+// To initialize the NPM first change your directory where you want to initialize NPM
+
+$ npm init          // At the end of this command it will create a file named "package.json"
+
+
+
+// Some Example to install External NPM Package
+
+$ npm install superheroes
+
+----------------------------------------------------------------------------------------------------------
+
+var supHero = require("superheroes");
+
+var mySuperHeroName = supHero.random();
+
+console.log(mySuperHeroName);
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+json is a file format that is used to organize data.
+
+
+
+
+
+
+express.js is a Node Framework
+
+
+
+
+
+
+
+
+
+
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 19: Express.js with Node.js
+
+
+
+
+
+************************************   What is Express    ***********************************************
+
+
+Express is a Node Framework
+
+jQuery --> Javascript
+
+Express.js --> Node.js
+
+
+
+
+
+
+************************************   Creating Our First Server with Express    ***********************************************
+
+
+$ mkdir my-express-server
+$ cd my-express-server
+$ touch server.js
+$ npm init                   // start point -- server.js (Home-Page)
+
+
+
+
+// To open a project inside Atom.app 
+1. change your working directory to the Project Folder
+
+2. $ atom .
+
+
+
+
+// To install Express
+Method 1.   npm install express --save
+
+Method 2.   npm install express                    // --save flag is not required in node_v5 and above.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Method to require express
+
+const express = require("express");
+
+const app = express();           // This is simply a function that represents the Express Module and we bind that to the word "app".
+
+// app.listen(3000);
+
+app.listen(3000,function() {
+	console.log("Server started on port 3000");
+});
+
+
+// localhost: 3000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Handling Requests and Responses: the GET Request    ***********************************************
+
+
+
+
+// A Port is basically just a channell that we have tuned our server to.
+
+const express = require("express");
+
+const app = express();  
+
+
+// app.get() 
+// This is a method that's provided by Express that allows us to specify, What should happen
+// when a browser gets in touch with our server and makes a "get" request.
+// The first parameter it takes is the location of the get request
+
+
+app.get("/",function(request,response) {
+	console.log(request);
+});
+
+
+app.listen(3000,function() {
+	console.log("Server started on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const express = require("express");
+
+const app = express();  
+
+
+app.get("/",function(req,res) {
+	// res.send("Hello World!");
+	res.send("<h1>Hello World!</h1>");
+});
+
+
+app.listen(3000,function() {
+	console.log("Server started on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+
+************************************   Nodemon Installation    ***********************************************
+
+
+Method 1. npm install -g nodemon
+
+Method 2. sudo npm install -g nodemon
+
+
+// Location of Installation doesn't matter
+// Once installed it will be available across all projects.
+// So we don't have to install it for each project individually.
+
+$ nodemon server.js 			// command to run JavaScript Server file using "nodemon"
+
+
+
+
+
+
+
+************************************   Understanding and Working with Routes    ***********************************************
+
+
+
+const express = require("express");
+
+const app = express();  
+
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+	res.send("<h1>Hello World!</h1>");
+});
+
+
+
+// Setup for "contact" route
+app.get("/contact",function() {
+	res.send("Contact me at: abhishek@gmail.com");
+});
+
+
+
+app.listen(3000,function() {
+	console.log("Server started on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+************************************   Calculator Setup: Challenge Solution    ***********************************************
+
+
+
+/****************************************
+$ mkdir Calculator
+$ cd Calculator
+$ touch calculator.js
+$ npm init
+
+// Open the Project Folder
+
+$ npm install express
+
+$ nodemon calculator.js
+
+
+****************************************/
+
+
+const express = require("express");
+
+const app = express();  
+
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+	res.send("<h1>Hello World!</h1>");
+});
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+
+
+
+************************************   Responding to Requests with HTML Files    ***********************************************
+// Bookmark this section (important Topic)
+
+
+
+/****************************************
+$ cd Calculator
+$ touch index.html
+****************************************/
+
+
+/****************************************
+
+// In index.html file
+
+<h1>Calculator</h1>
+<form action="index.html" method="post">
+<input type="text" name="num1" placeholder="First Number">
+<input type="text" name="num2" placeholder="Second Number">
+<button type="submit" name="submit">Calculate</button>
+</form>
+****************************************/
+
+
+
+
+
+
+
+
+const express = require("express");
+const app = express();  
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+	res.sendFile("index.html");
+});
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+
+const express = require("express");
+const app = express();  
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+
+	// console.log(__dirname);
+
+	res.sendFile(__dirname + "/index.html");
+});
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Processing Post Requests with Body Parser    ***********************************************
+
+/****************************************
+
+// In index.html file
+
+<h1>Calculator</h1>
+<form action="/" method="post">                             // In "action" attribute we have to give a path where we want to process the form data.
+<input type="text" name="num1" placeholder="First Number">
+<input type="text" name="num2" placeholder="Second Number">
+<button type="submit" name="submit">Calculate</button>
+</form>
+****************************************/
+
+
+
+
+
+
+
+const express = require("express");
+const app = express();  
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+
+	// console.log(__dirname);
+
+	res.sendFile(__dirname + "/index.html");
+});
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+
+
+
+
+//Status Code:  404 --Not Found
+
+
+
+
+// HTTP return codes
+1**		--Hold on
+2**		--Here you go
+3**		--Go away
+4**		--You fucked up (user/client)
+5**		--I fucked up (developer)
+
+
+
+
+
+
+
+
+
+
+
+const express = require("express");
+const app = express();  
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+
+	// console.log(__dirname);
+
+	res.sendFile(__dirname + "/index.html");
+});
+
+app.post("/",function(req,res) {
+	res.send("Thanks for posting that!");
+})
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+/****************************************************
+
+$ npm install body-parser
+
+****************************************************/
+
+
+
+
+
+
+
+
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();  
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+
+	// console.log(__dirname);
+
+	res.sendFile(__dirname + "/index.html");
+});
+
+app.post("/",function(req,res) {
+	// console.log(req.body);
+	// console.log(req.body.num1);
+
+	// var Number1 = req.body.num1;
+	// var Number2 = req.body.num2;
+
+	var Number1 = Number(req.body.num1);			// Typecasting
+	var Number2 = Number(req.body.num2);			// Typecasting
+
+	var result = Number1 + Number2;
+
+	res.send("The result of the calculation is: " + result);
+})
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Solution to BMI Routing Challenge    ***********************************************
+
+
+
+
+
+/****************************************
+$ cd Calculator
+$ touch bmiCalculator.html
+****************************************/
+
+
+
+/****************************************
+<body>
+	<h1>BMI Calculator</h1>
+	<form action="bmicalculator" method="post">
+		<input type="text" name="weight" placeholder="Weight">
+		<input type="text" name="height" placeholder="Height">
+		<button type="submit">Calculate BMI</button>
+	</form>
+</body>
+****************************************/
+
+
+
+
+
+
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();  
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+// Setup for "home" route
+app.get("/",function(req,res) {
+
+	// console.log(__dirname);
+
+	res.sendFile(__dirname + "/index.html");
+});
+
+app.post("/",function(req,res) {
+	// console.log(req.body);
+	// console.log(req.body.num1);
+
+	// var Number1 = req.body.num1;
+	// var Number2 = req.body.num2;
+
+	var Number1 = Number(req.body.num1);			// Typecasting
+	var Number2 = Number(req.body.num2);			// Typecasting
+
+	var result = Number1 + Number2;
+
+	res.send("The result of the calculation is: " + result);
+});
+
+
+app.get("/bmicalculator",function(req,res) {
+	res.sendFile(__dirname + "/bmiCalculator.html");
+});
+
+app.post("/bmicalculator",function(req,res) {
+	var wt = parseFloat(req.body.weight);			// Typecasting to Float Variable
+	var ht = parseFloat(req.body.height);			// Typecasting to Float Variable
+
+	var bmi = wt/(ht*ht);
+
+	res.send("Your BMI is: " + bmi);
+});
+
+
+// Method To "Spin-Up" our server
+app.listen(3000,function() {
+	console.log("Server is running on port 3000");
+});
+
+
+
+
+
+
+
+
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Section 20: APIs - Application Programming Interfaces
+
+
+
+
+
+************************************   Why Do We Need APIs   ***********************************************
+
+
+// openweathermap.org/api
+
+// Facebook API
+
+// UK - Police API
+
+// Financial Modeling Prep API Documentation
+
+// PokeAPI - The RESTful Pokemon API
+
+
+
+
+
+
+
+Definition of APIs
+
+An Application Programming Interface (API) is a
+set of commands, functions, protocols, and objects
+that programmers can use to create software or interact 
+with an external system. 
+
+
+
+
+
+
+
+// APIs to Create Software
+jQuery API
+
+
+
+
+
+
+
+Your Server ------------------ API -------------------->>>>>  Some Other Person/Organization Server
+			------------------ Request ---------------->>>>>
+			<<<<<--------------Response --------------------
+
+
+
+
+
+
+
+
+
+
+************************************   API Endpoints, Paths and Parameters   ***********************************************
+
+
+
+
+------------------- API -----------------------
+1. Endpoint
+2. Paths
+3. Parameters
+4. Authentication
+
+
+
+
+
+
+
+Every API that interacts with an external system, like a server, will have an Endpoint.
+
+
+
+
+
+
+
+// Free Kanye West Quotes REST API
+kanye.rest
+
+
+
+
+
+
+
+
+Usually the Websites that have API tend to have more data. So in addition to Endpoints there is also
+API "Paths" and "Parameters" that you can use in order to narrow down on a specific piece of data,
+you want from an external server.
+
+
+
+
+
+
+// JokeAPI Documentation
+
+
+Many times We need to specify a specific path after the Endpoint.
+
+
+								  --- Path ---
+https://sv443.net/jokeapi/v2/joke/Programming
+--------- Endpoint --------------
+
+
+
+
+
+
+
+In order to allow the APIs to be flexible enough to deal with custom queries,
+Usually APIs allow you to provide parameters.
+Parameters go at the end of the URL, after a (?) mark.
+
+
+------------ Endpoint ----------- {   Path   }
+https://sv443.net/jokeapi/v2/joke/Programming?contains=debugging&type=single
+											 ---------- Parameters ----------
+
+// Key-Value Pair
+
+
+
+
+
+In the Parameters if we have more than One query then,
+the 1st query follows a (?) mark, and every subsequent query
+follows an (&) mark/symbol.
+
+
+
+
+
+
+
+
+Through the use of "Paths" and "Parameters" we are able to narrow down on the data,
+that we get back from the API to the precise thing that we want.
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   API Authentication and Postman   ***********************************************
+
+
+
+// API Keys
+
+Order in which you put the parameters (in a API request) does not matter.
+
+
+
+Postman -- A tool for testing APIs.
+
+
+
+
+
+
+
+************************************   What is JSON   ***********************************************
+
+
+
+JSON -- JavaScript Object Notation
+
+
+
+
+The reason why we use a JSON to pass data around on the Internet is because
+1. It is in a format that can be readable by a human
+2. It can also be easily collapsed down to take up as little space as possible.
+
+
+
+
+
+
+JSON is not the only format that we can receive data from APIs.
+Various APIs provide multiple formats for you to be able to get data from them.
+
+Example: 
+XML -- Extensible Markup Language
+HTML -- Hyper Text Markup Language
+
+But JSON is most favoured because
+1. Much lighter weight
+2. Much easy to turn back to JavaScript Object. 
+
+
+
+
+
+
+JSON Viewer Awesome -- Chrome Extension for prettifying JSON.
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Making GET Requests with the Node HTTPS Module   ***********************************************
+
+
+-- Refer to the Graphix/Figure shown in the starting of Video.
+
+
+
+
+-----------------------------------------------------------------
+
+mkdir Weather_Project
+cd Weather_Project
+touch index.html
+touch app.js
+// touch index.html app.js
+
+npm init
+
+npm i express
+
+// nodemon app.js
+
+-----------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------
+
+1. Make GET request to external server with Node
+2. "5" ways to make HTTP Requests in Node.jsl
+3. https.get(URL[,options][,callback])
+
+
+------------------------------------------------------------------
+
+
+
+
+
+
+
+const Express = require("express");
+const https = require("https");			// We don't have to install it using NPM, It's a native Node Module.
+
+const app = Express();
+
+
+
+// Add app.get for the home route "/"
+// What should happen when the user tries to go to the homepage.
+app.get("/", function(req,res) {
+
+	// URL must be containing https:// @ the beginning
+	const URL = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=wq61515752gsfdf"
+
+	https.get(URL,function(response) {
+		console.log(response);
+	})
+	res.send("Server is up and running.")
+})
+
+
+
+app.listen(3000,function() {
+	console.log("Server is running on port: 3000");
+})
+
+
+
+
+
+
+
+************************************   How to Parse JSON   ***********************************************
+
+
+
+
+----------------------------------------------------------
+
+HTTP response status codes
+1. Informational responses (100 - 199)
+2. Successful responses (200 - 299)
+3. Redirects (300 - 399)
+4. Client errors (400 - 499)		// 401 -- unauthorized HTTP request 		// 404 -- Resource not found
+5. Server errors (500 - 599)
+
+
+// To convert a JSON/JavaScript Object to String:
+const objectName = {
+	name: "Aryan",
+	Emp_ID: 5936
+}
+
+JSON.stringify(objectName)		// Turns a JavaScript object into a string.
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+const Express = require("express");
+const https = require("https");			// We don't have to install it using NPM, It's a native Node Module.
+
+const app = Express();
+
+
+
+// Add app.get for the home route "/"
+// What should happen when the user tries to go to the homepage.
+app.get("/", function(req,res) {
+
+	const URL = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=wq61515752gsfdf"
+
+	https.get(URL,function(response) {
+		console.log(response.statusCode);
+
+		// To get response when we receive some data
+		response.on("data", function(data) {
+
+			// console.log(data);		// Gives data in Hexadecimal Code.
+
+			// To convert the Hexadecimal Code/data into JSON
+			const weatherData = JSON.parse(data)
+			console.log(weatherData);
+
+
+		})
+	})
+	res.send("Server is up and running.")
+
+})
+
+
+
+app.listen(3000,function() {
+	console.log("Server is running on port: 3000");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Express = require("express");
+const https = require("https");	
+
+const app = Express();
+
+app.get("/", function(req,res) {
+
+	const URL = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=wq61515752gsfdf"
+
+	https.get(URL,function(response) {
+		console.log(response.statusCode);
+
+		response.on("data", function(data) {
+			const weatherData = JSON.parse(data)
+			const temperature = weatherData.main.temp
+			console.log(temperature);
+			const weatherDescription = weatherData.weather[0].description
+			console.log(weatherDescription);
+
+
+		})
+	})
+	res.send("Server is up and running.")
+
+})
+
+
+
+app.listen(3000,function() {
+	console.log("Server is running on port: 3000");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Using Express to Render a Website with Live API Data  ***********************************************
+
+
+
+
+
+// We can only have One res.send() in any given app methods.
+
+// But we have multiple res.write();
+
+// http://openweathermap.org/img/wn/10d@2x.png
+
+
+
+
+
+const Express = require("express");
+const https = require("https");	
+
+const app = Express();
+
+app.get("/", function(req,res) {
+
+	const URL = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=wq61515752gsfdf"
+
+	https.get(URL,function(response) {
+		console.log(response.statusCode);
+
+		response.on("data", function(data) {
+			const weatherData = JSON.parse(data)
+			const temperature = weatherData.main.temp
+			const weatherDescription = weatherData.weather[0].description
+			const icon = weatherData.weather[0].icon
+			const imageURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+			// res.send("The temperature in London is " + temp + " degree Celsius.");
+			// res.send("<h1>The temperature in London is " + temp + " degree Celsius.</h1>");
+			res.write("<p>The weather is currently " + weatherDescription + "</p>");
+			res.write("<h1>The temperature in London is " + temp + " degree Celsius.</h1>");
+			res.write("<img src=" + imageURL + ">");
+			res.send();
+
+		})
+	})
+	// res.send("Server is up and running.")		// We have to remove this in order to make our code work otherwise the Application will crash.
+
+})
+
+
+
+app.listen(3000,function() {
+	console.log("Server is running on port: 3000");
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+************************************   Using Body Parser to Parse Post Requests to the Server  ***********************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

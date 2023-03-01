@@ -1,0 +1,5049 @@
+===================================		Section 19: Multithreading 		===================================
+
+
+
+
+
+To achieve Multithreading in Java, there are two ways
+	1. Thread Class	--> the actual mechanism for Multithreading is present inside this class
+	2. Runnable Interface
+
+
+
+
+
+
+If you are writing your own class then say "extends Thread" to achieve Multithreading
+
+If your class is already extending from some other class and still you want to achieve Multithreading then implement "Runnable Interface" because a Java class can extend from a single class only but it can implement any number of Interface.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyThread extends Thread
+{
+	public void run()
+	{
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" Hello");
+			i++;
+		}
+	}
+}
+
+class Test
+{
+	public static void main(String[] args)
+	{
+		MyThread t = new MyThread();
+
+		t.start();
+
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" World");
+			i++;
+		}
+	}
+}
+
+
+Note:
+	Whenever you extend a class from Thread class and you want to achieve Multithreading,
+	then you must "override run method".
+
+
+	"run" is the starting point of thread, just like "main" which is the starting point of the program .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Test extends Thread
+{
+	public void run()
+	{
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" Hello");
+			i++;
+		}
+	}
+
+
+	public static void main(String[] args)
+	{
+		Test t = new Test();
+
+		t.start();
+
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" World");
+			i++;
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Using two classes
+
+
+class My implements Runnable
+{
+	public void run()
+	{
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" Hello");
+			i++;
+		}
+	}
+}
+
+class Test
+{
+	
+	public static void main(String[] args)
+	{
+		My m = new My();
+
+		Thread t = new Thread(m);
+		t.start();
+
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" World");
+			i++;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Using single class
+
+
+class Test implement Runnable
+{
+	
+	public void run()
+	{
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" Hello");
+			i++;
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		Test tst = new Test();
+
+		Thread t = new Thread(tst);
+		t.start();
+
+		int i=1;
+
+		while(true)
+		{
+			System.out.println(i+" World");
+			i++;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+If a Thread has started and terminated, you cann't restart it again.
+You need a new Thread once again.
+
+
+
+
+
+
+
+
+
+
+
+
+States of a Thread
+	1. new
+	2. ready
+	3. running (It can have states like: wait, timed wait, blocked)
+	4. terminated
+
+
+
+
+
+
+
+
+
+
+
+
+Threads are usually in Queue in Java. The queue is called "Ready Queue".
+Ready Queue is maintained by JVM(Schedular is the component of JVM that maintains Ready Queue).
+
+
+
+
+Java supports Thread PRIORITY from 1 to 10.
+10 is the highest priority and 1 is the lowest priority.
+
+
+Thread.MIN_PRIORITY 	= 		1
+Thread.NORM_PRIORITY 	= 		5	(This is the default priority of a Thread)
+Thread.MAX_PRIORITY 	= 		10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Some of the useful Constructors of Thread class:
+	1. Thread()
+	2. Thread(Runnable r)
+	3. Thread(String name)
+	4. Thread(Runnable r, String name)
+	5. Thread(ThreadGroup g, String name)
+
+
+
+
+
+
+Some important getter/setter methods of Thread class
+	-> long getId()			// every thread has some Id, given by JVM
+	-> String getName()
+	-> int getPriority()
+	-> ThreadState getState()
+	-> ThreadGroup getThreadGroup()
+
+
+	-> void setName(String name)
+	-> void setPriority(int p)
+	-> void setDaemon(boolean d)
+
+
+A "Daemon Thread" is a background thread with least priority. It works in the background and has no user-interaction.
+	Example: Garbage Collector which runs in JVM is a Daemon thread.
+
+
+
+
+
+
+
+
+
+Some important Enquiry methods of Thread class
+	-> boolean isAlive()
+	-> boolean isDaemon()
+	-> boolean isInterrupted ()
+
+
+
+A thread can be interrupted by other thread or it can interrupt itself.
+
+
+
+
+
+
+
+
+
+
+
+
+Some important Instance methods of Thread class
+	-> void interrupt()
+	-> void join()
+	-> void join(long millis)
+	-> void run()		// run method will be having the actual functionality of thread, It must be Overrided
+	-> void start()		// start method knows how to run a thread
+
+
+
+
+
+
+
+
+
+
+
+Some important static methods of Thread class
+	-> static int activeCount()
+	-> static Thread currentThread()
+	-> static void yield()
+	-> static void dumpStack()
+
+
+Note: static methods can be called just by using class names
+
+
+
+
+Starvation: Higher priority thread may be running for longer time and lower priority thread may not getting
+			chance. This situation is called as Starvation.
+
+
+
+
+
+
+Deadlock: Deadlock is a situation when two threads are waiting for each other and the waiting never ends. Here both 			  threads cant completes their tasks.
+
+
+Starvation: In Starvation, threads are also waiting for each other. But here waiting time is not infinite after 
+			Some interval of time, waiting thread always gets the resources whatever is required to execute thread
+			run() method.
+
+Source: https://www.geeksforgeeks.org/deadlock-starvation-java/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Example: Demostration of Thread Constructor
+-------------------------------------------------
+
+class MyThread extends Thread
+{
+	public MyThread(String name)
+	{
+		super(name);	// It will call the contructor of parent class i.e., Thread Class
+	}
+}
+
+public class ThreadTest
+{
+	public static void main(String[] args) throws Exception
+	{
+		MyThread t = new MyThread("thread_name");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Synchronization: It is the coordination or understanding in between two entities.
+
+
+Some important terms
+	1. Resource Sharing 	// Multiple threads sharing the same resource
+	2. Critical Section		// section of code which access the shared resource/object
+	3. Mutual Exclusion		// preventing any other Thread to access the same object/resource
+
+
+	4. Locking/Mutex
+	5. Semaphore			// This was supported by UNIX Operating System
+	6. Monitor				// This is used in Java
+
+
+	7. Race condition					// One producer and many consumer
+	8. Inter-Thread Communication		// One producer and One consumer
+
+
+
+
+	  
+
+
+
+
+
+
+
+
+
+
+
+// Code-Snippet without Synchronization
+
+class MyData
+{
+	public void display(String str)
+	{
+		for(int i=0; i<str.length(); i++)
+		{
+			System.out.println(str.charAt(i));
+		}
+	}
+}
+
+
+class MyThread1 extends Thread
+{
+	MyData d;
+
+	MyThread1(MyData dat)
+	{
+		d = dat;
+	}
+
+	public void run()
+	{
+		d.display("Hello World");
+	}
+}
+
+
+class MyThread2 extends Thread
+{
+	MyData data;
+
+	MyThread2(MyData dat)
+	{
+		data = dat;
+	}
+
+	public void run()
+	{
+		data.display("Welcome");
+	}
+}
+
+
+class Test
+{
+	public static void main(String[] args)
+	{
+		MyData d = new MyData();
+
+		MyThread1 t1 = new MyThread1(d);
+
+		MyThread2 t2 = new MyThread2(d);
+
+		t1.start();
+		t2.start();	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Code-Snippet with Synchronization (Method-1)
+
+class MyData
+{
+	public void display(String str)
+	{
+		synchronized(this)
+		{
+			for(int i=0; i<str.length(); i++)
+			{
+				System.out.println(str.charAt(i));
+			}
+		}
+	}
+}
+
+
+class MyThread1 extends Thread
+{
+	MyData d;
+
+	MyThread1(MyData dat)
+	{
+		d = dat;
+	}
+
+	public void run()
+	{
+		d.display("Hello World");
+	}
+}
+
+
+class MyThread2 extends Thread
+{
+	MyData data;
+
+	MyThread2(MyData dat)
+	{
+		data = dat;
+	}
+
+	public void run()
+	{
+		data.display("Welcome");
+	}
+}
+
+
+class Test
+{
+	public static void main(String[] args)
+	{
+		MyData d = new MyData();
+
+		MyThread1 t1 = new MyThread1(d);
+
+		MyThread2 t2 = new MyThread2(d);
+
+		t1.start();
+		t2.start();	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Code-Snippet with Synchronization (Method-2)
+
+class MyData
+{
+	synchronized public void display(String str)
+	{
+		for(int i=0; i<str.length(); i++)
+		{
+			System.out.println(str.charAt(i));
+		}
+	}
+}
+
+
+class MyThread1 extends Thread
+{
+	MyData d;
+
+	MyThread1(MyData dat)
+	{
+		d = dat;
+	}
+
+	public void run()
+	{
+		d.display("Hello World");
+	}
+}
+
+
+class MyThread2 extends Thread
+{
+	MyData data;
+
+	MyThread2(MyData dat)
+	{
+		data = dat;
+	}
+
+	public void run()
+	{
+		data.display("Welcome");
+	}
+}
+
+
+class Test
+{
+	public static void main(String[] args)
+	{
+		MyData d = new MyData();
+
+		MyThread1 t1 = new MyThread1(d);
+
+		MyThread2 t2 = new MyThread2(d);
+
+		t1.start();
+		t2.start();	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Example program for Inter-Thread Communication (Interprocess)
+
+class MyData
+{
+	int value = 0;
+
+	boolean flag = true;		// Initially Producer will be having turn
+
+	synchronized void set(v)
+	{
+		// Loop to avoid race-condition
+
+		while(flag != true)
+		{
+			wait();
+		}
+
+		value = v;
+
+		flag = false;
+
+		notify();
+	}
+
+	synchronized int get()
+	{
+		int x = 0;
+
+		while(flag != false)
+		{
+			wait();
+		}
+
+		x = value;
+
+		flag = true;
+
+		notify();
+
+		return x;
+	}
+}
+
+class Producer extends Thread
+{
+	Mydata d;
+
+	Producer(MyData dat)
+	{
+		d = dat;
+	}
+
+	public void run()
+	{
+		int i = 1;
+
+		while(true)
+		{
+			d.set(i);
+
+			System.out.println("Producer: " + i);
+
+			i++;
+		}
+	}
+}
+
+
+class Consumer extends Thread
+{
+	Mydata d;
+
+	Consumer(MyData dat)
+	{
+		d = dat;
+	}
+
+	public void run()
+	{
+		while(true)
+		{
+			System.out.println("Consumer: " + d.get());
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================	 Section 20: Java.lang Package	===================================
+
+
+
+
+
+
+Object class is the parent class for all the classes in Java.
+
+
+
+
+
+finalize() method of Object class is same as the destructor in C++
+
+
+
+
+
+
+Every object created in Java will have a unique code. Implicitly, compiler will assign some unique code 
+to every Java Object and that is called hashCode.
+
+
+
+
+
+
+
+
+Every class in Java directly or indirectly inherit from Object class.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Wrapper Classes (Present inside java.lang package)
+	1. Character
+	2. Byte
+	3. Short
+	4. Integer
+	5. Long
+	6. Float
+	7. Double
+	8. Boolean
+
+
+
+
+
+
+
+Examples:
+	Integer a = new Integer(10);		// Not suggested
+	Integer b = Integer.valueOf(10)		
+	Integer c = 10;
+
+
+
+	Byte d = 15;
+	Byte e = Byte.valueOf("15");		// Converts the String into Byte type first
+
+	Byte f = Byte.valueOf(15);			// This will give error
+
+	byte bb = 15;
+	Byte g = Byte.valueOf(bb);
+
+
+
+
+
+	Short h = Short.valueOf("123");
+
+
+
+
+	Float i = 12.3;						// This declaration will give error
+
+	Float j = 12.3f;
+	Float k = Float.valueOf("123.5");
+
+	float x = k.floatValue();			// Unboxing: From an Object we are getting a primitive data
+	float y = k;						// Auto-Unboxing: Automatically it will call k.floatValue()
+
+
+
+
+
+	Double l = Double.valueOf(123.456);
+
+
+
+
+
+
+
+	Character m = Character.valueOf("A");	// This will give error because of double quotes("")
+
+	Character n = Character.valueOf('A');
+
+
+
+
+
+
+
+
+	Boolean o = Boolean.valueOf("true");
+
+
+
+
+
+
+
+
+
+
+	int p = 10;
+	Integer q = Integer.valueOf(p);			// Boxing 		// Wrapping
+	Integer r = p;							// Auto-Boxing			
+
+
+
+
+
+
+	System.out.println(Integer.parseInt("123"));	// Converts the String into Integer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// String vs String Buffer vs String Builder
+
+-> String class objects are immutable, i.e., we can't modify the same object
+	Since it is immutable it is faster.
+
+
+
+
+-> String Buffer is similar to String but it is mutable.
+	
+	length <= capacity
+
+	Initially String Buffer will have a capacity of size 16 by default.
+
+	String Buffer is Thread-safe i.e., more than two Threads can not utilize the same String Buffer
+	object simultaneously.
+
+	Since it is Thread-safe i.e., synchronized therefore it is slower
+
+
+
+
+
+
+
+
+-> String Builder is same as String Buffer. Only difference is that It is not Thread-safe.
+	
+	Since it is not Thread-safe, it is faster that String Buffer.
+
+	So it will allow more that one thread to enter inside a method.
+
+
+
+
+
+
+
+
+
+
+-> Math class and StrictMath class
+	Usually we use only Math class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MathDemo
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Absolute: ");
+		System.out.println(Math.abs(-123));							// O/P: 123
+
+		System.out.println("Absolute: ");
+		System.out.println(StrictMath.abs(-123));					// O/P: 123
+
+
+
+		System.out.println("Cube Root: ");
+		System.out.println(Math.cbrt(27));							// O/P: 3.0
+
+
+		System.out.println("Exact Decrement: ");
+		System.out.println(Math.decrementExact(7));					// O/P: 6
+			// Prevent a number from under flow
+			// If the decrement is not possible then it will 
+				throw a exception
+
+
+
+
+
+		System.out.println("Exponent value in Floating Point Rep. : ");
+		System.out.println(Math.getExponent(12.3456));							// O/P: 3
+
+
+		System.out.println("Convert to Radians: ");
+		System.out.println(Math.toRadians(90));
+		
+
+
+
+
+		System.out.println("Round Division: ");
+		System.out.println(Math.floorDiv(50,9));						// O/P: 5
+
+
+
+
+
+
+		System.out.println("e power x: ");
+		System.out.println(Math.exp(1));					// O/P: 2.718281828459045 		//e^1 
+
+
+
+		System.out.println("e power x: ");
+		System.out.println(StrictMath.exp(1));				// O/P: 2.7182818284590455 		//e^1 
+
+
+
+
+		System.out.println("Log base 10: ");
+		System.out.println(Math.log10(100));				// O/P: 2
+
+
+
+		System.out.println("Maximum: ");
+		System.out.println(Math.max(100,50));				// O/P: 100
+
+	} 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Enum: enumerated data type
+	
+	-> We can define our own data type
+
+	-> Just like class is used for defining user defined data type, enum is also used for user defined data type
+
+
+
+
+
+Whenever we write any enum, it will be automatically inheriting from the class "Enum"
+
+
+
+
+enum Dept
+{
+	CS, IT, CIVIL, ECE 				// every identifier is final as well as static
+}
+
+public class EnumDemo
+{
+	public static void main(String[] args)
+	{
+		Dept d = Dept.CIVIL;
+
+		Dept list[] = Dept.values();
+
+		for(Dept x: list)
+		{
+			System.out.println(x);
+		}
+
+
+		switch(d)
+		{
+			case CS:
+				System.out.println("Head: John \nBlock: A");
+				break;
+
+			case IT:
+				System.out.println("Head: Smith \nBlock: B");
+				break;
+
+			case CIVIL:
+				System.out.println("Head: Srinivas \nBlock: C");
+				break;
+
+			case ECE:
+				System.out.println("Head: Dave \nBlock: D");
+				break;
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================		Section 21: Annotations and JavaDoc 	===================================
+
+
+
+
+
+
+ 
+https://github.com/mohammedabdulbari/Java-SE/blob/master/Book.java
+
+
+
+
+https://docs.oracle.com/en/java/javase/13/docs/api/index.html
+
+
+
+
+https://github.com/mohammedabdulbari/Java-SE/blob/master/AnnoDemo1.java
+
+
+
+
+
+
+
+
+
+
+
+
+
+							ANNOTATIONS AND JAVA DOC
+
+
+									JAVA DOC
+
+
+➢ There	is	a	tool	called	java	doc	that	will	help	to	prepare	the	
+documentation	for	the	classes.	
+
+
+➢ Java	provides	some	tags	for	java	documentation	those	are	known	as	
+java	doc	tool.	
+
+
+➢ The	tags	for	class	or	a	package	are:	
+	• @author:	
+	Adds	the	author	name	of	the	class.	
+
+
+	• @version:	
+	Adds	a	version	subheading	with	speci>ied	version	text	to	
+	generated	docs.	
+
+
+	• @since:	
+	To	mention	when	was	the	version	written	or	how	long	it	may	
+	be	valid.	
+
+
+	• @see:	
+	Adds	a	see	also	heading	with	a	link	for	example	to	see	the	
+	references	to	the	given	link.
+
+
+➢ The	tags	for	methods	are:	
+	• @param:	
+	To	mention	the	parameters	taken	by	particular	product.	
+
+
+	• @return:	
+	To	mention	the	value	returned	by	the	method.	
+
+
+	• @throws/@exception:	
+	To	know	the	exception	thrown	by	the	method.	
+
+
+	• @deprecated:	
+	To	mention	whether	the	method	is	deprecated	or	not	that	is	the	
+	method	may	not	be	used	longer.	
+
+
+	• @code:	
+	Displays	text	in	code	font	without	interpreting	the	text	as	
+	HTML	mark-up	or	nested	java	doc	tags.	
+
+
+➢ The	other	tags	available	are:	
+	• @link:	
+	To	provide	the	link	for	particular	resource.	
+
+
+	• @value:	
+	To	provide	value	for	any	static	variable	or	a	member.	
+
+
+	• @serial:	
+	To	mention	the	serial	id	for	serialization.	
+
+
+
+
+
+
+
+
+
+
+							BUILT-IN ANNOTATIONS IN JAVA
+
+
+
+➢ Annotations	are	used	for	giving	attributes	or	de>ining	the	attributes	
+for	a	class	or	a	interface	or	methods.	
+
+
+➢ Annotations	are	useful	for	giving	meta	data	to	class	or	interface	or	a	
+method.	
+
+
+➢ Built-in	annotations	can	be	categorised	into	two:	
+
+
+➔ Applied	to	code:	
+		These	are	set	of	annotations	applied	upon	the	code.so,	this	type	
+		of	annotation	gives	the	hint	to	the	compiler	so	that	it	avoids	
+		showing	errors	and	warnings.	
+		The	in-built	annotations	applied	to	the	code	are:	
+
+
+		• @Override:	
+		It	informs	the	compiler	that	the	element	is	meant	to	over	ride	
+		an	element	declared	in	a	superclass.	
+
+
+		• @deprecated:	
+		It	indicates	that	the	marked	element	is	deprecated	and	should	
+		no	longer	be	used.	
+
+
+		• @FunctionalInterface:	
+		Indicates	that	the	type	declaration	is	intended	to	be	a	
+		functional	interface	
+
+
+		• @SuppressWarnings:	
+		It	tells	the	compiler	to	suppress	speci>ic	warnings	that	it	would	
+		otherwise	generate.	
+
+
+		• @SafeVarArgs:
+		When	it	is	applied	to	a	method	or	a	constructor,	it	asserts	that	
+		the	code	does	not	perform	potentially	unsafe	operations	on	
+		its	varargs	parameter.
+
+
+➔ Applied	to	other	annotations:	
+		These	are	set	of	annotations	applied	upon	user-de>ined	
+		annotation.	
+
+
+		The	different	user-de>ined	annotations	are:	
+
+		• @Retention:	
+		It	speci>ies	how	the	marked	annotations	are	stored.
+
+
+		• @Documented:	
+		It	indicates	that	whenever	the	speci>ied	annotation	is	used	
+		those	elements	should	be	documented	using	java	doc	tool
+
+
+		• @Target:	
+		It	marks	another	annotation	to	restrict	what	kind	of	java	
+		element	the	java	elements	can	be	applied	to.	
+
+
+		• @Inherited:	
+		It	indicates	that	the	annotation	type	can	be	inherited	from	
+		super	class.	
+
+
+		• @Repeatable:	
+		It	indicates	that	the	marked	annotation	can	be	applied	more	
+		than	once	to	the	same	declaration	or	type	used.	
+
+
+
+➢ Meta	data:	
+	Metadata	is	"data	that	provides	information	about	other	data".In	
+	other	words,	it	is	"data	about	data."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// How to create documentation for our own class in Java
+
+
+
+/** @author Aryan Raj
+*	@version 2.0
+	@since 2015
+**/
+
+package javadocdemo;
+
+
+
+/**
+* 
+*	@author Aryan Raj
+*	
+*	Class for Library Book
+*/
+
+
+public class Book
+{
+	
+	/**
+	*	@value 10 default value
+	*/
+	static int val=10;
+
+
+
+	/**
+	 *	Parametrized Constructor
+	 *	@param s Book Name
+	 */
+
+	public Book(String s)
+	{
+
+	}
+
+
+	/**
+	 *	Issue a Book to a Student	
+	 *	@param roll roll number of a Student
+	 *	@throws Exception if book is not available, throws Exception
+	 */
+
+	public void issue(int roll) throws Exception
+	{
+
+	}
+
+
+	/**
+	 *	Check if book is available
+	 *	@param str Book Name
+	 *	@return if book is available returns true else false 
+	 */
+
+	public boolean available(String str)
+	{
+
+		return true;
+	}
+
+
+
+	/**
+	 *	Get Book Name
+	 *	@param id book id
+	 *	@return returns book name
+	 */
+
+	public String getName(int id)
+	{
+		return "";		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Annotations are used for giving attributes or defining the attributes of a class or 
+	interface or methods.
+
+
+
+
+
+
+
+
+-> Annotations are useful for giving meta-data to class or interface or so on...
+
+
+
+
+
+
+
+-> meta-data: data about data
+
+
+
+
+
+
+
+
+
+-> Annotation
+	1. Applied to Code
+	2. Applied to other Annotations
+
+
+
+
+
+
+
+
+-> In-built Annotations
+	1. @Override
+	2. @Deprecated
+	3. @FunctionalInterface			// If an interface is having single method, then it's called Functional Interface
+
+	4. @SuppressWarnings			// Examples: @SuppressWarnings("deprecated"), @SuppressWarnings("unchecked")
+
+	5. @SafeVarargs					// Example:
+
+											class My<T>
+											{
+												@SafeVarArgs 				// To apply this Annotation the method must 
+																				be private or final
+												private void show(T...arg)
+												{
+													for(T x:arg)
+													{
+														System.out.println(x);
+													}
+												}
+											}
+
+											public class AnnotationDemo
+											{
+												public static void main(String[] args)
+												{
+
+												}
+											}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// How to write User-Defined Annotation
+
+-> Method of defining an Annotation is similar to defining an Interface
+
+
+
+-> import  java.lang.annotation.Annotation;
+
+
+
+
+-> Annotations can be written for classes, methods, parameters, instance variable, local variables etc...
+
+
+
+
+
+
+
+-> Elements of Annotation does not take any parameter and they will not even have throws clause
+
+
+
+
+
+
+
+
+
+
+
+import java.lang.annotation.Annotation;
+
+@interface MyAnno
+{
+	// intentionally left blank 
+}
+
+@MyAnno
+public class AnnoDemo
+{
+	@MyAnno
+	int data;
+
+	@MyAnno
+	public static void main(@MyAnno String[] args)
+	{
+		@MyAnno
+		int x;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.lang.annotation.Annotation;
+
+@interface MyAnno
+{
+	String name();			// these are called elements
+	String project();
+	String date();
+	String version()  default "13";			// when default is used then it is not necessary to write in Annotation
+}
+
+@MyAnno(name="Aryan", project="Microsoft", date="01/04/2019", version="13")
+public class AnnoDemo
+{
+	int data;
+
+	public static void main(String[] args)
+	{
+		int x;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================		Section 23: Java IO Streams 	===================================
+
+
+
+
+
+
+IO : Input/Output
+
+
+
+
+
+
+Stream : Stream is flow of data.
+
+
+
+
+
+
+
+Buffer : Buffer is memory object, which is used for holding the data for sometime to bring in the 
+			compatibility between the devices. 
+
+
+
+
+
+
+
+
+-> Data is sent in the form of bytes. That is byte by byte not as a big chunk.
+
+-> Data flows in the form of bytes or you can say characters also.
+
+
+
+
+
+
+-> Java has lots of built in classes for streams.
+
+
+
+
+
+
+
+
+-> Broadly, Java provides two types of stream classes
+		1. Byte Stream (1 byte at a time)
+				-> Input Stream: Whatever is coming to the Java Program
+				-> Output Stream: Whatever is going out of the Java Program
+
+		2. Character Stream (2 byte at a time, since in Java character takes 2 bytes)
+				-> Reader: Similar to Input Stream 
+				-> Writer: Similar to Output Stream
+
+
+
+
+
+
+
+
+-> Methods of Class "InputStream"
+
+		-> int read()		// read just one byte from the resource
+							// once you read a byte from the resource then it leaves the resource and 
+								comes into the program 
+							// If there is nothing to read then it will return -1
+
+		-> int read(byte[] b)
+
+		-> int read(byte[] b, int off, int len)
+
+
+
+
+
+		-> int available()	// It returns the number of bytes available in the resource
+
+		-> long skip(long n)	// We can skip the desired number of bytes and those bytes are removed from the resource
+
+
+
+
+
+		-> void mark(int limit)		// You can put a mark on a byte in the resources
+									// "limit" specifies, Upto how many bytes that mark should be valid
+
+		-> void reset()			// It brings us back to the marked byte
+
+		-> boolean markSupported()		// Tells whether a stream supports mark or not
+										// Every input stream doesn't support "mark"
+										// It is possible to mark only if a stream is buffered stream i.e., 
+											mark is supported only if the stream is buffered
+
+
+
+		-> void close()			// After using a Resource or Stream we should close the Stream.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Methods of Class "OutputStream"
+
+		-> void write(int b)	// It will write just one byte
+
+		-> void write(byte[] b)
+
+		-> void write(byte[] b, int off, int len)
+
+		-> void flush()			// This will work only on buffered output stream
+								// Force/Flush the data from the buffer to Resource
+
+		-> void close()			// Once you are finished using the Output Stream you
+									can close the Output Stream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Various Stream Classed available in Java
+	
+	-> java.lang.Object
+			-> java.io.InputStream
+					-> java.io.ByteArrayInputStream
+					-> java.io.FileInputStream (***IMP***)
+					-> java.io.ObjectInputStream (***IMP***)
+
+					-> java.io.PipedInputStream		// Useful for making connection
+														PipedInputStream can be connected to PipedOutputStream
+
+					-> java.io.SequenceInputStream
+					-> java.io.StringBufferInputStream
+
+					-> java.io.FilterInputStream
+							-> java.io.BufferedInputStream (***IMP***)
+							-> java.io.DataInputStream
+							-> java.io.PushbackInputStream
+							-> java.io.LineNumberInputStream
+
+
+			-> java.io.OutputStream
+					-> java.io.ByteArrayOutputStream
+					-> java.io.FileOutputStream
+					-> java.io.ObjectOutputStream
+					-> java.io.PipedOutputStream
+
+					-> java.io.FilterOutputStream
+							-> java.io.BufferedOutputStream
+							-> java.io.DataOutputStream
+							-> java.io.PrintStream (***IMP***)
+
+
+
+
+	-> java.lang.Object
+			-> java.io.Reader
+					-> java.io.BufferedReader
+						->java.io.BufferedInputStream
+
+					-> java.io.CharArrayReader
+
+					-> java.io.FilterReader
+						-> java.io.LineNumberInputStream
+
+					-> java.io.InputStreamReader
+						-> java.io.PushbackInputStream
+
+					-> java.io.PipedReader
+
+
+			-> java.io.Writer
+					-> java.io.BufferedWriter
+
+					-> java.io.CharArrayWriter
+
+					-> java.io.OutputStreamWriter
+						-> java.io.FileWriter
+
+					-> java.io.FilterWriter
+
+					-> java.io.PipedWriter
+
+					-> java.io.PrintWriter
+
+					-> java.io.StringWriter
+
+
+			-> java.io.RandomAccessFile
+
+			-> java.io.StreamTokenizer
+
+			-> File
+
+
+
+
+
+
+
+
+-> Buffering is a temporary memory area (like a temporary Array), which is used for connecting Source and
+	Destination if they have difference in their speed of working. So it is useful for just holding the
+	data for a while.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import java.io.FileOutputStream;
+import java.io.*;
+
+public class FileExample
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			FileOutputStream fos = new FileOutputStream("C:/MyJava/Test.txt");	// Give File name along with 
+																					complete path name
+
+
+			String str = "Learn Java Programming";
+
+			fos.write(str.getBytes());
+
+			fos.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println(e);
+		}
+		catch(IOException e)
+		{
+			System.out.println(e);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import java.io.FileInputStream;
+import java.io.*;
+
+public class FileExample
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			FileInputStream fis = new FileInputStream("C:/MyJava/Test.txt");	// Give File name along with 
+																					complete path name
+
+			
+			byte[] b = new byte[fis.available()];	// .available() gives the total number of bytes in the file
+
+			fis.read(b);
+
+			String str = new String(b);
+
+			System.out.println(str);
+
+			fis.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println(e);
+		}
+		catch(IOException e)
+		{
+			System.out.println(e);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import java.io.FileInputStream;
+import java.io.*;
+
+public class FileExample
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+			FileInputStream fis = new FileInputStream("C:/MyJava/Test.txt");	// Give File name along with 
+																					complete path name
+
+			
+			int x;
+
+			do
+			{
+				x = fis.read();		// reading one byte at a time
+
+				if(x != -1)
+				{
+					System.out.print((char) x);
+				}
+			}while(x != -1);
+
+			System.out.print("\n");
+
+			fis.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println(e);
+		}
+		catch(IOException e)
+		{
+			System.out.println(e);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Student Challenge: Copy a File
+-------------------------------
+	-> Copy the content of one file to another file in all smallcase.
+
+	-> Example: Source.txt 				Destination.txt (desired)
+				-----------				----------------
+				JAVA 					java
+				TEST 					test
+				FILE 					file
+
+
+
+
+
+
+Student Challenge: Solution
+----------------------------
+
+
+package scio1;
+
+import java.io.*;
+
+public class SCIO1 
+{
+	public static void main(String[] args) throws Exception
+	{
+		
+		FileInputStream fis = new FileInputStream("Source1.txt");
+		
+		FileOutputStream fos = new FileOutputStream("Destination.txt");
+				
+	  
+		int b;
+
+		while((b=fis.read())!=-1)
+		{
+			if(b>=65 && b<=90)
+			{
+				fos.write(b+32);
+			}
+			else
+			{
+				fos.write(b);
+			}
+			
+		}
+		
+		fis.close();	
+		fos.close();
+		
+	}   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+Student Challenge Problem 2 Solution:
+--------------------------------------
+
+
+
+package scio1;
+
+import java.io.*;
+
+public class SCIO1 
+{
+	public static void main(String[] args) throws Exception
+	{
+		
+		FileInputStream fis1=new FileInputStream("Source1.txt");
+		FileInputStream fis2=new FileInputStream("Source2.txt");
+		
+		FileOutputStream fos=new FileOutputStream("Destination.txt");
+				
+		SequenceInputStream sis=new SequenceInputStream(fis1,fis2);
+		
+		
+		int b;
+		while((b=sis.read())!=-1)
+		{
+			
+			fos.write(b);
+		}
+		
+		sis.close();
+		fis1.close();
+		fis2.close();
+		fos.close();
+		
+	}   
+} 
+
+
+
+
+
+
+-> ByteArrayInputStream
+
+
+-> ByteArrayOutputStream
+
+
+-> CharArrayReader
+
+
+
+-> CharArrayWriter
+
+
+
+
+
+
+
+
+
+
+
+import java.io.*;
+
+public class ByteDemo
+{
+	byte b[] = {'a','b','c','d','e','f','g','h'};
+
+	ByteArrayInputStream bis = new ByteArrayInputStream(b);
+
+	String str = new String(bis.readAllBytes());
+
+	System.out.println(str);
+
+	System.out.println(bis.markSupported());
+
+	bis.close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.io.*;
+
+public class ByteDemo
+{
+	byte b[] = {'a','b','c','d','e','f','g','h'};
+
+	ByteArrayOutputStream bos = new ByteArrayOutputStream(20);
+
+	bos.write('a');
+	bos.write('b');
+	bos.write('c');
+	bos.write('d');
+	bos.write('e');
+
+	bos.writeTo(new FileOutputStream("/Users/abdulbari/Desktop/Test.txt"));
+
+	bos.close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FileInputStream fis = new FileInputStream("C:/MyJava/Test.txt");
+BufferedInputStream bis = new BufferedInputStream(fis);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Producer will write the data using PipedOutputStream and Consumer will read the data using
+	PipedInputStream. These two streams are connected in main method.
+
+
+
+
+import java.io.*;
+
+class Producer extends Thread
+{
+	OutputStream os;
+
+	// constructor for Producer
+
+	public Producer(OutputStream o)
+	{
+		os = o;
+	}
+
+	public void run()
+	{
+		int count = 1;
+
+		while(true)
+		{
+			try
+			{
+				os.write(count);
+				os.flush();
+
+				System.out.println("Producer "+count);
+				System.out.flush();
+
+				Thread.sleep(10);
+
+				count++;
+			}
+			catch(Exception e)
+			{
+				// left intentionally
+			}
+		}
+	}
+}
+
+
+
+class Consumer extends Thread
+{
+	InputStream is;
+
+	// constructor for Cousumer
+
+	public Consumer(InputStream i)
+	{
+		is = i;
+	}
+
+	public void run()
+	{
+		int x;
+
+		while(true)
+		{
+			try
+			{
+				x = is.read();
+
+				System.out.println("Consumer "+x);
+				System.out.flush();
+			}
+			catch(Exception e)
+			{
+				// left intentionally
+			}
+		}
+	}
+}
+
+
+
+public class PipedDemo
+{
+	public static void main(String[] args) throws Exception
+	{
+		PipedInputStream pis = new PipedInputStream();
+
+		PipedOutputStream pos = new PipedOutputStream();
+
+		pis.connect(pos);
+
+		// pos.connect(pis);
+
+		Producer p = new Producer(pos);
+
+		Consumer c = new Consumer(pis);
+
+		p.start();
+
+		c.start();
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Sequential Access File: File pointer move only in forward direction, where you
+							are reading or writting.
+
+
+
+
+
+
+
+
+-> Random Access File: One file pointer is used for both operations, reading as well as writting.
+						We can go to any byte position with reference to first byte using seek() method.
+
+
+
+
+
+-> There is a class in Java "RandomAccessFile", it implements DataInput and DataOutput Interfaces.
+
+
+
+
+
+
+
+
+
+package randomaccessdemo;
+import java.io.*;
+
+public class RandomAccessDemo 
+{
+	public static void main(String[] args) throws Exception
+	{
+		RandomAccessFile rf=new RandomAccessFile("C:\\MyJava\\Data.txt","rw");		// rw -> read write mode
+	   //byte b[]={'A','B','C','D','E','F','G''H','I','J'};
+	   
+		System.out.println((char)rf.read());
+		System.out.println((char)rf.read());
+		System.out.println((char)rf.read());
+		rf.write('d');
+		System.out.println((char)rf.read());
+		rf.skipBytes(3);							// It will skip 3 bytes
+		System.out.println((char)rf.read());
+		rf.seek(3);
+		System.out.println((char)rf.read());
+		System.out.println(rf.getFilePointer());
+		rf.seek(rf.getFilePointer()+2);
+		System.out.println((char)rf.read());
+	   
+	}   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// File Class
+
+package filehandling;
+import java.io.*;
+
+public class FileHandling 
+{
+	public static void main(String[] args) throws Exception
+	{
+		// select path of any directory on you computer
+	   File f=new File("C:\\MyJava");
+	   
+	   System.out.println(f.isDirectory());
+	   File list[]=f.listFiles();
+		
+	   for(File x:list)
+	   {
+		   System.out.println(x.getParent()+" "+x.getName());
+	   }
+	  
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// PrintStream Demo
+
+
+package printstreamdemo;
+
+import java.io.*;
+
+class Student
+{
+	int rollno;
+	String name;
+	String dept;
+}
+
+public class PrintStreamDemo 
+{
+	public static void main(String[] args) throws Exception
+	{
+		FileOutputStream fos=new FileOutputStream("C:\\MyJava\\Student1.txt");
+		PrintStream ps=new PrintStream(fos);
+		
+		
+		Student s=new Student();
+		s.rollno=10;
+		s.name="John";
+		s.dept="CSE";
+		
+		ps.println(s.rollno);
+		ps.println(s.name);
+		ps.println(s.dept);
+		
+		ps.close();
+		fos.close();
+		
+	}    
+}
+
+
+
+public class MyRead 
+{
+	public static void main(String[] args) throws Exception
+	{
+		FileInputStream fis=new FileInputStream("C:\\MyJava\\Student1.txt");
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+		
+		
+		Student s1=new Student();
+
+		s1.rollno = Integer.parseInt(br.readLine());		// What's the difference between typecasting and parsing
+		s1.name = br.readLine();
+		s1.dept = br.readLine();
+		
+		System.out.println("Roll No: "+s1.rollno);
+		System.out.println("Name: "+s1.name);
+		System.out.println("Dept: "+s1.dept);
+
+		fis.close();
+		
+	}    
+}
+
+
+
+
+
+
+
+
+
+
+-> System.out.println: out is an object(static type) of PrintStream, present inside System class
+
+
+
+
+-> We can use a member of class directly by using class name when it is a static type.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DataInputStream and DataOutputStream Demo
+
+
+package datastreamdemo;
+import java.io.*;
+
+class Student
+{
+	int rollno;
+	String name;
+	float avg;
+	String dept;
+}
+public class DataStreamDemo 
+{
+	public static void main(String[] args)throws Exception
+	{
+		//writing in a file
+		FileOutputStream fos=new FileOutputStream("Student2.txt");
+		DataOutputStream dos=new DataOutputStream(fos);
+		
+		Student s1=new Student();
+		s1.rollno=10;
+		s1.name="John";
+		s1.dept="CSE";
+		s1.avg=75.9f;
+		dos.writeInt(s1.rollno);
+		dos.writeUTF(s1.name);
+		dos.writeUTF(s1.dept);
+		dos.writeFloat(s1.avg);
+		dos.close();
+		fos.close();
+		
+		
+		//reading from file
+		FileInputStream fis=new FileInputStream("Student2.txt");
+		DataInputStream dis=new DataInputStream(fis);
+		
+		Student s=new Student();
+		
+		s.rollno=dis.readInt();
+		
+		s.name=dis.readUTF();
+		
+		s.dept=dis.readUTF();
+		s.avg=dis.readFloat();
+		
+		System.out.println("Roll no "+s.rollno);
+		System.out.println("Name "+s.name);
+		System.out.println("Average "+s.avg);
+		System.out.println("Dept "+s.dept);
+		
+		
+		dis.close();
+		fis.close();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Whatever is written by DataOutputStream, can only be read by DataInputStream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Serialization is process of storing the state of an object, i.e., storing the object as it is.
+
+-> DeSerialization is process of retrieving the state of an object, i.e., retrieving the object as it is.
+
+-> This is achieved using ObjectOutputStream and ObjectInputStream
+
+
+
+
+-> To use the ObjectOutputStream and ObjectInputStream the class must implement the Interface Serializable
+	and the class must have a default constructor.
+	It will not store(serialize) only non-static and non-transient members of the class.
+
+
+
+-> Serialization Interface doesn't have any method for Overriding.
+
+
+
+
+
+
+
+
+
+
+// Serialization final demo
+
+
+package objectdemo;
+import java.io.*;
+
+class Student implements Serializable
+{
+	private int rollno;
+	private String name;
+	private float avg;
+	private String dept;
+	public static int Data=10;		// static members are not serializable
+	public transient int t;			// transient members are not serializable
+	
+	public Student()
+	{
+		
+	}
+	public Student(int r,String n,float a,String d)
+	{
+		rollno=r;
+		name=n;
+		avg=a;
+		dept=d;
+		Data=500;
+		t=500;
+	}
+	
+	public String toString()
+	{
+		return "\nStudent Details\n"+
+				"\nRoll "+rollno+
+				"\nName "+name+
+				"\nAverage "+avg+
+				"\nDept "+dept+
+				"\nData "+Data+
+				"\nTransient "+t+"\n";
+	}
+	
+}
+
+public class ObjectDemo 
+{
+   /* public static void main(String[] args) throws Exception
+	{
+		FileOutputStream fos=new FileOutputStream("C:\\MyJava\\Student3.txt");
+		ObjectOutputStream oos=new ObjectOutputStream(fos);
+		
+		Student s=new Student(10,"John",89.9f,"CSE");
+		
+		oos.writeObject(s);
+		
+		fos.close();
+		oos.close();
+		
+	}
+	*/
+	public static void main(String[] args) throws Exception
+	{
+		FileInputStream fis=new FileInputStream("C:\\MyJava\\Student3.txt");
+		ObjectInputStream ois=new ObjectInputStream(fis);
+		
+		Student s=(Student)ois.readObject();
+		
+		System.out.println(s);
+		
+		fis.close();
+		ois.close();
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Student Challenge: Serialize a Customer
+
+
+
+package scio2;
+import java.io.*;
+
+public class SCIO2 
+{
+	public static void main(String[] args) throws Exception
+	{
+		float list[]={1.2f , 3.45f , 6.78f , 9.01f , 2.34f};
+		
+		FileOutputStream fos=new FileOutputStream("List.txt");
+		DataOutputStream dos=new DataOutputStream(fos);
+		
+		dos.writeInt(list.length);
+		for(float f:list)
+		{
+			dos.writeFloat(f);
+		}
+		
+		dos.close();
+		fos.close();
+		
+		FileInputStream fis=new FileInputStream("List.txt");
+		DataInputStream dis=new DataInputStream(fis);
+		int length=dis.readInt();
+		float data;
+		
+		for(int i=0;i<length;i++)
+		{
+			data=dis.readFloat();
+			System.out.println(data);
+		}
+		dis.close();
+		fis.close();
+		
+	}   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> In Java end of file(eof) marker is not there, In many other programming languages eof is there 
+	to mark the end of file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================		   Section 24: Java Generics 		===================================
+
+
+
+
+
+-> Object class helps in achieving Generalization in Java
+
+
+
+
+-> We can assign object of child class to the reference of parent class.
+	Since Object class is the mother of all classes hence to a reference of Object class 
+	we can attach object of any class.
+
+
+
+
+
+
+-> Generic Type Array
+		Type Safety
+		Compile-Time Checking
+		No Typecasting
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Example of a Generic class
+
+
+public class GenericDemo<T>
+{
+	T data[] = (T[]) new Object[3];		// Example: String data[] = (String[]) new Object[3]
+
+										// We can directly create an Array of type Generics
+											we have to create an Array of Object and then
+											typecast it to type Generic.
+
+
+	public static void main(String[] args)
+	{
+		GenericDemo<String> gd = new GenericDemo();
+
+		gd.data[0] = "hi";
+		gd.data[1] = "bye";
+
+
+		String str = gd.data[0];  
+	}
+
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> In C++, Templates are for primitive data types. But in Java it's for Objects.
+
+
+
+
+
+
+
+
+
+
+
+class Data<T>
+{
+	private T obj;
+
+	public void setData(T v)
+	{
+		obj = v;
+	}
+
+	public T getData()
+	{
+		return obj;
+	}
+}
+
+
+
+public class GenericDemo
+{
+	public static void main(String[] args)
+	{
+		// Data<Integer> d = new Data<Integer>();		// This is also a correct syntax
+
+		Data<Integer> d = new Data<>();
+
+		d.setData(new Integer(10));
+
+		System.out.println(d.getData());
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> For a Generic class if we don't provide any Generic parameter then by default
+	it takes parameter as Object class.
+
+
+
+
+// Example demo:
+
+
+class MyArray<T>
+{
+	T A[] = (T[]) new Object[10];
+
+	int length = 0;
+
+	public void append(T v)
+	{
+		A[length++] = v;
+	}
+
+	public void display()
+	{
+		for(int i=0; i<length; i++)
+		{
+			System.out.println(A[i]);
+		}
+	}
+}
+
+
+
+public class GenericDemo
+{
+	public static void main(String[] args)
+	{
+		MyArray ma = new MyArray();			// No Generic parameter is given
+
+		ma.append("Hi");
+		ma.append(new Integer(10));
+		ma.append("Go");
+
+		ma.display();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> If a class is Generic, then the child class also become Generic.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Example of Generic Method
+
+
+public class GenericDemo
+{
+	static <E> void show(E... list)			// Passing variable number of arguments
+	{
+		for(E x:list)
+		{
+			System.out.println(x);
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		show("Hi","Go","Bye");
+		show(10,20,30,40);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Do's and Don'ts in Generics
+
+-> Only extends is allowed in Generic class definition
+-> extends is used for interfaces also
+-> extends from Only one class and multiple interfaces
+-> extends and super are allowed with ? in methods
+-> <?> will accept all types but cannot access
+-> Base type of an Object should be same or ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================		Section 25: Collection Frameworks 		===================================
+
+
+
+
+
+
+Collection: Built-in data structures in Java
+
+
+
+
+
+
+
+
+-> Collection deals with arranging the data in the main memory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Array data structure is the basic data structure provided by the compiler itself.
+
+	Example: int A[] = new int[10];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Why Collections are Required
+------------------------------------
+
+
+
+
+
+
+-> Limitations of Array
+		1. Size is fixed
+		2. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> To overcome the fixed size limitation of Array, Java provided classes like
+	ArrayList and LinkedList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Java Collections based on requirements
+	1. Variable size Collection:			ArrayList, LinkedList
+	2. Distinct Collection:					Set
+	3. Sorted Collection:					SortedSet	// Distinct as well as sorted collection
+
+
+
+
+
+
+
+
+
+
+
+
+-> Search Algorithms
+	1. Linear Search 
+	2. Binary Search
+	3. Hashing(Key, Value)		// faster method of searching
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Collection Classes/Framework in Java
+---------------------------------------
+
+
+
+
+-> Java provides Collection Framework in the form of Interfaces and Classes, and those Interfaces 
+	and Classes are in the form of hierarchy.
+
+
+
+
+
+Iterable (Interface)
+	|
+	|
+Collection (Interface)
+
+	1. List (Interface)			// ordered list of elements i.e., elements have index
+		ArrayList (Classes)
+		LinkedList (Classes)
+		Vector (Classes)			// Legacy class
+			Stack  (Classes)		// Legacy class
+
+	2. Queue (Interface)			// Works on FIFO principle
+		Deque (Interface)			// Insertion and Deletion allowed from both the ends
+			ArrayDeque (Classes)
+		PriorityQueue (Classes)		// Queue with elements having priority
+
+	3. Set (Interface)
+		SortedSet (Interface)
+			TreeSet (Classes)
+		HashSet (Classes) and LinkedHashSet (Classes)
+
+
+
+
+
+
+
+
+
+
+
+
+-> Iterable Interface has only one method i.e., iterator
+
+
+
+
+
+
+
+
+
+
+-> Set will not have any duplicate elements/objects
+	All objects are distinct i.e., unique objects
+	Mostly used for Serch operations.
+
+
+
+
+
+-> Set is unordered Collection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> hashcode is used in Java to store elements in classes like HashSet and LinkedHashSet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Map (Interface)			// (key, value)
+	SortedMap (Interface)
+		TreeMap (Class)
+
+	HashMap (Class), LinkedHashMap (Class), HashTable (Legacy Class)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Understanding Collection Interface
+------------------------------------
+
+
+
+
+-> All the Interfaces and Classes in Collection Framework are present in 
+	java.util package.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Interfaces in the Collection Framework
+	1. Collection
+	2. List
+	3. Set
+	4. Queue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Methods of Collection Interface
+	
+		add(E e)							// add an Element/Object of any type to the Collection
+
+		addAll(Collection<E> c)
+
+		remove(Object o)
+
+		removeAll(Collection<E> c)
+
+		retainAll(Collection<E> c)
+
+		clear()
+
+		isEmpty()
+
+		contains(Object o)
+
+		containsAll(Collection<E> c)
+
+		equals(Object o)
+
+		size()
+
+		iterate()						// Very Important: Read about it 
+										// Allows to access elements only in forward direction
+
+		toArray()						// to convert a Collection into an Array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Understanding List, Set Interfaces
+------------------------------------
+
+
+-> List Interface is inheriting/extending from Collection Interface
+
+
+
+
+
+
+
+
+-> interface List extends Collection
+
+
+
+
+
+
+
+
+-> Extra methods inside List interface
+		add(int index, E e)
+
+		addAll(int index, Collection<E> c)
+
+		remove(int index)
+
+		get(int index)
+
+		set(int index, E e)
+
+		subList(int from, int to)
+
+		indexOf(Object o)
+
+		lastIndexOf(Object o)				// Because there can be duplicate elements in the list
+											// It starts Searching from the reverse.
+
+		listIterator()						// Allows to access the element in either direction
+											// It starts iterating from the beginning of the list
+
+		listIterator(int index)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Set
+-----
+
+
+
+-> interface Set extends Collection
+		It doesn't have any extra methods
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Queue
+----------
+
+
+
+-> interface Queue extends Collection
+
+
+
+
+
+
+
+
+
+
+
+-> Extra methods inside Queue interface
+		add(E e)				// Add the element at the end
+
+		poll()					// Removes the first object
+								// If the Queue is empty it will return null
+
+		remove() throws NoSuchElementException
+								// throws NoSuchElementException when the Queue is Empty
+
+		peak()					// to see the front element of the Queue
+								// returns null if the Queue is Empty
+
+		element() throws NoSuchElementException
+								// to see the front element of the Queue 
+								// throws Exception if the Queue is empty
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ArrayList and Iterator
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LinkedList
+-----------
+
+
+
+
+
+-> Doubly LinkedList is a collection of Nodes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> More flexible for insertion and deletion of elements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Size can be increased easily.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Disadvantage of LinkedList is that, apart from the  memory for the object it needs the memory for
+	storing the links also.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> LinkedList Class uses doubly Linked list.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ArrayDeque
+-----------
+
+
+-> Deque: Double ended queue
+	Elements can be inserted or deleted from either end of the queue.
+
+
+
+
+
+-> ArrayDeque can be used to implement Queue or Stack.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PriorityQueue
+--------------
+
+
+-> This class represents Heap data structure and it is implemented using Array as a
+	basic data structure.
+
+
+
+
+
+-> Priority Queue means elements are inserted or deleted based on the priority of the element.
+
+	Priority is decided:
+		1. If the value is small the priority is high 
+		2. If the value is large the priority is low
+
+
+
+
+
+
+
+-> In PriorityQueue always the highest priority element is deleted.
+
+
+
+
+
+
+
+
+-> Heap is implemented using Binary Tree data structure.
+
+
+
+
+
+
+
+-> We can not have null values in PriorityQueue.
+
+
+
+
+
+
+
+-> Insertion takes log(n) time in PriorityQueue.
+
+
+
+
+
+
+
+
+
+
+-> We can change the Priority criteria using comparator.
+
+
+
+
+
+
+
+
+
+-> When a smaller value is having higher priority then it's a "Min Heap".
+
+
+
+
+
+
+
+
+
+-> When a larger value is having higher priority then it's a "Max Heap".
+	To change the Min Heap to Max Heap, you can define a Comparator.
+
+
+
+class MyCom implements Comparator<Integer>
+{
+	public int compare(Integer o1, Integer o2)
+	{
+		if(o1<o2)
+			return 1;
+		if(o1>o2)
+			return -1;
+		return 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hashing Technique
+------------------
+
+
+-> Java uses Hashing Technique in many Classes like 
+		HashSet
+		HashMap
+		LinkedHashSet
+		LinkedHashMap
+		HashTable (Legacy Class)
+		Properties (subclass of Hashtable)
+
+
+
+
+
+
+
+
+
+
+
+-> In Java Classes, most of the time the initial hash table size is 16.
+
+
+
+
+
+
+
+
+-> Usually, at least 25% of blank spaces must be there in the Hash Table.
+
+
+
+
+
+
+
+-> % of filling in the Hash Table is called Loading factor (λ).
+
+
+-> λ should not exceed 75%
+
+
+
+
+
+
+
+
+
+
+-> Open Addressing: Storing a key at next place, if there is a collision.
+
+
+
+
+
+
+
+
+
+-> Chaining: Storing the keys in Linked List.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HashSet
+--------
+
+
+-> Order may be different from the order of insertion.
+
+
+-> Memory space is wasted while using hash table.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TreeSet
+--------
+
+
+-> Comparable interface is useful in TreeSet Class. It is useful mainly when we are 
+	writting our own classes.
+
+
+
+
+
+
+
+
+-> TreeSet() Constructor, constructs a new, empty tree set, sorted according to the natural ordering of its elements.
+
+
+
+
+
+
+-> TreeSet is also a SortedSet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Comparable Interface
+---------------------
+
+
+->To store the objects of our own class in TreeSet then we have to implement Comparable Interface, so that
+	we can compare two objects of our class and can define which one is smaller and which one is greater.
+	That can be done by overriding "compareTo" method of Comparable Interface.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TreeMap and HashMap
+--------------------
+
+
+-> TreeMap implements SortedMap. TreeMap maintains the keys and the values i.e., entries in sorted order
+	based on the keys.
+	
+
+
+
+
+
+-> TreeMap: A Red-Black tree based NavigableMap implementation. The map is sorted according to 
+			the natural order of its keys.
+			Takes log(n) time for all basic operation.
+
+
+
+
+
+
+
+
+-> HashMap: The elements will not be sorted.
+			Takes constant time for all basic operations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LinkedHashMap
+--------------
+
+
+-> Similar to HashMap, LinkedHashMap is also used to store keys and values.
+	
+
+
+-> In Hash Table of HashMap only values will be there inside the table.
+	But in LinkedHashMap along with values two pointers(next and prev) will also be there.
+
+
+
+
+
+
+-> LinkedHashMap maintains the order in which the keys are inserted by using the next and prev pointers.
+
+
+
+
+
+
+
+-> If the LinkedHashMap limit is full and still we try to insert keys then it will insert the new key
+	but delete the first key.
+	So it will not stop you from inserting more keys but it will delete the existing keys in the order 
+	of their insertion.
+
+
+
+
+
+
+
+
+
+-> In LinkedHashMap you can maintain the order of keys in order of their Access.
+	If you have access the keys then those keys are shown first and the least access
+	keys are shown at the last.
+	And if try to insert item more than limit then the Least Recently Used (LRU) key
+	is deleted. This type of behaviour or functionality is commonly found in Cache memory.
+	So if you want to implement Cache memory then you can use LinkedHashMap.
+
+
+
+
+
+
+
+
+
+
+
+-> In LinkedHashMap, iterating through all the values will take more time than HashMap.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LinkedHashSet
+--------------
+
+
+-> LinkedHashSet will maintain the order of insertion of elements.
+
+
+
+
+
+-> The only difference between LinkedHashMap and LinkedHashSet is that LinkedHashMap 
+	stores the key-value pair whereas LinkedHashSet only stores the values.
+
+
+
+
+
+
+-> LinkedHashSet doesn't give elements in Sorted order like HashSet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hashtable Legacy Class
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

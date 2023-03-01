@@ -1,0 +1,2465 @@
+1.Course Overview
+---------------------------------
+
+Contents:
+	Spring Core
+		Dependency Injection
+		Inversion of Control
+	Spring Data Integration
+		Spring JDBC
+		Spring ORM(Object Relational Mapping)
+	Spring Web
+		Spring Web MVC(Model View Controller)
+		Spring MVC
+
+Prerequisites:
+	Core Java
+	JDBC
+	Servlet & JSP
+	Important Web and Database related terms
+
+
+
+
+
+
+
+
+
+2.What is Spring Framework|Dependency Injection|Inversion of Control
+---------------------------------------------------------------------
+
+What is Spring?
+	-> Spring is a Dependency Injection framework to make java application 
+		loosely coupled.
+	-> Spring provides IOC(Inversion of Control) container which helps in 
+		Dependency Injection.
+	-> Spring framework makes the easy development of JavaEE(Enterprise Edition)
+		application.
+	-> Most popular framework of Java
+
+
+What is Dependency Injection?
+	-> It is a design pattern
+	-> Dependency means one class depends on the object of other class to perform 
+		its operations/work.
+	-> If we will directly create the required object using new keyword, then our
+		application will become highly coupled.
+	-> So instead of creating objects by ourselves we will take the help of Spring.
+	-> Spring will automatically create the object from other class and inject it in 
+		the class where required, so we don't have to create the object using new keyword.
+	-> The object creation control is transferred to Spring, this is Inversion of Control.
+	-> So, Spring injects the object dynamically during run-time
+
+
+How Dependency Injection helps in Loose Coupling?
+-> We don't have to change the java code if change is needed then we can make changes in 
+	config.xml file and it makes our program loosely coupled.
+
+
+Spring and JEE
+	UI Layer: to handle requests
+		eg. ProductController
+	Business/Service Layer: for business logic
+		eg. ProductService
+	Data Access Layer: to access database
+		eg. ProductDao
+
+	-> UI layer can contact to business layer and business layer can contact to 
+		data access layer and data access layer can contact to DataBase.
+
+	UI Layer: Strut/JSF
+			  Spring MVC
+
+	Business/Service Layer: Security
+							Transaction Management
+
+	Data Access Layer: Spring JDBC
+					   Spring ORM
+
+
+
+
+
+
+
+
+
+3.Overview of Spring Framework Modules|Spring Core|Spring Data Integration|Spring Web
+--------------------------------------------------------------------------------------
+
+Spring Modules
+	-> Spring Core (provides dependency injection, ioc etc.)
+			Core
+			beans
+			Context: inherits features from beans module
+					 internationalization
+					 event propagation
+					 resource loading
+					 transparent creation of context
+					 provides features of J2EE
+			spEL(Spring Expression Language)
+
+
+	-> AOP(Aspect Oriented Programming)
+			allows you to define interceptors and point cuts to cleanly decouple the code
+	-> Aspect
+	-> Instrumentation
+			class loader implementation
+	-> Messaging
+
+	-> Data Access/Integration
+			JDBC(Java data base connectivity)
+			ORM(Object Relational Mapping)
+			JMS(Java Messaging Services): to produce and consume messages
+			OXM(Object Xml Mapping)
+
+	-> Web: for developing web projects
+			Web
+			Servlet
+			Portlet
+			WebSocket
+
+	-> Test: gives support for unit testing and integration testing
+			 JUnit, Testng
+
+
+
+
+
+
+
+
+
+4. Spring IOC Container | What is Spring IOC Container
+------------------------------------------------------------
+
+Spring IoC Container
+	-> predefined program
+	-> a componect of Spring framework which is provided by Spring
+	-> It performs:
+		object creation
+		keeps object held in memory
+		can inject one object in another object i.e., dependency injection
+		maintains complete lifecycle of objects
+
+	-> It need two things:
+		1. Beans: information about Java POJOs.
+		2. Config(xml configuration): which bean depends on what
+
+
+ApplicationContext:
+	-> It is a interface which represents Spring IoC Container
+	-> It extends from BeanFactory
+	-> Since it is an Interface we can't directly create it's object
+		So, there are many subclassed which implement ApplicationContext
+			1. ClasspathXMLApplicationContext
+				It serch xml configuration by java classpath
+				It scans/searches for the xml configuration in java classpath.
+			2. AnnotationConfigApplicationContext
+				Searches for beans upon which we use Annotation
+			3. FileSystemXMLApplicationContext
+				Search for config file from file system
+
+
+
+
+
+
+
+
+
+5. Ways of Injecting dependencies|Types of dependencies handled by IOC Container
+---------------------------------------------------------------------------------
+
+Dependency Injection
+	-> IoC will create all the required dependencies by itself and inject at run-time.
+
+
+Dependency Injection can be done in 2 ways
+	1. Using Setter Injection: sometimes also called as property injection
+		-> uses setter method
+	2. Using Constructor Injection
+		-> uses constructor
+
+	-> Which injection to use is given in config file
+
+
+Configuration File
+	-> Where we declare beans(Java classes) and its dependencies
+	-> XML file tells all the information to IoC Container
+		<beans>
+			------
+			------
+		</beans>
+	-> beans: such class which we provide to IoC Container 
+
+
+Data Types(Dependencies)
+	1. Primitive DataTypes:
+		byte, short, char, int, float, double, long, boolean
+	2. Collection Type
+		List, Set, Map and Properties
+	3. Reference Type
+		other class objects i.e., user-defined data type
+
+
+
+
+
+
+
+
+
+6. New Maven Project|Adding Spring Dependencies|Create Config File|Setter Injection|Practical
+-----------------------------------------------------------------------------------------------
+
+Softwares:
+	-> Eclipse/Netbeans/IntelliJ
+	-> TomcatServer
+	-> Mysql for database
+	-> Sqlyog, workbench or phpmyadmin for mysql gui
+
+
+Objectives
+	1. Create maven project
+	2. Adding dependencies: spring core, spring context
+	3. creating beans: java pojo
+	4. creating configuration file: config.xml
+	5. setter Injection
+	6. Main class: which can pull the object and use
+
+
+Maven Project
+	1. Select archetype as quickstart
+
+	-> Group Id: to uniqly identify the project
+	-> Artifact Id: basically project name
+
+	-> pom.xml: project object model
+				we declare dependencies required for the project like spring core, spring context
+	-> spring core and spring context version should be same
+
+Why use Maven
+	-> It automates the addition of Spring dependencies to our project.
+
+
+-> If we are setting the object field value using property tag
+	it means we have used setter injection.
+
+
+
+
+
+
+
+
+
+7. Property injection using p Schema and using value as attribute
+--------------------------------------------------------------------
+
+<bean class="ClassName" name="beanName" p:field1="" p:field2="" />
+
+
+
+
+
+
+
+
+
+8. How to inject collection types List , Set , Map and Properties
+-------------------------------------------------------------------
+
+Collection Types:
+
+
+	1. List:
+
+		<bean>
+			<property name="">
+
+				<list>
+					<value>10</values>
+					<value>1023</values>
+					<value>12350</values>
+					<value>1052</values>
+					<null/>
+				</list>
+
+			</property>
+		</bean>
+
+
+	2. Set:
+
+		<bean>
+			<property name="">
+
+				<set>
+					<value>10</values>
+					<value>1023</values>
+					<value>12350</values>
+					<value>1052</values>
+				</set>
+
+			</property>
+		</bean>
+
+
+	3. Map:
+
+		<bean>
+			<property name="">
+
+				<map>
+					<entry key="java" value="2month" />
+					<entry key="python" value="1month" />
+				</map>
+
+			</property>
+		</bean>
+
+
+	4. Properties:
+
+		<bean>
+			<property name="">
+
+				<props>
+					<prop key="name"> durgesh </prop>
+					<prop key="channelName"> LearnCode with Durgesh </prop>
+				</props>
+
+			</property>
+		</bean>
+
+
+
+
+
+
+
+
+
+9. Injecting Collection Types [ List , Set , Map , Properties ] | Practical
+---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+10. Injecting Reference Type Practical Video 
+-----------------------------------------------
+
+In real life this is used extensively
+
+
+
+Let Class A depends on Class B object, then 
+
+<!-- first create the bean of Class B -->
+<bean class="B" name="b">
+	<property name="field_name">
+
+	</property>
+</bean>
+
+
+<!-- then create the bean of Class A, then gives the Class B bean as a reference -->
+<bean class="A" name="a">
+	<property name="field_name">
+		<ref bean="b" >
+	</property>
+</bean>
+
+
+
+
+
+
+
+
+
+11. Constructor Injection Complete Explanation
+----------------------------------------------------
+
+Constructor Injection:
+	-> Spring supports creating objects using parameterized constructor
+
+	-> Method 1: 
+			<constructor-arg>
+				<value> b </value>
+			</constructor-arg>
+
+			<constructor-arg>
+				<ref bean="" />
+			</constructor-arg>
+
+	-> Method 2:
+			<constructor-arg value="Aryan Raj" />
+
+	-> Method 3: using c-schema
+			<bean class="" name="" c:fieldName1="" c:fieldName2-ref="" />
+
+
+	
+-> type attribute is used to remove ambiguity.
+
+
+
+
+
+
+
+
+
+12. Ambiguity Problem and its Solution with Constructor Injection
+-------------------------------------------------------------------
+
+-> Constructor ambiguity can be resolved using "type" and "index" attributes.
+
+
+
+
+
+
+
+
+
+13. Life Cycle methods of Spring Bean
+-----------------------------------------
+
+Spring provides two important methods to every bean
+	1. public void init()
+		-> for initialization of the bean
+			eg. Initialization of code, Loading config, Connecting db,Webservices etc.
+		-> we can change the method name "init" but method signature can't be changed
+	2. public void destroy()
+		-> for destroying(deallocating the memory) the bean
+		-> for Clean up code
+		-> we can change the method name "destroy" but method signature can't be changed
+
+	Note: We can change the name of these methods but signature must be same
+
+
+
+Spring Bean Life Cycle:
+	-> Spring bean(java object) instantiated
+	-> field values are set 
+	-> init()
+	-> then we Read and Use the bean
+	-> destroy(): It will be called before destroying the object
+	-> object/bean is destroyed
+
+
+
+Note:
+	difference b/w spring life cycle and servlet life cycle is that in case of servlet
+	init() method is called before setting field/properties values.
+
+		Servlet Life Cycle:
+			-> instantiation
+			-> init() 
+			-> field values are set
+			-> processing
+			-> destroy()
+
+
+Configure Technique (for init() and destroy())
+	1. Xml
+	2. Spring Interface
+	3. Annotation
+
+
+
+
+
+
+
+
+
+14. Implementing Lifecycle methods Using XML | Spring Bean Lifecycle methods
+------------------------------------------------------------------------------
+
+Method 1: Using Xml
+	<bean class="com.springcore.springbeanlifecycle.Samosa" name="samosa1" 
+ 			init-method="init" destroy-method="destroy"
+ 			p:price="10" />
+
+ 	Note:
+ 		to enable destroy() method
+ 			AbstractApplicationContext context = 
+ 				new ClassPathXmlApplicationContext("com/springcore/springbeanlifecycle/lifecycleconfig.xml");
+
+
+ 			// registering shutdown hook
+			// for this we need reference of AbstractApplicationContext
+ 			context.registerShutdownHook();
+
+
+
+
+
+
+
+
+
+15. Implementing bean life cycle using interfaces | IntializingBean | DisposableBean
+--------------------------------------------------------------------------------------
+
+-> Implementing Bean LifeCycle using Interfaces, IntitilizingBean, DisposableBean
+
+Method 2: Using Spring Interface
+	-> InitializingBean: this interface provides functionality for init
+	-> DisposableBean: this interface provides functionality for destroy
+
+		public class Pepsi implements InitializingBean, DisposableBean{
+			private double price;
+			
+			public Pepsi() {
+				super();
+			}
+
+			public void setPrice(double price) {
+				this.price = price;
+			}
+
+			public void afterPropertiesSet() throws Exception {
+				// works as init() method
+				System.out.println("taking pepsi: init");
+				
+			}
+
+			public void destroy() throws Exception {
+				System.out.println("destroying pepsi: destroy");
+			}
+			
+		}
+
+
+
+
+
+
+
+
+
+16. Implementing Bean LifeCyle using Annotations | @PostConstruct | @PreDestroy
+---------------------------------------------------------------------------------
+
+Method 3: Using Annotation
+	@PostConstruct: works as init()
+	@PreDestroy: works as destroy()
+
+
+Note: 
+	Note that both the @PostConstruct and @PreDestroy annotations are part of Java EE. Since Java EE was deprecated in Java 9, and removed in Java 11, we have to add an additional dependency to use these annotations:
+
+		<dependency>
+		    <groupId>javax.annotation</groupId>
+		    <artifactId>javax.annotation-api</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
+
+Note:
+	-> @PostConstruct and @PreDestroy are by default disabled
+
+	-> To enable:
+			<!-- this enables all the Spring Annotations used in the project -->
+ 			<context:annotation-config/> 
+
+ 			<!-- to enable only @PostConstruct and @PreDestroy -->
+ 			<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+
+
+
+
+
+
+
+
+
+17. Autowiring in Spring Framework
+---------------------------------------
+
+-> Feature of Spring Framework in which spring container inject the dependencies automatically.
+		-> Till now we were injecting the dependencies manully using config.xml(can be any xml file) file
+
+
+-> Autowiring can't be used to inject primitive and string values. It works with reference only.
+
+Q. What is a Spring Container?
+
+
+
+-> Linking of one object reference(dependency) to another object is similar to wiring.
+
+
+
+Methods of Autowiring
+	1. Using XML
+			-> Autowiring Modes
+					no: by defualt not enabled
+					byName: look for dependencies by name
+					byType: resolve dependencies by type
+					constructor: resolve dependencies based on constructor call
+					autodetect: IT IS DEPRECATED SINCE SPRING 3.
+	2. Using Annotation
+		-> @Autowired
+
+
+
+Autowiring Advantages
+	-> automatic
+	-> less code
+
+
+Autowiring Disadvantages
+	-> no control to programmer
+	-> it can't be used for primitive and string values
+
+
+
+
+
+
+
+
+
+18. Autowiring using XML complete Session | byName | byType | byConstructor
+------------------------------------------------------------------------------
+
+<bean class="com.springcore.autowire.usingxml.Employee" name="employee1" autowire="byName"/>
+	Note: while autowiring "byName" the object reference name and bean name must be same.
+
+
+<bean class="com.springcore.autowire.usingxml.Employee" name="employee1" autowire="byType"/>
+
+<bean class="com.springcore.autowire.usingxml.Employee" name="employee1" autowire="constructor"/>
+
+
+
+
+
+
+
+
+
+19. @Autowired Annotation for Autowiring | Autowiring in Spring Framework
+----------------------------------------------------------------------------
+
+-> Autowiring using Annotation
+
+-> Most commonly used method
+
+
+-> @Autowired Annotation can be used above
+		1. Setter method -> for Setter Injection
+		2. Property -> can be used above variables
+		3. Constructor -> for Constructor Injection
+
+
+
+
+
+
+
+
+
+20. @Qualifier Annotation with Autowiring
+-------------------------------------------
+
+@Autowired
+@Qualifier("beanName")
+
+
+
+
+
+
+
+
+
+21. Spring Standalone Collections[List,Map,Properties] | Util Schema in Spring
+--------------------------------------------------------------------------------
+
+-> We use "util schema" to create Standalone Collections
+
+
+-> Adding "util schema" to config.xml
+xmlns:util="http://www.springframework.org/schema/util"
+
+xsi:schemaLocation="http://www.springframework.org/schema/util
+ 					http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+
+<!-- stand-alone list -->
+ 	<util:list list-class="java.util.Vector" id="mybestfriends">
+ 		<value>Aryan</value>
+ 		<value>Alex</value>
+ 		<value>Ryan</value>
+ 		<value>William</value>
+ 	</util:list>
+ 	
+<!-- stand-alone map -->
+ 	<util:map map-class="java.util.TreeMap" id="fee1">
+ 		<!-- map is a collection of entries -->
+ 		<entry key="Spring Framework" value="8000" />
+ 		<entry key="Django Framework" value="5000" />
+ 		<entry key="Hibernate Framework" value="2000" />
+ 	</util:map>
+ 	
+<!-- stand-alone properties -->
+ 	<util:properties id="prop1">
+ 		<prop key="driver">com.mysql.jdbc.Driver</prop>
+ 		<prop key="username">aryan</prop>
+ 		<prop key="password">123456</prop>
+ 		<prop key="url">mysql:jdbc://localhost:3306/database</prop>
+ 	</util:properties>
+
+
+
+
+
+
+
+
+
+22. Stereotype Annotations | @Component Annotation | @Value Annotation
+-----------------------------------------------------------------------
+
+-> Instead of using <bean /> tag in XML file to create an object, we can use 
+	@Component annotation
+
+-> That is, to create bean we can use @Component Annotation
+
+
+Example: To create the object of Student class by the spring ioc controller using Annotation
+
+	@Component
+	class Student
+	{
+		private String name;
+		private int age;
+	}
+
+
+
+Note: 
+	To make @Component work, we must add below line in the configuration file
+
+	<context:component-scan base-package="write_the_package_where_@Component_is_used" />
+
+
+-> To create the object internally it uses "camelCase"
+
+Example: 
+	Student student = new Student()
+
+-> If we want to change the default object name then we can give that name inside @Component Annotation
+Example:
+	@Component("name_of_your_choice")
+
+
+
+-> By default object properties will be initialised with null
+	To explicitly initialise with some value use @Value Annotation
+	above the properties. 
+
+
+
+
+
+
+
+
+
+23. Collections with @Value
+-----------------------------
+
+
+
+
+
+
+
+
+
+24. Spring Bean Scope | Singleton | Prototype | how to configure scope
+-----------------------------------------------------------------------
+
+-> Bean Scopes:
+		1. singleton
+		2. prototype
+		3. request -> specific to web application(http request)
+		4. session -> specific to web application(http session)
+		5. globalsession -> used for portlet applications
+
+
+
+1. Singleton Scope
+	-> It is the default scope of Spring Bean
+	-> Creates one object per application and give to same reference again and again
+	-> Only single object is created by the spring container and provided to you everytime
+
+2. Prototype Scope
+	-> Creates a new object, each time it is called
+
+
+
+
+-> Configure bean Scope
+	1. Using XML
+			<bean class=" " name=" " scope="singleton/prototype" />
+
+			Note:
+				"scope" attribute is always used with bean only
+
+	2. Using Annotation
+			@Component
+			@Scope("singleton/prototype")
+			class Student
+			{
+				@Value("Ryan")
+				private String studentName;
+
+				@Value("Delhi")
+				private String cityName;
+			}
+
+			Note:
+				@Scope Annotation is used only with @Component Annotation
+
+
+
+
+
+
+
+
+
+25. Spring Expression Language | SpEL | what is SpEL | How to use Expression
+------------------------------------------------------------------------------
+
+-> Spring Expression Language supports
+	1. Parsing of Expression
+	2. Executing of Expression
+
+
+SpEL - Spring Expression Language
+	-> Supports Parsing and executing expression with the help of @Value annotation
+	-> @Value("#{expression}")
+			Examples:
+				1. @Value("#{3+5}")
+				2. @Value("#{a>b?a:b}")
+	-> Expression can be: Classes, Variables, Methods, Constructors and Objects
+							also Symbols(char, numerics, operators, keywords and special symbols
+											which return a value)
+
+
+-> SpEl API
+		SpelExpressionParser temp = new SpelExpressionParser();
+		Expression exp = temp.parseExpression("22+44");	// import org.springframework.expression.Expression;
+		System.out.println(exp.getValue());
+
+
+
+
+
+
+
+
+
+26. How to invoke static method , variables and creating object | Spring Expression Language
+----------------------------------------------------------------------------------------------
+
+To invoke/call static method using SpEL
+	-> T(class).staticMethodName(param)
+
+
+To invoke variable using SpEL
+	-> T(class).variableName
+
+
+
+
+-> ctrl + shift + T
+		To get help 
+
+
+
+How to create Object in spEL?
+	-> new Object(value)
+
+
+Examples:
+	// Invoking static methods using spEL
+	@Value("#{ T(java.lang.Math).sqrt(25) }")
+	private double z;
+	
+	// Accessing static variables using spEL
+	@Value("#{ T(java.lang.Math).E }")
+	private double e;
+	
+	// @Value("#{ new String('Aryan') }")
+	@Value("#{ new java.lang.String('Aryan') }")
+	private String name;
+
+
+
+
+
+
+
+
+
+27. Boolean type with SpEL | Spring Expression Language
+---------------------------------------------------------
+
+//@Value("#{ new java.lang.Boolean(false) }")
+@Value("#{ 8>3 }")
+private boolean isActive;
+
+
+
+
+
+
+
+
+
+28. Removing Complete XML for Spring Configuration | @Configuration | @ComponentScan | @Bean Annotation
+--------------------------------------------------------------------------------------------------------
+
+
+-> To import/resolve the packages
+		ctrl + shift + o
+
+
+-> To declare a Java Class as configuration
+		@Configuration 		// import org.springframework.context.annotation.Configuration
+
+
+-> @ComponentScan(basePackages = "")  // import org.springframework.context.annotation.ComponentScan
+		Configures component scanning directives for use with @Configuration classes.
+		Provides support parallel with Spring XML's <context:component-scan> element.
+
+
+
+-> @Bean 	// org.springframework.context.annotation.Bean
+	  Indicates that a method produces a bean to be managed by the Spring container. 
+
+
+
+
+
+
+
+
+
+29. What is Spring JDBC | Introduct to Spring JDBC | Why to use Spring JDBC
+----------------------------------------------------------------------------
+
+-> Spring JDBC Module helps us to communicate with database.
+
+
+1. What is Spring JDBC ?
+	-> Spring JDBC is a powerful mechanism to connect to the database and execute SQL queries.
+
+
+2. Introduction to Spring JDBC
+3. Problems of JDBC
+4. How Spring JDBC solves those problems ?
+
+
+
+Java Program 	<-------> 	Spring JDBC Module 	<-------> 	DB(database)
+							  (JdbcTemplate)
+
+
+
+-> Spring JDBC module internally uses JDBC itself.
+
+
+-> JDBC is an API to perform operations with database.
+
+
+Problems of JDBC
+	-> We need to write a lot of code(repeatative) i.e., excessive boilerplate code
+	-> Exception Handling Problem: checked Exception
+										--> SQLException	
+	-> Repeating of all these codes from one database to another database logic is 
+		a time consuming task.
+
+
+
+Spring JDBC
+	-> Spring JDBC provides a class "JdbcTemplate" which has all the important methods to perform
+		operation with database.
+
+
+
+-> "DataSource" Interface will have all the information of the database such as
+		url, username, password and driver class
+
+
+
+-> "DriverManagerDataSource" is a class that implements "DataSource" Interface.
+		Object of this class is gives to "dataSource" property of "JdbcTemplate" class.
+
+-> "DriverManagerDataSource" class will have following properties
+		1. driverClassName 
+		2. url = protocol:subprotocol:location
+		3. username
+		4. password
+
+
+-> "JdbcTemplate" important methods
+		 --> update()	 : insert, update, delete...
+		 --> execute()	 : select queries
+
+
+
+
+
+
+
+
+
+30. Creating new Maven Project | Adding Spring JDBC Dependencies
+-----------------------------------------------------------------
+
+New Maven Project --> Catalog: Internal --> Artifact Id: maven-archetype-quickstart
+
+-> Group Id: similar to package
+-> Artifact Id: similar to project name
+
+
+-> Spring JDBC version should be same as your Spring Core and Spring Context version
+
+
+
+
+
+
+
+
+
+31. Database setup | Configuring Jdbc Template to execute query
+----------------------------------------------------------------
+
+mysql> show databases;
+
+mysql> create database springjdbc;
+
+mysql> use springjdbc;
+
+mysql> create table student(id int primary key, name varchar(100) not null, city varchar(200) );
+
+mysql> show tables;
+
+mysql> insert into student(id, name, city) values(222, 'Aryan Raj', "Delhi");
+
+mysql> select * from student;
+
+mysql> desc student;  // Gives the description/column_details of the table.
+
+
+mysql jdbc driver class name:  com.mysql.jdbc.Driver
+
+
+<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="dsource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	<property name="url" value="jdbc:mysql://localhost:3306/springjdbc" />
+	<property name="username" value="root" />
+	<property name="password" value="root" />
+</bean>
+
+<!-- <bean class="com.spring.jdbc" id="" /> -->
+ 	
+<!-- <bean class="org.springframework.jdbc.core.JdbcTemplate" name="jdbcTemplate" >
+	<property name="dataSource">
+		<ref bean="dsource"/>
+	</property>
+</bean> -->
+
+<bean class="org.springframework.jdbc.core.JdbcTemplate" 
+		name="jdbcTemplate" p:dataSource-ref="source" />
+
+
+
+
+
+
+
+
+
+32. Inserting data to database using Spring JDBC
+--------------------------------------------------				
+
+-> Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class
+	is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via 
+	the SPI and manual loading of the driver class is generally unnecessary.
+
+
+-> Dao will have all the methods which perform operations on databases.
+
+
+// insert method will return number of rows inserted/modified
+public int insert(Student student) {
+	
+	String insertQuery = "insert into student(id, name, city) values(?, ?, ?)";
+	
+	int numberOfRowsInserted = this.jdbcTemplate.update(insertQuery, student.getId(), student.getName(), student.getCity());
+			
+	return numberOfRowsInserted;
+}
+
+
+
+
+
+
+
+
+
+33. Update Operation using Spring Jdbc / 34. Update Operation using Spring Jdbc
+--------------------------------------------------------------------------------
+
+
+public int change(Student student) {
+
+	String updateQuery = "update student set name=?, city=? where id=?";
+	
+	int numberOfRowsUpdated = this.jdbcTemplate.update(updateQuery, student.getName(), student.getCity(), student.getId());
+	
+	return numberOfRowsUpdated;
+}
+
+
+
+
+
+
+
+
+
+35. Delete Operation using Spring JDBC
+----------------------------------------
+
+public int remove(int studentId) {
+		
+	String deleteQuery = "delete from student where id=?";
+	
+	int numberOfRowsDeleted = this.jdbcTemplate.update(deleteQuery, studentId);
+	
+	return numberOfRowsDeleted;
+}
+
+
+
+
+
+
+
+
+
+36. Row Mapper Concept | Fetching data using Spring JDBC
+----------------------------------------------------------
+
+-> For single object/single row
+	
+	public T queryForObject(String sqlQuery, RowMapper<T> rowMapper, Object args...)
+
+Example: jdbcTemplate.queryForObject();
+		 sqlQuery -> select query
+		 RowMapper -> It converts result-set to object
+
+
+
+-> For more than one object/row
+	
+	public List<T> query(String sqlQuery, RowMapper<T> rowMapper)
+
+Example: jdbcTemplate.query();
+		 sqlQuery -> select query
+		 RowMapper -> It converts result-set to object
+
+
+
+       ResultSet Object 										Class Object
+   --------------------------->	Row Mapper(Interface) ----------------------------->  
+   										 ^
+   										 ^
+   										 |
+   										 |
+   										 |
+   										 |
+   										 |
+   							 Implementation of Row Mapper
+
+
+
+
+
+
+
+
+
+37. Selecting Single Object using Spring Jdbc | Row Mapper Practical Program
+-----------------------------------------------------------------------------
+
+public Student getStudent(int studentId) {
+
+	String selectSingleRowQuery = "select * from student where id=?";
+	
+
+	RowMapper<Student> rowMapper = new RowMapperImpl();		
+	Student student = this.jdbcTemplate.queryForObject(selectSingleRowQuery, rowMapper, studentId);
+
+	
+	/***
+	// Using Anonymous class for rowMapper object
+	Student student = this.jdbcTemplate.queryForObject(selectSingleRowQuery, new RowMapper( ) 
+	{
+		
+		Student student = new Student();
+
+		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+			
+			student.setId(rs.getInt(1)); 	// 1 is the column number in the table
+			student.setCity(rs.getString(3));	// 3 is the column number of city in the database table 
+			student.setName(rs.getString(2));
+			
+			return student;
+		}
+	
+	} , studentId);
+	***/
+	
+	return student;
+}
+
+
+
+-> RowMapperImpl Class
+
+		import java.sql.ResultSet;
+		import java.sql.SQLException;
+
+		import org.springframework.jdbc.core.RowMapper;
+
+		import com.spring.jdbc.entities.Student;
+
+		public class RowMapperImpl implements RowMapper<Student>{
+
+			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Student student = new Student();
+				
+				student.setId(rs.getInt(1)); 	// 1 is the column number in the table
+				student.setCity(rs.getString(3));	// 3 is the column number of city in the database table 
+				student.setName(rs.getString(2));
+				
+				return student;
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+38. Selecting Multiple Objects using Spring Jdbc
+--------------------------------------------------
+
+
+public List<Student> getAllStudents() {
+		
+	String selectAllQuery = "select * from student";
+	
+	RowMapper<Student> rowMapper = new RowMapperImpl();
+	
+	List<Student> students = this.jdbcTemplate.query(selectAllQuery, rowMapper);
+	
+	return students;
+}
+
+
+
+
+
+
+
+
+
+39. Spring Jdbc Configuration without XML / 40. Spring Jdbc Configuration without XML
+---------------------------------------------------------------------------------------
+
+mysql-> create table person(id int primary key, name varchar(100) not null, city varchar(200) );
+
+
+@Configuration
+public class JdbcConfig {
+	
+	@Bean(name = {"data_source"})
+	public DriverManagerDataSource getDataSource() {
+		
+		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		ds.setUrl("jdbc:mysql://localhost:3306/springjdbc");
+		ds.setUsername("root");
+		ds.setPassword("root");
+		
+		return ds;
+	}
+	
+	@Bean(name = {"jdbcTemplate"})
+	public JdbcTemplate getJdbcTemplate() {
+		
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		
+		jdbcTemplate.setDataSource(getDataSource());
+		
+		return jdbcTemplate;
+	}
+	
+	@Bean(name = {"persondao"})
+	public PersonDaoImpl getPersonDao() {
+		
+		PersonDaoImpl personDao = new PersonDaoImpl();
+		
+		personDao.setJdbcTemplate(getJdbcTemplate());
+		
+		return personDao;
+	}
+}
+
+
+
+
+
+
+
+
+
+41. Autowiring with Spring Jdbc | Automatic Wiring
+----------------------------------------------------
+
+
+
+
+
+
+
+
+42. Spring ORM Tutorial | Introduction to Spring ORM | Why Spring ORM | Full Game of Spring ORM
+-------------------------------------------------------------------------------------------------
+
+-> ORM: Object Relational Mapping
+
+-> Spring ORM: Spring with ORM Frameworks
+
+-> ORM Tools/Frameworks: Oracle Toplink, iBATIS, Hibernate
+
+
+Advantage of using Spring ORM
+	-> Less Coding is required
+	-> Easy to Test
+	-> Better Exception Handling
+	-> Integrated Transaction Management
+
+
+
+Working with Spring ORM
+	1. "HibernateTemplate" class: It provides all the functionality to perform database operations.
+			-> Methods in this class are: 
+					save
+					update
+					insert
+					get
+					loadAll
+
+	2. Session
+
+
+
+		ProductDao(Interface) ------> HibernateTemplate ------> SessionFactory (Interface)
+				^										                  ^
+				^										                  ^
+				|										                  |
+				|										                  |
+				|										                  |
+				|										                  |
+		    ProductDaoImpl							           LocalSessionFactoryBean 	
+		(Implements ProductDao)					             (Implements SessionFactory)
+		 
+
+
+
+LocalSessionFactoryBean
+	1. DataSource (database properties)
+			-> url
+			-> username
+			-> password
+	2. Hibernate Properties
+	3. AnnotatedClass: we have to give those classes which are entities.
+
+
+
+
+
+
+
+
+
+43. Spring ORM Complete Setup | New Project | Adding Dependencies in Detail
+-----------------------------------------------------------------------------
+
+Maven: Project management tool
+
+
+
+
+
+
+
+
+
+44. Adding Configuration File | Creating Entities | Creating Dao for Spring ORM Project
+-----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+45. Complete Configuration of Spring ORM step by step | Very important video
+-----------------------------------------------------------------------------
+
+
+-> for XML use mappingResources instead of annotatedClasses.
+
+
+-> <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+
+
+@Transactional		// import javax.transaction.Transactional
+	-> we need to annotate methods with this annotation which are performing write operations.
+
+
+
+-> To enable transaction:
+	1. xmlns:tx="http://www.springframework.org/schema/tx"
+	2. xsi:schemaLocation="http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx.xsd">
+	3. <tx:annotation-driven/>
+
+
+
+
+
+
+
+
+
+46. Complete CRUD Operation using Spring ORM | Spring with Hibernate
+----------------------------------------------------------------------
+
+CRUD Operations
+		C : Create
+		R : Read
+		U : Update
+		D : Delete 
+
+
+
+
+
+
+
+
+
+47. Lets make an application using Spring ORM
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+48. Introduction to Spring MVC | Why Spring MVC
+------------------------------------------------
+
+-> Spring MVC is a Spring Module by which help we develop web applications.
+
+
+M - model
+V - view
+C - controller
+
+
+-> Spring MVC framework follows Model-View-Controller design pattern.
+
+
+
+Q. What is Spring MVC?
+	1. A Spring MVC is a sub framework of Spring Framework which is used to build a "web application".
+	2. It is built on top of "Servlet API"
+	3. It follows the Model-View-Controller design pattern.
+			Model        - It holds data of our web application
+			View         - Presentation Layer
+			Controller 	 - It controls requests and responses.
+	4. It implements all the basic features of a core spring framework 
+		like Inversion of Control, Dependency Injection etc.
+
+
+Q. Why to use Spring MVC?
+	1. Separate each role i.e., model, view, controller etc.
+	2. Powerful configuration
+	3. It is a sub-framework of Spring Framwork. Hence, it can use Spring Core features 
+		like IOC etc. Which helps in achieving Loose Coupling 
+	4. Rapid Application Development
+	5. Spring MVC is flexible, easy to test and feature rich
+
+
+-> For View we can use JSP or Velocity
+
+
+
+
+
+
+
+
+
+50. Complete MVC Design Pattern Explained | Model | View | Controller
+----------------------------------------------------------------------
+
+-> Spring MVC follows "MVC design pattern"
+
+
+Model 		- Data
+View 		- Presents data to user
+Controller  - Interface b/w Model and View
+
+
+
+-> MVC Degign Pattern: Way to organize the code in our application
+
+-> Html - Static Pages
+   JSP  - Dynamic Pages
+
+
+
+
+
+
+
+
+
+51. Complete working of Spring MVC / 52. Complete working of Spring MVC
+-------------------------------------------------------------------------
+
+#revise
+
+
+-> Spring MVC works on "client-server architechture"
+
+
+Front Controller -----------> DispatcherServlet
+
+
+ViewResolver: Resolve the view(add prefix and suffix to decide file name to send to client)
+
+
+
+
+
+
+
+
+
+53. Download and Configure Tomcat with Eclipse | New Fresh Web Project | Add Spring MVC Dependency
+----------------------------------------------------------------------------------------------------
+
+-> Dispatcher Servlet configuration is done in "web.xml"
+
+
+
+
+
+
+
+
+
+54. Configuring and Code our spring mvc project in just 5 steps
+----------------------------------------------------------------
+
+-> DispatcherServlet is a front controller
+
+
+5 Steps for creating Spring MVC Application
+-------------------------------------------
+	1. Configure the dispatcher servlet (front controller) in "web.xml"
+	2. Create Spring Configuration File (It must be created in WEB-INF folder where web.xml is present)
+		-> by default name of the config file should be "<servlet-name>" + "-" + "servlet.xml"
+	3. Configure View Resolver (InternalResourceViewResolver)
+	4. Create Controller (back controller)
+	5. Create a View to show(page)
+
+
+-> Use @Controller annotation to make a class as a controller.
+
+
+-> @RequestMappint("/url")
+
+
+
+
+
+
+
+
+
+55. Sending Data From Controller to View 
+------------------------------------------
+
+Sending data from controller to view
+	1. Model: We can send data from controller to view with the help of "Model" Object
+		-> addAttribute(String key, Object value)
+		-> using the "key" we can get the data in our view
+	2. ModelAndView: We can also send data from controller to view using "ModelAndView" Object
+		-> addObject(String key, Object value)
+
+
+To get the data kept in Model or ModelAndView inside our jsp i.e., view
+	-> we have to use scriptlet tag
+	-> HttpServletRequest request
+	-> Object ob = request.getAttribute("key");
+
+
+
+
+
+
+
+
+
+56. ModelAndView | Sending Data from controller to View
+---------------------------------------------------------
+
+Controller ------> ModelAndView --------> View(jsp)
+
+
+Data: primitive type value, Objects, Collections 
+
+
+Using ModelAndView
+	ModelAndView mv = new ModelAndView();
+	mv.addObject("key", value);
+	mv.setViewName("jsp_page_name");
+
+	return mv;
+
+
+
+
+
+
+
+
+
+57. JSP Expression Language to Print Values in Spring MVC Views | JSTL for traversing
+---------------------------------------------------------------------------------------
+
+Page directive to enable JSP Expression language.
+
+	<%@ page isELIgnored="false" %>
+
+
+
+To use the Expression language use the syntax:
+	${key}
+
+
+-> JSTL maven dependency:
+		
+		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
+		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+
+
+
+-> taglib directory for using jstl in view(jsp)
+		Resource: https://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/c/tld-summary.html
+
+		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+
+<c:forEach var="mark" items="${marksList}">
+	<%-- <h1> ${mark} </h1> --%>
+	<h3><c:out value="${mark}"></c:out></h3>	
+</c:forEach>
+
+
+
+
+
+
+
+
+
+58. Sending data from View to Controller Complete concept
+-----------------------------------------------------------
+
+-> Sending data to back-end
+		There are number of ways to send data from view to controller
+			1. Using Html Form 
+			2. by passing data through url
+			3. by using query parameter
+
+
+-> Using Html Form
+	"action" attribute specifies that to which controller the request will propogate. 
+
+
+-> To fetch the data in the controller sent from view	
+		1. Using Old ways provided by Servlet
+				HttpServletRequest
+				getParameter("name_of_field")
+		2. Using method provided by Spring MVC
+				--> @RequestParam : fetch data one field at a time
+				--> @ModelAttribute: works on model class, so we have to create a entity class
+
+
+
+
+
+
+
+
+
+59. @RequestMapping Annotation in Spring MVC Full Game
+---------------------------------------------------------
+
+@RequestMapping(path="/home", method = RequestMethod.GET)
+
+
+
+
+
+
+
+
+
+60. Creating Html Form to Take Input from user and Send to Controller 
+----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+61. Handling Form at Spring MVC Controller using @RequestParam Annotation
+---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+62. Handling Form with @ModelAttribute Annotation | @ModelAttribute Annoation
+-------------------------------------------------------------------------------
+
+@ModelAttribute can be used in two ways
+	1. Can be used by passing as the parameter of handler
+			-> This is used for binding the form data to model object
+	2. On top of method
+			-> add common data. This methods executes before the handler method
+
+
+
+
+
+
+
+
+
+63. User Registration using Spring MVC and Spring ORM 
+-------------------------------------------------------
+
+Controller -------> Service Layer -------> Database layer(DAO layer) -------> DataBase
+
+
+@Transactional		// import org.springframework.transaction.annotation.Transactional;
+
+@Entity 			// import javax.persistence.Entity;
+
+@Id 				// import javax.persistence.Id;
+
+@GeneratedValur 	// import javax.persistence.GeneratedValue;
+
+
+
+
+
+
+
+
+
+64. Redirecting in Spring MVC | RedirectView in Spring MVC | How to redirect in spring MVC
+--------------------------------------------------------------------------------------------
+
+
+-> Methods of Redirect in Spring MVC
+		1. HttpServletResponse
+		2. RedirectView
+				Ex.  
+					RedirectView redirectView = new RedirectView();
+					// redirectView.setUrl("four");
+					redirectView.setUrl("https://www.youtube.com/");
+					return redirectView;
+		3. "redirect" Prefix
+				Ex.  
+					return "redirect:/two";
+
+
+
+
+
+
+
+
+
+65. Project : Search Application using RedirectView 
+-----------------------------------------------------
+
+@RequestMapping("/search")
+public RedirectView search(@RequestParam("querybox") String queryParameters) {
+	
+	String url = "https://www.google.com/search?q=" + queryParameters;
+	
+	RedirectView redirectView = new RedirectView();
+	redirectView.setUrl(url);
+	return redirectView;
+}
+
+
+
+
+
+
+
+
+
+66. Handling Complex form in Spring MVC in one line
+-----------------------------------------------------
+
+
+
+
+
+
+
+
+
+67. More Complex Form Handling | Automatic Binding with custom Type
+--------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+68. Handling Errors in Spring MVC using BindingResult Object
+--------------------------------------------------------------
+
+-> BindingResult		// org.springframework.validation
+
+-> Search for: spring form taglib
+
+
+Configuration
+	-> The form tag library comes bundled in spring-webmvc.jar. The library descriptor is called 				spring-form.tld.
+	-> To use the tags from this library, add the following directive to the top of your JSP page:
+
+			<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+
+<div class="alert alert-danger" role="alert">
+  This is a danger alert—check it out!
+</div>
+
+
+For showing/binding errors on the form page:
+		<div class="alert alert-danger" role="alert">
+      		<form:errors path="student.*"/> 
+        </div>
+
+
+-> hibernate validator
+
+
+
+
+
+
+
+
+
+69. Serving Static Files in Spring MVC in very simple steps | CSS , JS, Images
+--------------------------------------------------------------------------------
+
+-> Static file/resource handling using xml (there are many other ways also)
+
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+ 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+ 	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+ 						http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+
+-> To declare the "resource" folder as a public folder, so that its content can be accessed
+		
+		<mvc:annotation-driven />
+
+		<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" /> 
+
+
+-> @EnableWebMvc
+
+
+
+JSTL core
+	Standard Syntax:
+	     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+	XML Syntax:
+	     <anyxmlelement xmlns:c="http://java.sun.com/jsp/jstl/core" />
+
+
+
+
+
+
+
+
+
+70. File Uploading in Spring MVC | Complete Configuration and Explanation
+---------------------------------------------------------------------------4
+
+
+File uploading can be done in 2 ways:
+	1. Normal method
+	2. Using Ajax
+
+
+Steps:
+	1. Add dependencies
+	2. Configure MultipartResolver
+	3. Create Form
+
+
+-> Spring MVC provides MultipartResolver
+
+-> CommonsMultipartResolver is a implementation class of MultipartResolver
+
+
+
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>
+</dependency>
+
+
+
+<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+<dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.7</version>
+</dependency>
+
+
+
+<!-- MultiPart Resolver Configuration -->
+<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+	  name="multipartResolver" /> 
+
+
+<form action="uploadimage" method="post" enctype="multipart/form-data">
+	// Create your form here
+</form>
+
+
+
+-> ContextPath
+
+
+
+
+
+
+
+
+
+71. @PathVariable Annotation Theory and Practical
+---------------------------------------------------
+
+-> Used mostly in Rest Applications/APIs
+
+
+-> @PathVariable annotation is used to bind method parameter to URI template variable.
+
+
+@RequestMapping("book/{id}")
+public String handler(@PathVariable("id") int bookId)
+{
+	// Write code here........
+}
+
+
+@RequestMapping("book/{id}/{name}")
+public String handler(@PathVariable("id") int bookId, @PathVariable("name") String bookName)
+{
+	// Write code here........
+}
+
+
+
+
+
+
+
+
+
+72. Exception Handling in Spring MVC | @ExceptionHandler
+-----------------------------------------------------------
+
+-> Ready-made error page:
+		https://bootsnipp.com/snippets/Qb71
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    Oops!</h1>
+                <h2>
+                    404 Not Found</h2>
+                <div class="error-details">
+                    Sorry, an error has occured, Requested page not found!
+                </div>
+                <div class="error-actions">
+                    <a href="http://www.jquery2dotnet.com" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a><a href="http://www.jquery2dotnet.com" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+-> To use Spring Expression Language on jsp pages
+		<%@ page isELIgnored="false" %>
+
+
+
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+@ExceptionHandler({NullPointerException.class, NumberFormatException.class})
+public String exceptionHandler(Model model) {
+	System.out.println("Handling Exception");
+	model.addAttribute("msg", "Null Pointer Exception has occured");
+	return "exception";
+}
+
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+@ExceptionHandler(value = ArrayIndexOutOfBoundsException.class)
+public String exceptionHandlerForArrayIndexOutOfBound(Model model) {
+	System.out.println("Handling Exception");
+	model.addAttribute("msg", "Array Index Out of Bound Exception has occured");
+	return "exception";
+}
+
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+@ExceptionHandler(value = Exception.class)
+public String genericExceptionHandler(Model model) {
+	System.out.println("Handling Exception");
+	model.addAttribute("msg", "Exception has occured");
+	return "exception";
+}
+
+
+
+
+
+
+
+
+
+73. Centralized Exception Handling in Spring MVC using @ControllerAdvice | Effective Way | Spring MVC
+------------------------------------------------------------------------------------------------------
+
+-> ControllerAdvice
+
+
+
+
+
+
+
+
+
+74. Spring MVC Interceptor | Very Important concept | preprocessing and post processing the request
+-----------------------------------------------------------------------------------------------------
+
+-> Spring Interceptor
+
+-> pre processing
+	Running a method before the handler
+
+
+-> post processing
+	Running a method after the handler
+
+
+-> Similar to concept of "filter" is jsp/servlet
+
+
+
+-> Spring Interceptor allows us to do something
+		1. before handler method 
+		2. after handler method
+		3. after the view formation/redered
+
+
+-> "HandlerInterceptor" Interface 
+
+
+-> "HandlerInterceptorAdaptor" class extends the Interface "HandlerInterceptor"
+
+-> There are 3 methods which needs to overriden
+		1. preHandle (return type boolean)
+		2. postHandle
+		3. afterCompletion
+
+
+Assignment: create a generalised interceptor
+
+
+
+
+
+
+
+
+
+75. Project : Product CRUD Application using Spring MVC | CRUD Operation using Spring MVC
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
