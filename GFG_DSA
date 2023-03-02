@@ -39278,9 +39278,10 @@ Huffman Coding (Introduction)
 -> Variable Length Huffman Coding
 
 	1. Greedy Idea:
-		-> The most frequent character has smallest code
+		-> The most frequent character has smallest length code
+		-> Least frequest character will have the largest length code
 
-	2. Prefix requirement for Decompression
+	2. Prefix free requirement for Decompression
 		-> No code should be prefix of any other
 
 
@@ -39315,11 +39316,282 @@ Huffman Algorithm
 	1. Build a Binary Tree: This binary tree is also called Huffman Tree
 		-> Every input character is a leaf
 
-		-> Every left child edge is labelled as 0 and right as 1
+		-> Every left child edge is labelled as 0 and right edge as 1
 
 		-> Every root to leaf path represents Huffman code of the leaf
 
 	2. Traverse the Binary Tree and print the codes 
+
+
+-> While building the Huffman Tree, the character values for internal Nodes will be some dummy values.
+
+-> We are given two arrays, an array of characteres and an array of their frequency.
+
+-> Time Complexity to build the Huffman Tree is going to be: O(nlogn)
+
+-> Some facts of Huffaman Coding Algorithm
+	1. The binary tree (huffman tree), is a "full binary tree", i.e, every Node has either 0 children or exactly 2 children
+
+	2. Internal Nodes will have a dummy character value
+
+	3. Leaf Nodes will have given character values
+
+
+-> Algorithm to generate Huffman Tree
+
+	1. Create leaf nodes and build a 'Min Heap' h, of all the leaves initially.
+
+	2. While h.size() > 1: 
+		2.1. left = h.extractMin()
+		2.2. right = h.extractMin()
+		2.3. Create a new tree node with 
+			a. character a $
+			b. Frequency as left.freq + right.freq
+			c. Left and right children as left and right respectively
+		2.4. Insert the new node into h 
+
+	3. The only node left in h is our required Binary Tree
+
+
+-> Algorithm to print Huffman code for individual characters after building Huffman Tree
+
+	// Printing Huffman Codes from the Built Binary Tree
+	void printCodes(root, str="")
+	{
+		if(root == null)
+		{
+			return;
+		}
+
+		if(root.ch != '$')
+		{
+			print(root.ch+" "+str);
+			return;
+		}
+
+		printCodes(root.left, str + "0");
+		printCodes(root.right, str + "1");
+	}
+				
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CPP Implementation of Huffman Coding
+-----------------------------------------------------------------------------------------------------------------------
+
+1. C++ Implementation for Huffman Coding
+
+	// for comparing two struct objects
+	struct compare
+	{
+		bool operator()(Node* l, Node* r)
+		{
+			return l->freq < r->freq;
+		}
+	}
+
+	// Structure of Binary (or Huffman) Tree Node
+	struct Node
+	{
+		int freq;
+		char ch;
+		Node *left, *right;
+
+		Node(int f, char c, Node* l = NULL, Node* r = NULL)
+		{
+			freq = f;
+			ch = c;
+			left = l;
+			right = r;
+		}
+	};
+
+
+	// for printing the huffman codes for individual characters
+	void printCodes(Node* root, string str)
+	{
+		if(root->ch != '$')
+		{
+			cout<<root->ch<<" "<<str<<endl;
+			return;
+		}
+
+		printCodes(root->left, str+'0');
+		printCodes(root->right, str+'1');
+	}
+
+	// for building the huffman tree
+	void printHCodes(int arr[], int freq[], int n)
+	{
+		priority_queue<Node*, vector<Node*>, compare> h;	// creating a mean heap of Node*
+
+		// O(nlogn) loop
+		for(int i=0; i<n; i++)
+		{
+			h.push(new Node(arr[i], freq[i]));
+		}
+
+		// O(nlogn)
+		while(h.size() > 1)
+		{
+			Node* l = h.top(); 
+			h.pop();
+
+			Node* r = h.top();
+			h.pop();
+
+			Node* node = new Node('$', l->freq + r->freq, l, r);
+
+			h.push(node);
+		}
+
+		// O(n)
+		printCodes(h.top(), " ");	// At this point of time, there in only Node* left in Min Heap which 
+									// also is the root of the Huffman tree.
+	}
+
+
+	Time Complexity:	O(nlogn)
+	Space Complexity:	O(n)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Java Implementation of Huffman Coding
+-----------------------------------------------------------------------------------------------------------------------
+
+1. Java Implementation
+
+	class Node
+	{
+		char ch;
+		int freq;
+		Node left;
+		Node right;
+
+		Node(char ch, int freq, Node left, Node right)
+		{
+			this.ch = ch;
+			this.freq = freq;
+			this.left = left;
+			this.right = right;
+		}
+	}
+
+	void printRec(Node root, String s)
+	{
+		if(root.ch != '$')
+		{
+			System.out.println(root.ch + " " + s);
+			return;
+		}
+
+		printRec(root.left, s+'0');
+		printRec(root.right, s+'1');
+	}
+
+	void printHCodes(char[] arr, int[] freq)
+	{
+		PriorityQueue<Node> h = new PriorityQueue<>((n1, n2) -> n1.freq - n2.freq);
+
+		for(int i=0; i<arr.length; i++)
+		{
+			h.add(new Node(arr[i], freq[i], null, null));
+		}
+
+		while(h.size() > 1)
+		{
+			Node l = h.poll();	// Extract Minimum 
+			Node r = h.poll();	// Extract Minimum 
+
+			h.add(new Node('$', l.freq + r.freq, l, r));
+		}
+
+		printRec(h.peek(), "");
+	}
+
+
+	Time Complexity:	O(nlogn)
+	Space Complexity:	O(n)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
